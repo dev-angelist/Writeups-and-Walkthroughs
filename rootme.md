@@ -6,8 +6,7 @@
 
 ### Task 1 - Deploy the machine
 
-🎯 Target IP: `10.10.55.36`\
-
+🎯 Target IP: `10.10.55.36`
 
 Create a directory for machine on the Desktop and a directory containing the scans with nmap.
 
@@ -54,7 +53,6 @@ Not shown: 998 closed tcp ports (reset)
 PORT   STATE SERVICE
 22/tcp open  ssh
 80/tcp open  http
-
 ```
 
 > 2 ports open
@@ -135,7 +133,6 @@ by OJ Reeves (@TheColonial) & Christian Mehlmauer (@firefart)
 /uploads              (Status: 301) [Size: 310] [--> http://rootme.thm/uploads/]
 Progress: 4568 / 4615 (98.98%)
 ===============================================================
-
 ```
 
 #### 2.5 - What is the hidden directory?
@@ -251,7 +248,6 @@ $ ls
 html
 user.txt
 $ cat user.txt
-
 ```
 
 <details>
@@ -355,7 +351,6 @@ cd root
 ls
 root.txt
 cat root.txt
-
 ```
 
 <details>
@@ -365,11 +360,5 @@ cat root.txt
 THM{pr1v1l3g3\_3sc4l4t10n}
 
 </details>
-
-\
-
-
-\
-
 
 [^1]: 
