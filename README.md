@@ -1,2 +1,2 @@
-# Witeups-and-Walkthroughs
-My Witeups and Walkthroughs
+# Writeups-and-Walkthroughs
+My Writeups and Walkthroughs
