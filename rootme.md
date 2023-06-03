@@ -1,6 +1,10 @@
 # RootMe
 
+<div align="left">
+
 <figure><img src=".gitbook/assets/image (4).png" alt="" width="175"><figcaption></figcaption></figure>
+
+</div>
 
 ### [RootMe](https://tryhackme.com/room/rrootme)
 
