@@ -1,6 +1,6 @@
 # RootMe
 
-![](<.gitbook/assets/image (4).png>)![](.gitbook/assets/image.png)
+<figure><img src=".gitbook/assets/image (4).png" alt="" width="175"><figcaption></figcaption></figure>
 
 ### [RootMe](https://tryhackme.com/room/rrootme)
 
