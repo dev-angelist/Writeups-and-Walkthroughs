@@ -4,7 +4,7 @@
 
 [Simple CTF](https://tryhackme.com/room/easyctf)
 
-### Task 1.1 - Deploy the machine
+### Task 1 - Deploy the machine
 
 🎯 Target IP: `10.10.86.206`
 
@@ -112,7 +112,7 @@ An issue was discovered in CMS Made Simple 2.2.8. It is possible with the News m
 
 This means that we need to look for a login form
 
-> SQLI
+> SQLi
 
 #### 2.5 - What's the password?
 
@@ -348,9 +348,6 @@ cat root.txt
 W3ll d0n3. You made it!
 
 </details>
-
-\
-
 
 
 
