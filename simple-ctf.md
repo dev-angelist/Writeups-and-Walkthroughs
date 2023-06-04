@@ -87,7 +87,24 @@ Service Info: OS: Linux; CPE: cpe:/o:linux:linux_kernel
 
 > SSH is running on port 2222
 
-#### 2.3 - What's the CVE you're using against the application?  
+#### 2.3 - What's the CVE you're using against the application?
+
+OpenSSH 7.2p2 is a pretty old version. We can search exploits on Exploid-DB website or with:
+
+```bash
+searchsploit -s openssh 7.2p2s
+```
+
+```bash
+---------------------------------------------------------------------------------------- ---------------------------------
+ Exploit Title                                                                          |  Path
+---------------------------------------------------------------------------------------- ---------------------------------
+OpenSSH 7.2p2 - Username Enumeration                                                    | linux/remote/40136.py
+OpenSSHd 7.2p2 - Username Enumeration                                                   | linux/remote/40113.txt
+---------------------------------------------------------------------------------------- ---------------------------------
+```
+
+#### 2.4 - To what kind of vulnerability is the application vulnerable? 
 
 \
 
