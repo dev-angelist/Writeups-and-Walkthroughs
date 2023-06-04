@@ -188,7 +188,7 @@ Running a NetCat listener.
 
 Now that the listener is active, let’s try uploading a shell. I saved it as ‘reverse\_shell.php’ and tried uploading it as is, but this was denied:
 
-<figure><img src=".gitbook/assets/Schermata del 2023-06-02 17-07-37.png" alt=""><figcaption></figcaption></figure>
+<figure><img src=".gitbook/assets/Schermata del 2023-06-02 17-07-37 (1).png" alt=""><figcaption></figcaption></figure>
 
 
 
