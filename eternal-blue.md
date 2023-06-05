@@ -280,6 +280,12 @@ As we have a meterpreter shell we could search for a file on the system.
 
 We start by changing our directory to C:/ (root of system). We find the flag1.txt in the system root.
 
+```bash
+cd C:\\
+dir
+cat flag1.txt
+```
+
 <details>
 
 <summary>🚩Reveal Flag1</summary>
@@ -291,6 +297,11 @@ flag{access\_the\_machine}
 #### 5.2 - Flag2? _This flag can be found at the location where passwords are stored within Windows._
 
 Check directories by using the “dir” command. Then I see the flag1.txt file.
+
+```bash
+cd C:/Windows/System32/config
+cat flag2.txt
+```
 
 <details>
 
