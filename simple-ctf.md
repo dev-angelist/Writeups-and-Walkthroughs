@@ -292,7 +292,7 @@ Last login: Mon Aug 19 18:13:41 2019 from 192.168.0.190
 
 <details>
 
-<summary>Flag (user.txt)</summary>
+<summary>🚩 Flag (user.txt)</summary>
 
 ```
 G00d j0b, keep up!
@@ -347,7 +347,7 @@ cat root.txt
 
 <details>
 
-<summary>Flag (root.txt)</summary>
+<summary>🚩 Flag (root.txt)</summary>
 
 W3ll d0n3. You made it!
 

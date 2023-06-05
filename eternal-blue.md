@@ -282,7 +282,7 @@ We start by changing our directory to C:/ (root of system). We find the flag1.tx
 
 <details>
 
-<summary>Flag 1</summary>
+<summary>🚩Reveal Flag1</summary>
 
 flag{access\_the\_machine}
 
@@ -294,7 +294,7 @@ Check directories by using the “dir” command. Then I see the flag1.txt file.
 
 <details>
 
-<summary>Flag 2</summary>
+<summary>🚩Reveal Flag2</summary>
 
 flag{sam\_database\_elevated\_access}
 
@@ -310,22 +310,8 @@ After that you see the flag3.txt file, Then read it.
 
 <details>
 
-<summary>Flag 3</summary>
+<summary>🚩Reveal Flag3</summary>
 
 flag{admin\_documents\_can\_be\_valuable}
 
 </details>
-
-\
-
-
-\
-
-
-\
-
-
-\
-
-
-\

@@ -256,7 +256,7 @@ $ cat user.txt
 
 <details>
 
-<summary>user.txt [Flag]</summary>
+<summary>🚩 user.txt [Flag]</summary>
 
 THM{y0u\_g0t\_a\_sh3ll}
 
@@ -359,7 +359,7 @@ cat root.txt
 
 <details>
 
-<summary>root.txt [Flag]</summary>
+<summary>🚩 root.txt [Flag]</summary>
 
 THM{pr1v1l3g3\_3sc4l4t10n}
 
