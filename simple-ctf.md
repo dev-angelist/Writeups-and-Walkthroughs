@@ -1,8 +1,12 @@
 # Simple CTF
 
-<figure><img src=".gitbook/assets/f28ade2b51eb7aeeac91002d41f29c47 (1).png" alt=""><figcaption></figcaption></figure>
+<div align="left">
 
-[Simple CTF](https://tryhackme.com/room/easyctf)
+<figure><img src=".gitbook/assets/f28ade2b51eb7aeeac91002d41f29c47 (1).png" alt=""><figcaption><p>tryhackme.com - © TryHackMe</p></figcaption></figure>
+
+</div>
+
+🔗 [Simple CTF](https://tryhackme.com/room/easyctf)
 
 ### Task 1 - Deploy the machine
 
