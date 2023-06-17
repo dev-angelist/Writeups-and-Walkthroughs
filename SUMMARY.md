@@ -4,6 +4,7 @@
 * [RootMe](rootme.md)
 * [Simple CTF](simple-ctf.md)
 * [Eternal Blue](eternal-blue.md)
-* [Vulnversity](vulnversity.md)
+* [Vulnversity](vulnversity/README.md)
+  * [Pickle Rick](vulnversity/pickle-rick.md)
 * [🔟 OWASP](owasp/README.md)
   * [1⃣ Injection](owasp/injection.md)

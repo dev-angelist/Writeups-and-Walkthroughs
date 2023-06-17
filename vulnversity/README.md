@@ -152,7 +152,7 @@ Now that you have found a form to upload files, we can leverage this to upload a
 
 #### 4.1 - What common file type you'd want to upload to exploit the server is blocked? Try a couple to find out.
 
-<figure><img src=".gitbook/assets/Schermata del 2023-06-17 11-38-38.png" alt=""><figcaption><p>Upload tentative of script.php</p></figcaption></figure>
+<figure><img src="../.gitbook/assets/Schermata del 2023-06-17 11-38-38.png" alt=""><figcaption><p>Upload tentative of script.php</p></figcaption></figure>
 
 {% hint style="info" %}
 .php
@@ -162,7 +162,7 @@ We will fuzz the upload form to identify which extensions are not blocked.
 
 To do this, we're going to use BurpSuite.
 
-<figure><img src=".gitbook/assets/Schermata del 2023-06-17 12-16-08.png" alt=""><figcaption><p>Capturing traffic</p></figcaption></figure>
+<figure><img src="../.gitbook/assets/Schermata del 2023-06-17 12-16-08.png" alt=""><figcaption><p>Capturing traffic</p></figcaption></figure>
 
 We're going to use Intruder (used for automating customised attacks).
 
@@ -174,7 +174,7 @@ To begin, make a wordlist with the following extensions:
 * .php5
 * .phtml
 
-<figure><img src=".gitbook/assets/Schermata del 2023-06-17 12-17-57.png" alt=""><figcaption><p>Searching</p></figcaption></figure>
+<figure><img src="../.gitbook/assets/Schermata del 2023-06-17 12-17-57.png" alt=""><figcaption><p>Searching</p></figcaption></figure>
 
 {% hint style="info" %}
 .phtml
