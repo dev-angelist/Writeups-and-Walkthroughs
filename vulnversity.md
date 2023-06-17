@@ -133,14 +133,7 @@ gobuster dir -u http://vulnversity.thm:3333 -w /usr/share/wordlists/dirbuster/di
 
 #### 3.1 - What is the directory that has an upload form page?
 
-### &#x20;Task 4 - Compromise the Webserver
-
-Now that you have found a form to upload files, we can leverage this to upload and execute our payload, which will lead to compromising the web server.
-
-#### 4.1 - What common file type you'd want to upload to exploit the server is blocked? Try a couple to find out.
-
 ```bash
-===============================================================
 2023/06/11 10:35:41 Starting gobuster in directory enumeration mode
 ===============================================================
 /images               (Status: 301) [Size: 326] [--> http://vulnversity.thm:3333/images/]
@@ -153,12 +146,24 @@ Now that you have found a form to upload files, we can leverage this to upload a
 /internal/
 {% endhint %}
 
-\
+### Task 4 - Compromise the Webserver
+
+Now that you have found a form to upload files, we can leverage this to upload and execute our payload, which will lead to compromising the web server.
+
+#### 4.1 - What common file type you'd want to upload to exploit the server is blocked? Try a couple to find out.
+
+<figure><img src=".gitbook/assets/Schermata del 2023-06-17 11-38-38.png" alt=""><figcaption><p>Upload tentative of script.php</p></figcaption></figure>
+
+{% hint style="info" %}
+.php
+{% endhint %}
+
 We will fuzz the upload form to identify which extensions are not blocked.
 
 To do this, we're going to use BurpSuite.
 
-\
+<figure><img src=".gitbook/assets/Schermata del 2023-06-17 12-16-08.png" alt=""><figcaption><p>Capturing traffic</p></figcaption></figure>
+
 We're going to use Intruder (used for automating customised attacks).
 
 To begin, make a wordlist with the following extensions:
@@ -168,6 +173,23 @@ To begin, make a wordlist with the following extensions:
 * .php4
 * .php5
 * .phtml
+
+<figure><img src=".gitbook/assets/Schermata del 2023-06-17 12-17-57.png" alt=""><figcaption><p>Searching</p></figcaption></figure>
+
+{% hint style="info" %}
+.phtml
+{% endhint %}
+
+Now that we know what extension we can use for our payload, we can progress.
+
+We are going to use a PHP reverse shell as our payload. A reverse shell works by being called on the remote host and forcing this host to make a connection to you. So you'll listen for incoming connections, upload and execute your shell, which will beacon out to you to control!
+
+Download the following reverse PHP shell [here](https://github.com/pentestmonkey/php-reverse-shell/blob/master/php-reverse-shell.php).
+
+```bash
+$ip = 'vulnversity.thm';
+$port = 4444;  
+```
 
 #### 3.2 -&#x20;
 
