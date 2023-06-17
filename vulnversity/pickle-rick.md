@@ -181,6 +181,8 @@ Good news, we found login.php page
 
 Inserting user and psw found into index.html source code: R1ckRul3s and robots.txt: Wubbalubbadubdub, we give access!
 
+Now, we have a command panel, where we can launch our commands.
+
 <figure><img src="../.gitbook/assets/Schermata del 2023-06-17 16-30-02.png" alt=""><figcaption></figcaption></figure>
 
 Using whoami we check that we're www-data user, with the ls command we explore the current directory where we find the first flag
@@ -191,7 +193,7 @@ Cat command doesn't work, for this reason we use "less" command to read flag
 
 <details>
 
-<summary>🚩 Flag (Sup3rS3cretPickl3Ingred.txt)</summary>
+<summary>🚩 Flag 1 (Sup3rS3cretPickl3Ingred.txt)</summary>
 
 mr. meeseek hair
 
@@ -199,9 +201,43 @@ mr. meeseek hair
 
 #### 2.2 - What is the second ingredient in Rick’s potion?
 
-####
+Reading clue.txt file we found another important info
+
+<figure><img src="../.gitbook/assets/Schermata del 2023-06-17 16-43-07.png" alt=""><figcaption></figcaption></figure>
+
+Exploring file system we found the 2nd ingredient
+
+```bash
+ls -ah ../../../home/rick
+```
+
+<figure><img src="../.gitbook/assets/Schermata del 2023-06-17 16-48-26.png" alt=""><figcaption><p>less ../../../home/rick/second ingredients</p></figcaption></figure>
+
+<details>
+
+<summary>🚩 Flag 2 (second ingredients)</summary>
+
+1 jerry tear
+
+</details>
 
 #### 2.3 - What is the last and final ingredient? 
+
+Usually the last flag is in the protected/root folder, we try to find it
+
+```bash
+sudo ls -ah ../../../root/3rd.txt
+```
+
+<figure><img src="../.gitbook/assets/Schermata del 2023-06-17 17-03-25.png" alt=""><figcaption><p>sudo less ../../../root/3rd.txt</p></figcaption></figure>
+
+<details>
+
+<summary>🚩 Flag 3 (3rd.txt)</summary>
+
+fleeb juice
+
+</details>
 
 \
 \
