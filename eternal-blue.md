@@ -311,7 +311,7 @@ flag{sam\_database\_elevated\_access}
 
 </details>
 
-#### 5.3 - Flag3? _This flag can be found in an excellent location to loot. After all, Administrators usually have pretty interesting things saved._&#x20;
+#### 5.3 - _This flag can be found in an excellent location to loot. After all, Administrators usually have pretty interesting things saved._&#x20;
 
 ```bash
 meterpreter > search -f flag3.txt
