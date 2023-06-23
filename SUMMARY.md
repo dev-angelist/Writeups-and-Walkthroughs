@@ -6,5 +6,6 @@
 * [Eternal Blue](eternal-blue.md)
 * [Vulnversity](vulnversity/README.md)
 * [Pickle Rick](pickle-rick.md)
+* [Brooklyn Nine Nine](brooklyn-nine-nine.md)
 * [🔟 OWASP](owasp/README.md)
   * [1⃣ Injection](owasp/injection.md)
