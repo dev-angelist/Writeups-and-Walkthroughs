@@ -1,9 +1,10 @@
----
-cover: ../.gitbook/assets/85dee7ce633f5668b104d329da2769c3.png
-coverY: 0
----
-
 # Vulnversity
+
+<div align="left">
+
+<figure><img src="../.gitbook/assets/85dee7ce633f5668b104d329da2769c3.png" alt="" width="188"><figcaption><p>tryhackme.com - © TryHackMe</p></figcaption></figure>
+
+</div>
 
 🔗 [Vulnversity](https://tryhackme.com/room/vulnversity)
 
