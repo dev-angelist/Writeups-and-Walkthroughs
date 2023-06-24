@@ -65,14 +65,7 @@ PORT   STATE SERVICE REASON
 80/tcp open  http    syn-ack ttl 63
 ```
 
-| command | result                              |
-| ------- | ----------------------------------- |
-| sudo    | run as root                         |
-| sC      | run default scripts                 |
-| sV      | enumerate versions                  |
-| A       | aggressive mode                     |
-| T4      | run a bit faster                    |
-| oN      | output to file with nmap formatting |
+<table><thead><tr><th width="154.99999999999997">command</th><th>result</th></tr></thead><tbody><tr><td>sudo</td><td>run as root</td></tr><tr><td>sC</td><td>run default scripts</td></tr><tr><td>sV</td><td>enumerate versions</td></tr><tr><td>A</td><td>aggressive mode</td></tr><tr><td>T4</td><td>run a bit faster</td></tr><tr><td>oN</td><td>output to file with nmap formatting</td></tr></tbody></table>
 
 ```bash
 nmap -p21,22,80 -sCV -A -T4 -v -oN open_ports bounty.thm  
