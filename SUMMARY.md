@@ -4,7 +4,7 @@
 * [RootMe](rootme.md)
 * [Simple CTF](simple-ctf.md)
 * [Eternal Blue](eternal-blue.md)
-* [Vulnversity](vulnversity/README.md)
+* [Vulnversity](vulnversity.md)
 * [Pickle Rick](pickle-rick.md)
 * [Brooklyn Nine Nine](brooklyn-nine-nine.md)
 * [Kenobi](kenobi.md)
