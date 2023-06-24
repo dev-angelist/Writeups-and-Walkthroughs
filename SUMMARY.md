@@ -7,5 +7,7 @@
 * [Vulnversity](vulnversity/README.md)
 * [Pickle Rick](pickle-rick.md)
 * [Brooklyn Nine Nine](brooklyn-nine-nine.md)
+* [Kenobi](kenobi.md)
+* [Bounty Hacker](bounty-hacker.md)
 * [🔟 OWASP](owasp/README.md)
   * [1⃣ Injection](owasp/injection.md)
