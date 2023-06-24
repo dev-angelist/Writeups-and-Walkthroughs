@@ -2,7 +2,7 @@
 
 <div align="left">
 
-<figure><img src="../.gitbook/assets/BkKtAkO.png" alt="" width="375"><figcaption><p>tryhackme.com - © TryHackMe</p></figcaption></figure>
+<figure><img src=".gitbook/assets/BkKtAkO.png" alt="" width="375"><figcaption><p>tryhackme.com - © TryHackMe</p></figcaption></figure>
 
 </div>
 
@@ -49,11 +49,11 @@ PING pickle_rick.thm (10.10.150.53) 56(84) bytes of data.
 
 Sending these three ICMP packets, we see that the Time To Live (TTL) is \~64 secs. this indicates that the target is a \*nix system (probably Linux), while Windows systems usually have a TTL of 128 secs.
 
-<figure><img src="../.gitbook/assets/Schermata del 2023-06-17 15-26-31.png" alt=""><figcaption></figcaption></figure>
+<figure><img src=".gitbook/assets/Schermata del 2023-06-17 15-26-31.png" alt=""><figcaption></figcaption></figure>
 
 Seeing html source page we found this precious info about username
 
-<figure><img src="../.gitbook/assets/Schermata del 2023-06-17 15-33-26.png" alt=""><figcaption><p>Username: R1ckRul3s</p></figcaption></figure>
+<figure><img src=".gitbook/assets/Schermata del 2023-06-17 15-33-26.png" alt=""><figcaption><p>Username: R1ckRul3s</p></figcaption></figure>
 
 #### 2.1 - What is the first ingredient that Rick needs? 
 
@@ -148,7 +148,7 @@ by OJ Reeves (@TheColonial) & Christian Mehlmauer (@_FireFart_)
 
 We visit /robots.txt and we found this info (maybe password)
 
-<figure><img src="../.gitbook/assets/Schermata del 2023-06-17 15-48-26.png" alt=""><figcaption><p>/robots.txt</p></figcaption></figure>
+<figure><img src=".gitbook/assets/Schermata del 2023-06-17 15-48-26.png" alt=""><figcaption><p>/robots.txt</p></figcaption></figure>
 
 {% hint style="info" %}
 Wubbalubbadubdub
@@ -177,17 +177,17 @@ Nmap done: 1 IP address (1 host up) scanned in 1.32 seconds
 
 Good news, we found login.php page
 
-<figure><img src="../.gitbook/assets/Schermata del 2023-06-17 16-25-53.png" alt=""><figcaption></figcaption></figure>
+<figure><img src=".gitbook/assets/Schermata del 2023-06-17 16-25-53.png" alt=""><figcaption></figcaption></figure>
 
 Inserting user and psw found into index.html source code: R1ckRul3s and robots.txt: Wubbalubbadubdub, we give access!
 
 Now, we have a command panel, where we can launch our commands.
 
-<figure><img src="../.gitbook/assets/Schermata del 2023-06-17 16-30-02.png" alt=""><figcaption></figcaption></figure>
+<figure><img src=".gitbook/assets/Schermata del 2023-06-17 16-30-02.png" alt=""><figcaption></figcaption></figure>
 
 Using whoami we check that we're www-data user, with the ls command we explore the current directory where we find the first flag
 
-<figure><img src="../.gitbook/assets/Schermata del 2023-06-17 16-31-58.png" alt=""><figcaption></figcaption></figure>
+<figure><img src=".gitbook/assets/Schermata del 2023-06-17 16-31-58.png" alt=""><figcaption></figcaption></figure>
 
 Cat command doesn't work, for this reason we use "less" command to read flag
 
@@ -203,7 +203,7 @@ mr. meeseek hair
 
 Reading clue.txt file we found another important info
 
-<figure><img src="../.gitbook/assets/Schermata del 2023-06-17 16-43-07.png" alt=""><figcaption></figcaption></figure>
+<figure><img src=".gitbook/assets/Schermata del 2023-06-17 16-43-07.png" alt=""><figcaption></figcaption></figure>
 
 Exploring file system we found the 2nd ingredient
 
@@ -211,7 +211,7 @@ Exploring file system we found the 2nd ingredient
 ls -ah ../../../home/rick
 ```
 
-<figure><img src="../.gitbook/assets/Schermata del 2023-06-17 16-48-26.png" alt=""><figcaption><p>less ../../../home/rick/second ingredients</p></figcaption></figure>
+<figure><img src=".gitbook/assets/Schermata del 2023-06-17 16-48-26.png" alt=""><figcaption><p>less ../../../home/rick/second ingredients</p></figcaption></figure>
 
 <details>
 
@@ -229,7 +229,7 @@ Usually the last flag is in the protected/root folder, we try to find it
 sudo ls -ah ../../../root/3rd.txt
 ```
 
-<figure><img src="../.gitbook/assets/Schermata del 2023-06-17 17-03-25.png" alt=""><figcaption><p>sudo less ../../../root/3rd.txt</p></figcaption></figure>
+<figure><img src=".gitbook/assets/Schermata del 2023-06-17 17-03-25.png" alt=""><figcaption><p>sudo less ../../../root/3rd.txt</p></figcaption></figure>
 
 <details>
 
@@ -238,10 +238,3 @@ sudo ls -ah ../../../root/3rd.txt
 fleeb juice
 
 </details>
-
-\
-\
-
-
-\
-\
