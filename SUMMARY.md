@@ -10,5 +10,6 @@
 * [Kenobi](kenobi.md)
 * [Bounty Hacker](bounty-hacker.md)
 * [Overpass](overpass.md)
+* [LazyAdmin](lazyadmin.md)
 * [🔟 OWASP](owasp/README.md)
   * [1⃣ Injection](owasp/injection.md)
