@@ -95,7 +95,7 @@ Service Info: OSs: Unix, Linux; CPE: cpe:/o:linux:linux_kernel
 
 We found a good info: ftp-anon: Anonymous FTP login allowed (FTP code 230), but first we check the port 80.
 
-<figure><img src=".gitbook/assets/Schermata del 2023-06-23 21-48-58 (1).png" alt=""><figcaption><p><a href="http://brooklyn.thm/">http://brooklyn.thm</a>:80</p></figcaption></figure>
+<figure><img src=".gitbook/assets/Schermata del 2023-06-23 21-48-58.png" alt=""><figcaption><p><a href="http://brooklyn.thm/">http://brooklyn.thm</a>:80</p></figcaption></figure>
 
 inspecting source code we found this message:
 
