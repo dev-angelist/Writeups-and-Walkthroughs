@@ -105,7 +105,7 @@ Very good, there're many exploits for this CMS.
 
 Exploring page we found a good info:
 
-<figure><img src=".gitbook/assets/Schermata del 2023-07-02 17-23-40 (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src=".gitbook/assets/Schermata del 2023-07-02 17-23-40.png" alt=""><figcaption></figcaption></figure>
 
 To access the FUEL admin, go to:\
 [http://ignite.thm/fuel](http://ignite.thm/fuel)\
@@ -114,7 +114,7 @@ Password: **admin** (you can and should change this password and admin user info
 
 <div align="left">
 
-<figure><img src=".gitbook/assets/Schermata del 2023-07-02 17-25-17 (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src=".gitbook/assets/Schermata del 2023-07-02 17-25-17.png" alt=""><figcaption></figcaption></figure>
 
 </div>
 
