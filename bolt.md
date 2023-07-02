@@ -143,7 +143,7 @@ PORT     STATE SERVICE REASON         VERSION
 
 It looks like there are only three open ports on the machine: 22, 80, 8000.
 
-#### 2.2 - What port number has a web server with a CMS running?
+#### 3.2 - What port number has a web server with a CMS running?
 
 <figure><img src=".gitbook/assets/Schermata del 2023-06-30 22-42-14.png" alt=""><figcaption><p><a href="http://bolt.thm:8000/">http://bolt.thm:8000/</a></p></figcaption></figure>
 
@@ -151,13 +151,13 @@ It looks like there are only three open ports on the machine: 22, 80, 8000.
 8000
 {% endhint %}
 
-#### 2.3 - What is the username we can find in the CMS?
+#### 3.3 - What is the username we can find in the CMS?
 
 {% hint style="info" %}
 Bolt
 {% endhint %}
 
-#### 2.4 - What is the password we can find for the username? 
+#### 3.4 - What is the password we can find for the username? 
 
 <figure><img src=".gitbook/assets/Schermata del 2023-06-30 23-21-11.png" alt=""><figcaption></figcaption></figure>
 
@@ -165,7 +165,7 @@ Bolt
 boltadmin123
 {% endhint %}
 
-#### 2.5 - What version of the CMS is installed on the server? (Ex: Name 1.1.1)
+#### 3.5 - What version of the CMS is installed on the server? (Ex: Name 1.1.1)
 
 Googling info about Bolt cms we found that panel is usually at location:&#x20;
 
@@ -175,7 +175,7 @@ IP/bolt/login, than we go to: [http://bolt.thm:8000/bolt/login](http://bolt.thm:
 
 and we log in with our credentials: bolt::boltadmin123
 
-#### 2.6 - There's an exploit for a previous version of this CMS, which allows authenticated RCE. Find it on Exploit DB. What's its EDB-ID?
+#### 3.6 - There's an exploit for a previous version of this CMS, which allows authenticated RCE. Find it on Exploit DB. What's its EDB-ID?
 
 We can use searchsploit to find most famous exploit for bolt cms:
 
@@ -206,7 +206,7 @@ EDB-ID is:
 48296
 {% endhint %}
 
-#### 2.7 - Metasploit recently added an exploit module for this vulnerability. What's the full path for this exploit? (Ex: exploit/....)
+#### 3.7 - Metasploit recently added an exploit module for this vulnerability. What's the full path for this exploit? (Ex: exploit/....)
 
 Now we launch msfconsole to find exploit path:
 
@@ -229,7 +229,7 @@ exploit/unix/webapp/bolt_authenticated_rce
 ```
 {% endhint %}
 
-#### 2.8 - Set the LHOST, LPORT, RHOST, USERNAME, PASSWORD in msfconsole before running the exploit
+#### 3.8 - Set the LHOST, LPORT, RHOST, USERNAME, PASSWORD in msfconsole before running the exploit
 
 * RHOST is the ip of the machine
 * LHOST is the ip of our machine’s vpn ( note: we don’t get reverse shell if we use our own ip )
@@ -245,7 +245,7 @@ exploit
 
 <figure><img src=".gitbook/assets/Schermata del 2023-07-02 11-20-50 (1).png" alt=""><figcaption><p>root shell</p></figcaption></figure>
 
-#### 2.9 - Look for flag.txt inside the machine.
+#### 3.9 - Look for flag.txt inside the machine.
 
 flag is usually in the path: /home
 

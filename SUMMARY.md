@@ -13,5 +13,6 @@
 * [LazyAdmin](lazyadmin.md)
 * [Ignite](ignite.md)
 * [Bolt](bolt.md)
+* [Agent Sudo](agent-sudo.md)
 * [🔟 OWASP](owasp/README.md)
   * [1⃣ Injection](owasp/injection.md)
