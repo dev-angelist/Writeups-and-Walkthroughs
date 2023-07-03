@@ -299,7 +299,8 @@ DECIMAL       HEXADECIMAL     DESCRIPTION
 869           0x365           Zlib compressed data, best compression
 
 WARNING: Extractor.execute failed to run external extractor 'jar xvf '%e'': [Errno 2] No such file or directory: 'jar', 'jar xvf '%e'' might not be installed correctly
-34562         0x8702          Zip archive data, encrypted compressed size: 98, uncompressed size: 86, name: To_agentR.txt
+34562         0x8702          Zip archive data, encrypted compressed size: 98, uncompressed size: 86, name: To_agentR.txtls
+
 34820         0x8804          End of Zip archive, footer length: 22
 ```
 
@@ -348,37 +349,6 @@ alien
 
 #### 4.3 - Steg password
 
-
-
-
-
-
-
-
-
-#### 4.4 - Who is the other agent (in full name)?
-
-\
-\
-
-
-
-
-
-
-#### 4.5 - SSH password
-
-\
-
-
-
-
-
-
-
-
-
-
 So we tried to extract the zip file but unzip command didn’t work so we used this command
 
 ```
@@ -403,32 +373,78 @@ _We need to send the picture to 'QXJlYTUx' as soon as possible!_
 
 _By, Agent R_
 
+This word: _QXJlYTUx can be an encoded psw,_&#x20;
 
+_we can use a web tool:_ [_https://gchq.github.io/CyberChef/#input=UVhKbFlUVXg_](https://gchq.github.io/CyberChef/#input=UVhKbFlUVXg) _or_
 
+```bash
+echo 'QXJlYTUx' | base64 -d 
+```
 
+{% hint style="info" %}
+Area51
+{% endhint %}
+
+#### 4.4 - Who is the other agent (in full name)?
+
+Reading last request (steg psw), we image that's the cute-alien.jpg steg password, then we use steghide to extract information:
+
+```bash
+steghide --extract -sf cute-alien.jpg
+```
+
+```bash
+Enter passphrase: 
+wrote extracted data to "message.txt".
+```
+
+```bash
+cat message.txt
+```
+
+_Hi james,_
+
+_Glad you find this message. Your login password is hackerrules!_
+
+_Don't ask me why the password look cheesy, ask agent R who set this password for you._
+
+_Your buddy, chris_
+
+{% hint style="info" %}
+James
+{% endhint %}
+
+#### 4.5 - SSH password
+
+Reading message.txt, we know that the psw is:&#x20;
+
+{% hint style="info" %}
+_hackerrules!_
+{% endhint %}
+
+```bash
+ssh james@agent_sudo.thm
+james@agent_sudo.thm's password: 
+Welcome to Ubuntu 18.04.3 LTS (GNU/Linux 4.15.0-55-generic x86_64)
+```
 
 ### Task 5 - Capture the user flag
 
 #### 5.1 - What is the user flag?
 
-\
-
-
-
+```bash
+ls
+Alien_autospy.jpg  user_flag.txt
+cat user_flag.txt 
+```
 
 <details>
 
 <summary>🚩 Flag 1 (flag.txt)</summary>
 
-THM{wh0\_d035nt\_l0ve5\_b0l7\_r1gh7?}
+b03d975e8c92a7c04146cfa7a5a313c7
 
 </details>
-
-
-
-
-
-
 
 #### 5.2 - What is the incident of the photo called?
 
