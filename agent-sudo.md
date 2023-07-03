@@ -118,7 +118,7 @@ We say that the correct user-agent is a capital letter, than using BurpSuite we 
 
 <figure><img src=".gitbook/assets/Schermata del 2023-07-03 00-07-36.png" alt=""><figcaption></figcaption></figure>
 
-We need to set user-agent to 'C' to see agent name.
+We need to set user-agent to 'C' and we can see agent name.
 
 For this thing, we can use a firefox extension: [`User-Agent Switcher and Manager`](https://addons.mozilla.org/en-US/firefox/addon/user-agent-string-switcher/?utm\_source=addons.mozilla.org\&utm\_medium=referral\&utm\_content=search)
 
