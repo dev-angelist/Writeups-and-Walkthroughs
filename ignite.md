@@ -114,7 +114,7 @@ Password: **admin** (you can and should change this password and admin user info
 
 <div align="left">
 
-<figure><img src=".gitbook/assets/Schermata del 2023-07-02 17-25-17.png" alt=""><figcaption></figcaption></figure>
+<figure><img src=".gitbook/assets/Schermata del 2023-07-02 17-25-17 (1).png" alt=""><figcaption></figcaption></figure>
 
 </div>
 

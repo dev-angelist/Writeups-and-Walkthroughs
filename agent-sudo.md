@@ -110,7 +110,7 @@ user-agent
 
 We can see our user-agent using dev mode (F12)
 
-<figure><img src=".gitbook/assets/Schermata del 2023-07-02 22-57-07.png" alt=""><figcaption></figcaption></figure>
+<figure><img src=".gitbook/assets/Schermata del 2023-07-02 22-57-07 (1).png" alt=""><figcaption></figcaption></figure>
 
 We say that the correct user-agent is a capital letter, than using BurpSuite we can test all alphabet
 
@@ -312,16 +312,106 @@ total 316
 -rw-r--r-- 1 kali kali      0 Oct 29  2019 To_agentR.txt
 ```
 
+So we used “zip2john” to crack the zip file password:
+
+```bash
+zip2john 8702.zip > Output.txt
+```
+
+And then we used John the Ripper to crack the hash:
+
+```bash
+john Output.txt
+```
+
+```bash
+Using default input encoding: UTF-8
+Loaded 1 password hash (ZIP, WinZip [PBKDF2-SHA1 256/256 AVX2 8x])
+Cost 1 (HMAC size) is 78 for all loaded hashes
+Will run 3 OpenMP threads
+Proceeding with single, rules:Single
+Press 'q' or Ctrl-C to abort, almost any other key for status
+Almost done: Processing the remaining buffered candidate passwords, if any.
+Proceeding with wordlist:/usr/share/john/password.lst
+alien            (8702.zip/To_agentR.txt)     
+1g 0:00:00:00 DONE 2/3 (2023-07-03 14:07) 1.063g/s 46195p/s 46195c/s 46195C/s 123456..Open
+Use the "--show" option to display all of the cracked passwords reliably
+Session completed. 
+```
+
+We've found the archive password:\
+
+
+{% hint style="info" %}
+alien
+{% endhint %}
+
+#### 4.3 - Steg password
+
+
+
+
+
+
+
+
+
+#### 4.4 - Who is the other agent (in full name)?
+
+\
+\
+
+
+
+
+
+
+#### 4.5 - SSH password
+
+\
+
+
+
+
+
+
+
+
+
+
+So we tried to extract the zip file but unzip command didn’t work so we used this command
+
+```
+7z e 8702.zip
+```
+
+<div align="left">
+
+<figure><img src=".gitbook/assets/Schermata del 2023-07-03 20-16-51.png" alt=""><figcaption></figcaption></figure>
+
+</div>
+
+```bash
+ls
+365  365.zlib  8702.zip  Output.txt  To_agentR_1.txt  To_agentR.txt
+cat To_agentR.txt
+```
+
+_Agent C,_
+
+_We need to send the picture to 'QXJlYTUx' as soon as possible!_
+
+_By, Agent R_
+
 
 
 
 
 ### Task 5 - Capture the user flag
 
+#### 5.1 - What is the user flag?
 
-
-
-
+\
 
 
 
@@ -340,7 +430,32 @@ THM{wh0\_d035nt\_l0ve5\_b0l7\_r1gh7?}
 
 
 
+#### 5.2 - What is the incident of the photo called?
+
+\
+
+
+
+
 ### Task 6 - Privilege escalation
+
+#### 6.1 - CVE number for the escalation&#x20;
+
+
+
+
+
+6.2 - What is the root flag?
+
+\
+
+
+
+
+6.3 - (Bonus) Who is Agent R?
+
+\
+
 
 
 
