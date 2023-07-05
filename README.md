@@ -14,6 +14,11 @@
 * [Brooklyn Nine Nine](brooklyn-nine-nine.md)
 * [Kenobi](kenobi.md)
 * [Bounty Hacker](bounty-hacker.md)
+* [Overpass](overpass.md)
+* [LazyAdmin](lazyadmin.md)
+* [Ignite](ignite.md)
+* [Bolt](bolt.md)
+* [Agent Sudo](agent-sudo.md)
 * [OWASP](owasp/)
 
 
