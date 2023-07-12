@@ -14,5 +14,6 @@
 * [Ignite](ignite.md)
 * [Bolt](bolt.md)
 * [Agent Sudo](agent-sudo.md)
+* [Anonymous](anonymous.md)
 * [🔟 OWASP](owasp/README.md)
   * [1⃣ Injection](owasp/injection.md)
