@@ -119,7 +119,7 @@ That's a pretty info, Maya can be an username!
 
 
 {% hint style="info" %}
-Microsoft ftpd
+
 {% endhint %}
 
 
