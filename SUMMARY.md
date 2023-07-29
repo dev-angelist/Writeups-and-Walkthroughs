@@ -18,5 +18,6 @@
 * [🔟 OWASP](owasp/README.md)
   * [1⃣ Injection](owasp/injection.md)
 * [Devel](devel.md)
+* [Startup](startup.md)
 * [Bank](bank.md)
 * [Active](active.md)
