@@ -201,21 +201,12 @@ Icecast
 
 ### 2.4 - What does Nmap identify as the hostname of the machine? (All caps for the answer)
 
-\
-
-
-
-
-
-
-
-
-
-
-
+```
+Service Info: Host: DARK-PC; OS: Windows; CPE: cpe:/o:microsoft:windows
+```
 
 {% hint style="info" %}
-
+DARK-PC
 {% endhint %}
 
 ## Task 3 - Gain Access
@@ -228,130 +219,149 @@ Icecast
 
 ### 3.1 - Now that we've identified some interesting services running on our target machine, let's do a little bit of research into one of the weirder services identified: Icecast. Icecast, or well at least this version running on our target, is heavily flawed and has a high level vulnerability with a score of 7.5 (7.4 depending on where you view it). What type of vulnerability is it? Use https://www.cvedetails.com for this question and the next.
 
-
-
-
-
-
-
-
-
-
-
-
-
-
+[https://www.cvedetails.com/cve/CVE-2004-1561/](https://www.cvedetails.com/cve/CVE-2004-1561/)
 
 {% hint style="info" %}
-
+execute code overflow
 {% endhint %}
 
 ### 3.2 - What is the CVE number for this vulnerability? This will be in the format: CVE-0000-0000
 
-\
-
-
-
-
-
-
-
-
-
-
-
-
-
+[https://www.cvedetails.com/cve/CVE-2004-1561/](https://www.cvedetails.com/cve/CVE-2004-1561/)
 
 {% hint style="info" %}
-
+CVE-2004-1561
 {% endhint %}
 
 ### 3.3 - After Metasploit has started, let's search for our target exploit using the command 'search icecast'. What is the full path (starting with exploit) for the exploitation module? This module is also referenced in '[RP: Metasploit](https://tryhackme.com/room/rpmetasploit)' which is recommended to be completed prior to this room, although not entirely necessary.&#x20;
 
+We run msfconsole and search icecast exploit:
 
+```bash
+search icecast
+```
 
-
-
-
-
-
-
-
-
-
+<figure><img src=".gitbook/assets/Schermata del 2023-07-30 19-21-05.png" alt=""><figcaption></figcaption></figure>
 
 {% hint style="info" %}
-
+exploit/windows/http/icecast\_header
 {% endhint %}
 
 ### 3.4 - Following selecting our module, we now have to check what options we have to set. Run the command `show options`. What is the only required setting which currently is blank?
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+<figure><img src=".gitbook/assets/Schermata del 2023-07-30 19-23-42.png" alt=""><figcaption></figcaption></figure>
 
 {% hint style="info" %}
-
+RHOSTS
 {% endhint %}
+
+First let's check that the LHOST option is set to our tun0 IP (which can be found on the access page). With that done, let's set that last option to our target IP. Now that we have everything ready to go, let's run our exploit using the command `exploit`
 
 ## Task 4 - Escalate
 
+<div align="left">
 
+<figure><img src=".gitbook/assets/image (5).png" alt="" width="188"><figcaption></figcaption></figure>
 
+</div>
 
+### 4.1 - Woohoo! We've gained a foothold into our victim machine! What's the name of the shell we have now?
 
+<figure><img src=".gitbook/assets/Schermata del 2023-07-30 19-26-16.png" alt=""><figcaption></figcaption></figure>
 
+{% hint style="info" %}
+meterpreter
+{% endhint %}
 
+### 4.2 - What user was running that Icecast process? The commands used in this question and the next few are taken directly from the 'RP: Metasploit' room.
 
+```
+getuid
+```
 
+<div align="left">
 
+<figure><img src=".gitbook/assets/Schermata del 2023-07-30 19-30-37.png" alt=""><figcaption></figcaption></figure>
 
+</div>
 
+{% hint style="info" %}
+Dark
+{% endhint %}
 
+### 4.3 - What build of Windows is the system?
 
+We can use sysinfo command:
 
+```bash
+sysinfo
+```
 
+<figure><img src=".gitbook/assets/Schermata del 2023-07-30 19-32-27.png" alt=""><figcaption></figcaption></figure>
 
+{% hint style="info" %}
+7601
+{% endhint %}
 
+### 4.4 - Now that we know some of the finer details of the system we are working with, let's start escalating our privileges. First, what is the architecture of the process we're running?
 
+We can see last result:
 
+<figure><img src=".gitbook/assets/Schermata del 2023-07-30 19-33-42.png" alt=""><figcaption></figcaption></figure>
 
+{% hint style="info" %}
+x64
+{% endhint %}
 
+Now that we know the architecture of the process, let's perform some further recon. While this doesn't work the best on x64 machines, let's now run the following command `run post/multi/recon/local_exploit_suggester`. _This can appear to hang as it tests exploits and might take several minutes to complete_
 
+### _4.5 -_ Running the local exploit suggester will return quite a few results for potential escalation exploits. What is the full path (starting with exploit/) for the first returned exploit?
 
+<figure><img src=".gitbook/assets/Schermata del 2023-07-30 19-41-55.png" alt=""><figcaption></figcaption></figure>
 
+{% hint style="info" %}
+exploit/windows/local/bypassuac\_eventvwr
+{% endhint %}
 
+Now that we have an exploit in mind for elevating our privileges, let's background our current session using the command `background` or `CTRL + z`. Take note of what session number we have, this will likely be 1 in this case. We can list all of our active sessions using the command `sessions` when outside of the meterpreter shell.
 
+<figure><img src=".gitbook/assets/Schermata del 2023-07-30 19-44-20.png" alt=""><figcaption></figcaption></figure>
 
+Go ahead and select our previously found local exploit for use using the command `use FULL_PATH_FOR_EXPLOIT`
 
+<figure><img src=".gitbook/assets/Schermata del 2023-07-30 19-47-59.png" alt=""><figcaption></figcaption></figure>
 
+Local exploits require a session to be selected (something we can verify with the command `show options`), set this now using the command `set session SESSION_NUMBER`
 
+### 4.6. - Now that we've set our session number, further options will be revealed in the options menu. We'll have to set one more as our listener IP isn't correct. What is the name of this option?
 
+Set this option now. You might have to check your IP on the TryHackMe network using the command `ip addr`
 
+{% hint style="info" %}
+LHOST
+{% endhint %}
 
+After we've set this last option, we can now run our privilege escalation exploit. Run this now using the command `run`. Note, this might take a few attempts and you may need to relaunch the box and exploit the service in the case that this fails.
 
+<figure><img src=".gitbook/assets/Schermata del 2023-07-30 19-52-01.png" alt=""><figcaption></figcaption></figure>
 
+Following completion of the privilege escalation a new session will be opened. Interact with it now using the command `sessions SESSION_NUMBER`
 
+```
+getprivs
+```
 
+We can now verify that we have expanded permissions using the command `getprivs`. What permission listed allows us to take ownership of files?
 
+<div align="left">
 
+<figure><img src=".gitbook/assets/Schermata del 2023-07-30 19-55-28.png" alt=""><figcaption></figcaption></figure>
 
+</div>
 
-
-
+{% hint style="info" %}
+SeSystemtimePrivilege
+{% endhint %}
 
 ## Task 5 - Looting
 
