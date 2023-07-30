@@ -70,7 +70,7 @@ PORT     STATE SERVICE
 
 #### Task 3 - Enumerating Samba for shares
 
-![](<.gitbook/assets/image (2).png>)
+![](<.gitbook/assets/image (2) (3).png>)
 
 Samba is the standard Windows interoperability suite of programs for Linux and Unix. It allows end users to access and use files, printers and other commonly shared resources on a companies intranet or internet. Its often referred to as a network file system.
 
@@ -257,16 +257,6 @@ ProFTPd 1.3.5 - File Copy                                                       
 {% hint style="info" %}
 4
 {% endhint %}
-
-
-
-
-
-
-
-
-
-
 
 <details>
 
