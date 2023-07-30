@@ -1,5 +1,11 @@
 # Ice
 
+<div align="left">
+
+<figure><img src=".gitbook/assets/829892f5e7936a448f465b64d64f9c62 (1).png" alt="" width="130"><figcaption><p>tryhackme.com - © TryHackMe</p></figcaption></figure>
+
+</div>
+
 🔗 [Ice](https://tryhackme.com/room/ice)
 
 ### Task 1 - Deploy the machine
