@@ -1,5 +1,11 @@
 # Startup
 
+<div align="left">
+
+<figure><img src=".gitbook/assets/spaces_EhofjMfYbx3gOUSReXD7_uploads_git-blob-09d7b5dbac78c58c7b74721476ee6617c8b73086_startup (1).png" alt=""><figcaption><p>tryhackme.com - © TryHackMe</p></figcaption></figure>
+
+</div>
+
 🔗 [Startup](https://tryhackme.com/room/startup)
 
 ### Task 1 - Deploy the machine
