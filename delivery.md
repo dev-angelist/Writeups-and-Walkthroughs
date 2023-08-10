@@ -158,6 +158,48 @@ Service Info: OS: Linux; CPE: cpe:/o:linux:linux_kernel
 
 
 
+Now, we try to find potential hidden directory using gobuster:
+
+```bash
+gobuster dir -u http://delivery.htb/ -w /usr/share/dirbuster/wordlists/directory-list-2.3-small.txt
+```
+
+```bash
+===============================================================
+Gobuster v3.5
+by OJ Reeves (@TheColonial) & Christian Mehlmauer (@firefart)
+===============================================================
+[+] Url:                     http://delivery.htb/
+[+] Method:                  GET
+[+] Threads:                 10
+[+] Wordlist:                /usr/share/dirbuster/wordlists/directory-list-2.3-small.txt
+[+] Negative Status codes:   404
+[+] User Agent:              gobuster/3.5
+[+] Timeout:                 10s
+===============================================================
+2023/08/10 14:13:03 Starting gobuster in directory enumeration mode
+===============================================================
+/images               (Status: 301) [Size: 185] [--> http://delivery.htb/images/]
+/assets               (Status: 301) [Size: 185] [--> http://delivery.htb/assets/]
+/error                (Status: 301) [Size: 185] [--> http://delivery.htb/error/]
+Progress: 87617 / 87665 (99.95%)
+===============================================================
+```
+
+and we find an interesting path:&#x20;
+
+http://delivery.htb/images/
+
+http://delivery.htb/assets/ http://delivery.htb/error/]
+
+
+
+
+
+
+
+
+
 
 
 
@@ -182,39 +224,9 @@ We can check and confirm it using BurpSuite:
 
 
 
-Now, we try to find potential hidden directory using gobuster:
 
-```bash
-gobuster dir -u http://bank.htb/ -w /usr/share/dirbuster/wordlists/directory-list-2.3-medium.txt
-```
 
-```bash
-===============================================================
-Gobuster v3.5
-by OJ Reeves (@TheColonial) & Christian Mehlmauer (@firefart)
-===============================================================
-[+] Url:                     http://bank.htb/
-[+] Method:                  GET
-[+] Threads:                 10
-[+] Wordlist:                /usr/share/dirbuster/wordlists/directory-list-2.3-medium.txt
-[+] Negative Status codes:   404
-[+] User Agent:              gobuster/3.5
-[+] Timeout:                 10s
-===============================================================
-2023/07/29 12:06:40 Starting gobuster in directory enumeration mode
-===============================================================
-/uploads              (Status: 301) [Size: 305] [--> http://bank.htb/uploads/]
-/assets               (Status: 301) [Size: 304] [--> http://bank.htb/assets/]
-/inc                  (Status: 301) [Size: 301] [--> http://bank.htb/inc/]
-/server-status        (Status: 403) [Size: 288]
-/balance-transfer     (Status: 301) [Size: 314] [--> http://bank.htb/balance-transfer/]
-Progress: 220518 / 220561 (99.98%)
-===============================================================
-2023/07/29 12:27:51 Finished
-===============================================================
-```
 
-and we find an interesting path: http://bank.htb/balance-transfer/
 
 
 
