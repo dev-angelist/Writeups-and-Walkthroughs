@@ -22,4 +22,5 @@
 * [Smag Grotto](smag-grotto.md)
 * [Ice](ice.md)
 * [Bank](bank.md)
+* [Delivery](delivery.md)
 * [Active](active.md)

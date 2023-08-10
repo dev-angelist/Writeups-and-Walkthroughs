@@ -36,4 +36,5 @@
 
 * [Devel](devel.md)
 * Bank
+* Delivery
 * Active
