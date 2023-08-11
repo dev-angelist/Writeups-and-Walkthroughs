@@ -204,29 +204,27 @@ http://delivery.htb/assets/ http://delivery.htb/error/]
 
 
 
-Going to http:\\\bank.htb page, and start to check it.
-
-<figure><img src=".gitbook/assets/Schermata del 2023-07-29 19-05-17.png" alt=""><figcaption></figcaption></figure>
-
-We can check and confirm it using BurpSuite:
-
-<figure><img src=".gitbook/assets/Schermata del 2023-07-29 19-04-43.png" alt=""><figcaption></figcaption></figure>
 
 
+Going to http:\\\delivery.htb page, and start to check it.
 
+<figure><img src=".gitbook/assets/Schermata del 2023-08-11 20-13-58.png" alt=""><figcaption></figcaption></figure>
 
+Clicking on "HELPDESK" link, we found this error page:
+
+<figure><img src=".gitbook/assets/Schermata del 2023-08-11 20-16-22.png" alt=""><figcaption></figcaption></figure>
+
+While, clicking on contact-us and next to MatterMost server link, we found a great resource!
+
+<figure><img src=".gitbook/assets/Schermata del 2023-08-11 20-28-58.png" alt=""><figcaption></figcaption></figure>
+
+<figure><img src=".gitbook/assets/Schermata del 2023-08-11 20-29-09.png" alt=""><figcaption></figcaption></figure>
 
 
 
 {% hint style="info" %}
 
 {% endhint %}
-
-
-
-
-
-
 
 
 
