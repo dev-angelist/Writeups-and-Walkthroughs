@@ -19,6 +19,7 @@
   * [1⃣ Injection](owasp/injection.md)
 * [Devel](devel.md)
 * [Startup](startup.md)
+* [H4cked](h4cked.md)
 * [Smag Grotto](smag-grotto.md)
 * [Ice](ice.md)
 * [Bank](bank.md)
