@@ -92,6 +92,8 @@ Service Info: OS: Linux; CPE: cpe:/o:linux:linux_kernel
 
 We see that we've two open ports: 22 and 80.
 
+### Task 3 - What are the contents of user.txt?
+
 Then we can start to see website (port 80):
 
 <figure><img src=".gitbook/assets/image (31).png" alt=""><figcaption></figcaption></figure>
@@ -114,15 +116,30 @@ We can explore /sitemap path:
 
 <figure><img src=".gitbook/assets/image (34).png" alt=""><figcaption></figcaption></figure>
 
-But it's not very helpul.
-
-I remember that we've another open port (22), and we know a potential user: Jessie then we can use hydra to brute force it and finding psw.
+We can try to do a new gobuster search start at this point:
 
 ```bash
-hydra -l jessie -P /usr/share/wordlists/metasploit/unix_passwords.txt wgel.thm -t 4 ssh
+gobuster dir -u wgel.thm/sitemap -w /usr/share/wordlists/dirb/common.txt  
 ```
 
-<figure><img src=".gitbook/assets/image (35).png" alt=""><figcaption></figcaption></figure>
+<figure><img src=".gitbook/assets/image (38).png" alt=""><figcaption></figcaption></figure>
+
+<div align="left">
+
+<figure><img src=".gitbook/assets/image (36).png" alt=""><figcaption></figcaption></figure>
+
+</div>
+
+we've find and id\_rsa:
+
+<figure><img src=".gitbook/assets/image (39).png" alt=""><figcaption></figcaption></figure>
+
+remembering that we've user and id rsa, first take permission to id\_rsa file and try login:
+
+```bash
+chmod 600 id_rsa
+ssh -i id_rsa jessie@wgel.thm
+```
 
 
 
@@ -130,7 +147,19 @@ hydra -l jessie -P /usr/share/wordlists/metasploit/unix_passwords.txt wgel.thm -
 
 
 
-### Task 3 - What are the contents of user.txt?
+
+
+
+
+
+
+
+
+
+
+I
+
+###
 
 We quickly try to find user.txt flag using find command:\
 
