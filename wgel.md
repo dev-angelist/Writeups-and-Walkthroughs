@@ -2,11 +2,11 @@
 
 <div align="left">
 
-<figure><img src=".gitbook/assets/spaces_EhofjMfYbx3gOUSReXD7_uploads_git-blob-09d7b5dbac78c58c7b74721476ee6617c8b73086_startup (1).png" alt=""><figcaption><p>tryhackme.com - © TryHackMe</p></figcaption></figure>
+<figure><img src=".gitbook/assets/image (40).png" alt="" width="188"><figcaption></figcaption></figure>
 
 </div>
 
-🔗 [Startup](https://tryhackme.com/room/startup)
+🔗 [Wgel](https://tryhackme.com/room/wgelctf)
 
 ### Task 1 - Deploy the machine
 
