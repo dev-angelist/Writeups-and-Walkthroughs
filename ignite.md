@@ -67,7 +67,7 @@ Nmap done: 1 IP address (1 host up) scanned in 1.24 seconds
 <table><thead><tr><th width="154.99999999999997">command</th><th>result</th></tr></thead><tbody><tr><td>sudo</td><td>run as root</td></tr><tr><td>sC</td><td>run default scripts</td></tr><tr><td>sV</td><td>enumerate versions</td></tr><tr><td>A</td><td>aggressive mode</td></tr><tr><td>T4</td><td>run a bit faster</td></tr><tr><td>oN</td><td>output to file with nmap formatting</td></tr></tbody></table>
 
 ```bash
-map -p80 -sCV -T4 ignite.thm -oN port_scan
+nmap -p80 -sCV -T4 ignite.thm -oN port_scan
 ```
 
 ```bash
