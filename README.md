@@ -21,6 +21,9 @@
 * [Agent Sudo](agent-sudo.md)
 * [OWASP](owasp/)
 * [Startup](startup.md)
+* [Wgel](wgel.md)
+* [Blog](blog.md)
+* [ColdBox](coldbox.md)
 * Blaster
 * Retro
 * Ice
