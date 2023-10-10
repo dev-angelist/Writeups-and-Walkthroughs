@@ -219,7 +219,7 @@ DARK-PC
 
 <div align="left">
 
-<figure><img src=".gitbook/assets/image.png" alt="" width="106"><figcaption></figcaption></figure>
+<figure><img src=".gitbook/assets/image (8).png" alt="" width="106"><figcaption></figcaption></figure>
 
 </div>
 
@@ -267,7 +267,7 @@ First let's check that the LHOST option is set to our tun0 IP (which can be foun
 
 <div align="left">
 
-<figure><img src=".gitbook/assets/image (5).png" alt="" width="188"><figcaption></figcaption></figure>
+<figure><img src=".gitbook/assets/image (5) (1).png" alt="" width="188"><figcaption></figcaption></figure>
 
 </div>
 
