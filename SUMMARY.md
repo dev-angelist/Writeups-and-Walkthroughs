@@ -20,6 +20,8 @@
 * [Devel](devel.md)
 * [Startup](startup.md)
 * [Wgel](wgel.md)
+* [Blog](blog.md)
+* [Copy of Blog](copy-of-blog.md)
 * [H4cked](h4cked.md)
 * [Smag Grotto](smag-grotto.md)
 * [Ice](ice.md)
