@@ -2,7 +2,7 @@
 
 <div align="left">
 
-<figure><img src=".gitbook/assets/image.png" alt="" width="168"><figcaption><p><a href="https://tryhackme.com/room/colddboxeasy">https://tryhackme.com/room/colddboxeasy</a></p></figcaption></figure>
+<figure><img src=".gitbook/assets/image (11).png" alt="" width="168"><figcaption><p><a href="https://tryhackme.com/room/colddboxeasy">https://tryhackme.com/room/colddboxeasy</a></p></figcaption></figure>
 
 </div>
 
@@ -85,11 +85,11 @@ Service Info: OS: Linux; CPE: cpe:/o:linux:linux_kernel
 
 Then we can start to see website (port 80):
 
-<figure><img src=".gitbook/assets/image (2).png" alt=""><figcaption></figcaption></figure>
+<figure><img src=".gitbook/assets/image (2) (1).png" alt=""><figcaption></figcaption></figure>
 
 we can see that's a wordpress web site, then we can try to see page source for checking information disclosure.
 
-<figure><img src=".gitbook/assets/image (3).png" alt=""><figcaption></figcaption></figure>
+<figure><img src=".gitbook/assets/image (3) (1).png" alt=""><figcaption></figcaption></figure>
 
 but we don't find precious info.
 
@@ -99,23 +99,23 @@ Another good thing to do, is find hidden paths on website using gobuster
 gobuster dir -u coldbox.thm -w /usr/share/wordlists/dirb/common.txt
 ```
 
-<figure><img src=".gitbook/assets/image (4).png" alt=""><figcaption></figcaption></figure>
+<figure><img src=".gitbook/assets/image (4) (1).png" alt=""><figcaption></figcaption></figure>
 
 Very good, we can start to check these web dir:
 
 /hidden/
 
-<figure><img src=".gitbook/assets/image (5).png" alt=""><figcaption></figcaption></figure>
+<figure><img src=".gitbook/assets/image (5) (1).png" alt=""><figcaption></figcaption></figure>
 
 Very good, there're precious info about usernames: C0ldd, Hugo and Philip.
 
 We can confirm it watching error message at login in a default login path for wordpress: /wp-admin/
 
-<figure><img src=".gitbook/assets/image (6).png" alt=""><figcaption></figcaption></figure>
+<figure><img src=".gitbook/assets/image (6) (1).png" alt=""><figcaption></figcaption></figure>
 
 Finally the's another good info
 
-<figure><img src=".gitbook/assets/image (7).png" alt=""><figcaption></figcaption></figure>
+<figure><img src=".gitbook/assets/image (7) (1).png" alt=""><figcaption></figcaption></figure>
 
 If we don't waste time, we can use wpscan to find user list, but we'll take it if we take results with our three users, then try to login with C0ldd/Hugo/Philip:password123 (what we've see in the hidden path).
 

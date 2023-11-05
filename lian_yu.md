@@ -123,17 +123,17 @@ gobuster dir -u lian_yu.thm -w /usr/share/wordlists/dirb/common.txt
 
 Very bad, we find only index page that we've just see.
 
-We can try to use a bigger wordlist such as big.txt
+We can try to use a bigger wordlist such as directory-list-2.3-medium.txt
 
 ```bash
 gobuster dir -u lian_yu.thm -w /usr/share/wordlists/dirbuster/directory-list-2.3-medium.txt
 ```
 
-gobuster dir -u lian\_yu.thm -w /usr/share/wordlists/dirbuster/directory-list-2.3-medium.txt
+<div align="left">
 
+<figure><img src=".gitbook/assets/image (87).png" alt=""><figcaption></figcaption></figure>
 
-
-
+</div>
 
 Excellent! We find a new web path: /island, search it!
 
@@ -149,7 +149,7 @@ gobuster dir -u lian_yu.thm/island/ -w /usr/share/wordlists/dirbuster/directory-
 
 <div align="left">
 
-<figure><img src=".gitbook/assets/image (87).png" alt=""><figcaption></figcaption></figure>
+<figure><img src=".gitbook/assets/image.png" alt=""><figcaption></figcaption></figure>
 
 </div>
 
@@ -159,15 +159,9 @@ Then, we can answer at first question.
 2100
 {% endhint %}
 
-### 3.2 What is the file name you found? 
+### 3.2 What is the file name you found?
 
-
-
-
-
-
-
-
+Explore /2100 web page:
 
 <figure><img src=".gitbook/assets/image (83).png" alt=""><figcaption></figcaption></figure>
 
@@ -179,6 +173,91 @@ Viewing source code:
 
 </div>
 
+we see this info:
+
+> you can avail your .ticket here but how?
+
+Retaking another dirbuster search starting with 2100/ web path, we see that there're nothing, then we can try to custom dirbuster search using .ticket extension:
+
+```bash
+gobuster dir -u lian_yu.thm/island/2100/ -w /usr/share/wordlists/dirbuster/directory-list-2.3-medium.txt -x .ticket
+```
+
+<figure><img src=".gitbook/assets/image (2).png" alt=""><figcaption></figcaption></figure>
+
+Wow, we've the path to the ticket which is the answer to this question as well.
+
+{% hint style="info" %}
+green\_arrow.ticket
+{% endhint %}
+
+### 3.3 - What is the FTP Password?
+
+
+
+Open it we see this potential encrypted word, then we can use CyberChef to decrypt it.
+
+<figure><img src=".gitbook/assets/image (1).png" alt=""><figcaption></figcaption></figure>
+
+{% embed url="https://gchq.github.io/CyberChef/" %}
+
+After multiple trial and error attempts, we can determine that this is a Base58 encoding.
+
+<div align="left">
+
+<figure><img src=".gitbook/assets/image (3).png" alt=""><figcaption></figcaption></figure>
+
+</div>
+
+Remember that we've a potential username: 'vigilante', then we try to login with ftp:
+
+<div align="left">
+
+<figure><img src=".gitbook/assets/image (4).png" alt=""><figcaption></figcaption></figure>
+
+</div>
+
+Download these resources using `mget *` command.
+
+<div align="left">
+
+<figure><img src=".gitbook/assets/image (6).png" alt=""><figcaption></figcaption></figure>
+
+</div>
+
+There're three images with potential hidden info inside.
+
+The 'Leave\_me\_alone.png' image is corrupt, seeing header we see that's not '.png':
+
+```bash
+xxd Leave_me_alone.png | head
+```
+
+<div align="left">
+
+<figure><img src=".gitbook/assets/image (9).png" alt=""><figcaption></figcaption></figure>
+
+</div>
+
+then we can modify it using hexeditor and display it, getting information about psw:
+
+```bash
+hexeditor Leave_me_alone.png 
+```
+
+<figure><img src=".gitbook/assets/image (8).png" alt=""><figcaption></figcaption></figure>
+
+Perfect, we can try to extract info using steghide tool and psw retrevied few time ago:
+
+```bash
+steghide extract -sf aa.jpg
+```
+
+<div align="left">
+
+<figure><img src=".gitbook/assets/image (10).png" alt=""><figcaption></figcaption></figure>
+
+</div>
 
 
 
@@ -186,6 +265,29 @@ Viewing source code:
 
 
 
+{% hint style="info" %}
+!#th3h00d
+{% endhint %}
+
+### 3.4 - What is the file name with SSH password?
+
+Trying the same FTP credentials we can't access with SSH.
+
+Then, we've try to use the same username and brute force psw using Hydra, but it doesn't work.
+
+First to brute force user and psw, we can try to re-access with FTP and check home folder of system users:
+
+<div align="left">
+
+<figure><img src=".gitbook/assets/image (7).png" alt=""><figcaption></figcaption></figure>
+
+</div>
+
+Very good, we find another user: slade, now we can reuse hydra and brute force its psw:
+
+```bash
+hydra -l slade -P /usr/share/wordlists/rockyou.txt lian_yu.thm ssh
+```
 
 \
 
@@ -200,27 +302,7 @@ Viewing source code:
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+### 3.5 - Find user.txt flag
 
 
 
@@ -230,37 +312,45 @@ Viewing source code:
 find / -type f -iname "*flag.txt" 2>/dev/null
 ```
 
-<figure><img src=".gitbook/assets/image (42).png" alt=""><figcaption></figcaption></figure>
+
 
 <details>
 
-<summary>🚩 Flag 1 (user_flag.txt)</summary>
+<summary>🚩User Flag (user.txt)</summary>
 
-057c67131c3d5e42dd5cd3075b198ff6
+
 
 </details>
 
-### Task 4 - What are the contents of root.txt?
+### 3.5 - Find root.txt flag
+
+
+
+
+
+
+
+
+
+
+
+
 
 We can do sudo -l command to discover user's permissions.
 
-<figure><img src=".gitbook/assets/image (49).png" alt=""><figcaption></figcaption></figure>
+
+
+
 
 We can run /usr/bin/wget as root. Perfect, time to go to GTFOBins ([https://gtfobins.github.io/](https://gtfobins.github.io/)) and find our exploit.&#x20;
 
 <figure><img src=".gitbook/assets/image (43).png" alt=""><figcaption><p><a href="https://gtfobins.github.io/gtfobins/wget/">https://gtfobins.github.io/gtfobins/wget/</a></p></figcaption></figure>
 
-<div align="left">
 
-<figure><img src=".gitbook/assets/image (50).png" alt=""><figcaption></figcaption></figure>
 
-</div>
 
-unfortunately, it doesn't work!
 
-Checking on google, we find this good article that suggests to use post-file option of wget  command, to send the content of any file.
 
-<figure><img src=".gitbook/assets/image (44).png" alt=""><figcaption><p><a href="https://www.hackingarticles.in/linux-for-pentester-wget-privilege-escalation/">https://www.hackingarticles.in/linux-for-pentester-wget-privilege-escalation/</a></p></figcaption></figure>
 
 More probably root flag there're in root path and its name will be similar than user\_flag.txt, then, we can try to setting post-file option: —post-file=/root/root\_flag.txt, add our IP and open a listen session with netcat to receive file.
 
@@ -282,7 +372,7 @@ Well done! Root flag found!
 
 <details>
 
-<summary>🚩 Flag 2 (root_flag.txt)</summary>
+<summary>🚩 Root Flag (root.txt)</summary>
 
 b1b968b37519ad1daa6408188649263d
 
