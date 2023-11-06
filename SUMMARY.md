@@ -26,6 +26,7 @@
 * [H4cked](h4cked.md)
 * [Smag Grotto](smag-grotto.md)
 * [Ice](ice.md)
+* [Blaster](blaster.md)
 * [Bank](bank.md)
 * [Delivery](delivery.md)
 * [Active](active.md)

@@ -25,9 +25,9 @@
 * [Blog](blog.md)
 * [ColdBox](coldbox.md)
 * [Lian\_Yu](lian\_yu.md)
-* Blaster
+* [Blaster](blaster.md)
 * Retro
-* Ice
+* [Ice](ice.md)
 * Chill Hack
 
 
