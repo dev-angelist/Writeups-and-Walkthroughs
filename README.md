@@ -6,28 +6,28 @@
 
 </div>
 
-* [RootMe](rootme.md)
-* [Simple CTF](simple-ctf.md)
-* [Eternal Blue](eternal-blue.md)
-* [Vulnversity](vulnversity.md)
-* [Pickle Rick](pickle-rick.md)
-* [Brooklyn Nine Nine](brooklyn-nine-nine.md)
-* [Kenobi](kenobi.md)
-* [Bounty Hacker](bounty-hacker.md)
-* [Overpass](overpass.md)
-* [LazyAdmin](lazyadmin.md)
-* [Ignite](ignite.md)
-* [Bolt](bolt.md)
-* [Agent Sudo](agent-sudo.md)
-* [OWASP](owasp/)
-* [Startup](startup.md)
-* [Wgel](wgel.md)
-* [Blog](blog.md)
-* [ColdBox](coldbox.md)
-* [Lian\_Yu](lian\_yu.md)
-* [Blaster](blaster.md)
+* [RootMe](thm/rootme.md)
+* [Simple CTF](thm/simple-ctf.md)
+* [Eternal Blue](thm/eternal-blue.md)
+* [Vulnversity](thm/vulnversity.md)
+* [Pickle Rick](thm/pickle-rick.md)
+* [Brooklyn Nine Nine](thm/brooklyn-nine-nine.md)
+* [Kenobi](thm/kenobi.md)
+* [Bounty Hacker](thm/bounty-hacker.md)
+* [Overpass](thm/overpass.md)
+* [LazyAdmin](thm/lazyadmin.md)
+* [Ignite](thm/ignite.md)
+* [Bolt](thm/bolt.md)
+* [Agent Sudo](thm/agent-sudo.md)
+* [OWASP](thm/owasp/)
+* [Startup](thm/startup.md)
+* [Wgel](thm/wgel.md)
+* [Blog](thm/blog.md)
+* [ColdBox](thm/coldbox.md)
+* [Lian\_Yu](thm/lian\_yu.md)
+* [Blaster](thm/blaster.md)
 * Retro
-* [Ice](ice.md)
+* [Ice](thm/ice.md)
 * Chill Hack
 
 
@@ -38,7 +38,24 @@
 
 </div>
 
-* [Devel](devel.md)
+* [Devel](hackthebox/devel.md)
 * Bank
 * Delivery
 * Active
+
+
+
+<div align="left">
+
+<figure><img src=".gitbook/assets/dvwa-logo-500x500.png" alt="" width="250"><figcaption><p><a href="https://github.com/digininja/DVWA">https://github.com/digininja/DVWA</a></p></figcaption></figure>
+
+</div>
+
+
+
+* Install and configure DVWA
+* Brute Force
+* SQLi
+
+
+
