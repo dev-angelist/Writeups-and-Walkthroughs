@@ -29,6 +29,16 @@ Or [download a ZIP of the files](https://github.com/digininja/DVWA/archive/maste
 * [Installing Damn Vulnerable Web Application (DVWA) on Windows 10](https://www.youtube.com/watch?v=cak2lQvBRAo) 🇬🇧
 * [DVWA 01 - Installazione e Configurazione](https://www.youtube.com/watch?v=F7lX6x87gJg\&list=PLYLjKimBhcxE0u-SIQw0vwt0VM17II9M9) 🇮🇹
 
+#### How to set difficulty
+
+Go to DVWA Security page: [http://localhost/DVWA/security.php](http://localhost/DVWA/security.php) (URL can be changed), and set security level desired, then press submit button.
+
+<figure><img src="../.gitbook/assets/image.png" alt=""><figcaption></figcaption></figure>
+
+{% hint style="info" %}
+In all exercise you need to activate a proxy (between user's browser and the target app), to intercept, inspect and modify requests and responses. In my case i used **BurpSuite** with **FoxyProxy** extension.
+{% endhint %}
+
 {% embed url="https://github.com/digininja/DVWA" %}
 Official website
 {% endembed %}

@@ -8,4 +8,5 @@
 
 * Install and configure DVWA
 * Brute Force
-* SQLi
+* SQL Injection (SQLi)
+* SQL Injection Blind

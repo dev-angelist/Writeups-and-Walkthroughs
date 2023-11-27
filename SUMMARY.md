@@ -35,4 +35,5 @@
 * [DVWA](dvwa/README.md)
   * [Install and configure DVWA](dvwa/install-and-configure-dvwa.md)
   * [Brute Force](dvwa/brute-force.md)
+  * [Command Injection](dvwa/command-injection.md)
   * [SQLi](dvwa/sqli.md)

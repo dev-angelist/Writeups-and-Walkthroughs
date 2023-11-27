@@ -24,7 +24,7 @@ mkdir {nmap,content,exploits,scripts}
 
 In the task 2, we don't need to deploy machine, but we need to analyze pcap file to explore activities and answer at questions.
 
-<figure><img src="../.gitbook/assets/image (12).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (12) (1).png" alt=""><figcaption></figcaption></figure>
 
 Source IP that sent SYN is `192.168.0.147` then, it's Attacker IP, while destination/victim IP is: `192.168.0.115.`
 
@@ -32,7 +32,7 @@ Source IP that sent SYN is `192.168.0.147` then, it's Attacker IP, while destina
 
 Following first message, we can find that attacker brute force FTP port.
 
-<figure><img src="../.gitbook/assets/image (13).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (13) (1).png" alt=""><figcaption></figcaption></figure>
 
 {% hint style="info" %}
 FTP
