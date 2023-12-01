@@ -36,4 +36,5 @@
   * [Install and configure DVWA](dvwa/install-and-configure-dvwa.md)
   * [Brute Force](dvwa/brute-force.md)
   * [Command Injection](dvwa/command-injection.md)
+  * [CSRF](dvwa/csrf.md)
   * [SQLi](dvwa/sqli.md)

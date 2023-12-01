@@ -22,17 +22,17 @@ Using BurpSuite and the FoxyProxy extension is recommended.
 
 We've a form with an input type text:
 
-<figure><img src="../.gitbook/assets/image (2).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (2) (1).png" alt=""><figcaption></figcaption></figure>
 
 that ask us to enter and IP address to ping.
 
 Inserting an IP address we can confirm that will do a ping request to it:
 
-<figure><img src="../.gitbook/assets/image (3).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (3) (1).png" alt=""><figcaption></figcaption></figure>
 
 As always we can start to analyze source code:
 
-<figure><img src="../.gitbook/assets/image (4).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (4) (1).png" alt=""><figcaption></figcaption></figure>
 
 * There'is a condition to check if input value has been inserted
 * The operating system in use is checked to evaluate exactly which ping should be entered (win or \*nix OS)
@@ -50,7 +50,7 @@ The input is not sanitized, so I can execute any (potentially malicious) command
 
 using it, we ping machine with IP 127.0.0.1 and join two extra commands using ; or another join char as |, to take a whoami and see /etc/passwd file:
 
-<figure><img src="../.gitbook/assets/image (5).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (5) (1).png" alt=""><figcaption></figcaption></figure>
 
 ## Medium
 
