@@ -62,7 +62,7 @@ Considering that GET request to change psw is this
 
 <figure><img src="../.gitbook/assets/image (3).png" alt=""><figcaption></figcaption></figure>
 
-we can use and insert it in a URL to send at victim.
+we can use and insert it in a URL to send at victim usually using social engineering techniques.
 
 #### Payload
 
@@ -74,54 +74,100 @@ using it, we can change password to a different password (password1) only openin
 
 <figure><img src="../.gitbook/assets/image (4).png" alt=""><figcaption></figcaption></figure>
 
+the same payload can be injected in a javascript code stored in another web page, but it can't work if the website used a **CORS** mechanism (Cross-origin resource sharing).
+
+<details>
+
+<summary>Cross-origin resource sharing (CORS)</summary>
+
+Cross-origin resource sharing is an HTTP-header based mechanism that allows a server to indicate any origins (domain, scheme, or port) other than its own from which a browser should permit loading resources. CORS also relies on a mechanism by which browsers make a "preflight" request to the server hosting the cross-origin resource, in order to check that the server will permit the actual request.
+
+</details>
+
 ## Medium
 
-
-
-<figure><img src="../.gitbook/assets/image (6).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (91).png" alt=""><figcaption></figcaption></figure>
 
 * There's a classic control of input text submitted
-* An eventually blacklist word (&& and ;) is replace with a '' black char
+* Check if the HTTP\_REFERER request has the same name and origin of name server (request isn't sent by an external source)
 * The operating system in use is checked to evaluate exactly which ping should be entered (win or \*nix OS)
 * In the end, there's generate feedback for the end user.
 
-{% hint style="warning" %}
-The input is not sanitized because blacklist words are eventually removed only one time and not recursevely and we can use others join chars to add a new commands such as |.
-{% endhint %}
+<figure><img src="../.gitbook/assets/image (92).png" alt=""><figcaption></figcaption></figure>
+
+If the HTTP\_REFERER is the same of the server name: csrf in our case, there're not problem;
+
+while, using the same payload of level low (that has a different origin), HTTP\_REFERER link is not generated and we can't change password.
+
+```url
+localhost/DVWA/vulnerabilities/csrf/?password_new=password1&password_conf=password1&Change=Change#
+```
+
+<figure><img src="../.gitbook/assets/image (93).png" alt=""><figcaption></figcaption></figure>
 
 #### Payload
 
-We've replaced `;` or `&&` with `|`:
+To exploit it, is necessary have an HTTP\_REFERER request with the same name server, then we can use XSS Reflected attack redirecting the attacker to the desired page, where it's run a malicious javascript code.
 
-```bash
-127.0.0.1 | whoami
+We can try to inject an example of javascript code such as:&#x20;
+
+```html
+<Script> alert("Hello World"); </Script>
 ```
 
-<figure><img src="../.gitbook/assets/image (7).png" alt=""><figcaption><p>Using another word to anchor commands</p></figcaption></figure>
+into XSS Reflected section\
 
-`;` will be replace by '' and will submit this prohibit payload:
 
-```bash
-127.0.0.1 && whoami
+<figure><img src="../.gitbook/assets/image (94).png" alt=""><figcaption></figcaption></figure>
+
+<div align="left">
+
+<figure><img src="../.gitbook/assets/image (95).png" alt=""><figcaption></figcaption></figure>
+
+</div>
+
+Very well, using this XSS we can trigger the malicious password change request with the following XSS script:
+
+```html
+<Script> var xmlHttp = new XMLHttpRequest(); var url = "http://localhost/DVWA//vulnerabilities/csrf/?password_new=newpass&password_conf=newpass&Change=Change"; xmlHttp.open("GET", url, false); xmlHttp.send(null); </Script>
 ```
 
-<figure><img src="../.gitbook/assets/image (8).png" alt=""><figcaption><p>Using phoibit anchor commands</p></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (98).png" alt=""><figcaption></figcaption></figure>
+
+It usually need to convert URL-encode key characters and we can redirect user to localhost/DVWA page;
+
+<figure><img src="../.gitbook/assets/image (99).png" alt=""><figcaption></figcaption></figure>
+
+Obtaining the HTTP\_REFERER origin desidered and run malicious javascript code to change psw.
+
+{% hint style="warning" %}
+Only checking if the HTTP\_REFERER request has the same name and origin of name server we can't be sure that request is valid, because can be redirect using XSS Reflected attack.
+{% endhint %}
 
 ## High
 
+<figure><img src="../.gitbook/assets/image (100).png" alt=""><figcaption></figcaption></figure>
+
+* There's a classic control of input text submitted
+* Check if the HTTP\_REFERER request has the same name and origin of name server (request isn't sent by an external source)
+* The operating system in use is checked to evaluate exactly which ping should be entered (win or \*nix OS)
+* In the end, there's generate feedback for the end user.
 
 
-<figure><img src="../.gitbook/assets/image (9).png" alt=""><figcaption></figcaption></figure>
+
+
+
+
+
+
+
+
+
+
 
 
 
 This command isn't write correctly, it has an extra space '`|`  '&#x20;
-
-<div align="left">
-
-<figure><img src="../.gitbook/assets/image (10).png" alt=""><figcaption></figcaption></figure>
-
-</div>
 
 
 
