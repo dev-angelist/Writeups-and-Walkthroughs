@@ -42,3 +42,10 @@ In all exercise you need to activate a proxy (between user's browser and the tar
 {% embed url="https://github.com/digininja/DVWA" %}
 Official website
 {% endembed %}
+
+### References
+
+For the making of this solution the following resource were used:
+
+* [https://github.com/digininja/DVWA](https://github.com/digininja/DVWA)
+* [https://github.com/LeonardoE95/DVWA/](https://github.com/LeonardoE95/DVWA/tree/main/src/client\_side\_request\_forgery)

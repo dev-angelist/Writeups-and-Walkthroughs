@@ -130,3 +130,9 @@ Without leaving a white space after | we can use this payload:
 {% hint style="info" %}
 The input is sanitized and it's not vulnerable to a command injection attack.
 {% endhint %}
+
+## References
+
+For the making of this solution the following resource were used:
+
+* [https://github.com/LeonardoE95/DVWA/](https://github.com/LeonardoE95/DVWA/tree/main/src/client\_side\_request\_forgery)
