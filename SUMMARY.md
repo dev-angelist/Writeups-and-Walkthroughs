@@ -37,4 +37,5 @@
   * [Brute Force](dvwa/brute-force.md)
   * [Command Injection](dvwa/command-injection.md)
   * [CSRF](dvwa/csrf.md)
+  * [File Inclusion](dvwa/file-inclusion.md)
   * [SQLi](dvwa/sqli.md)

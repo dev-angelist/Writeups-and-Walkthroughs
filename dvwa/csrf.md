@@ -28,7 +28,7 @@ To prevent CSRF attacks, web developers often use techniques such as anti-CSRF t
 Using BurpSuite and the FoxyProxy extension is recommended.
 {% endhint %}
 
-<figure><img src="../.gitbook/assets/image (1).png" alt=""><figcaption><p><a href="https://portswigger.net/web-security/csrf">https://portswigger.net/web-security/csrf</a></p></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (1) (1).png" alt=""><figcaption><p><a href="https://portswigger.net/web-security/csrf">https://portswigger.net/web-security/csrf</a></p></figcaption></figure>
 
 {% embed url="https://owasp.org/www-community/attacks/csrf" %}
 [https://owasp.org/www-community/attacks/csrf](https://owasp.org/www-community/attacks/csrf)
@@ -42,13 +42,13 @@ Using BurpSuite and the FoxyProxy extension is recommended.
 
 We've a form with two input type text:
 
-<figure><img src="../.gitbook/assets/image.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (4).png" alt=""><figcaption></figcaption></figure>
 
 that ask us to change admin password entering new password and confirming it.
 
 As always we can start to analyze source code:
 
-<figure><img src="../.gitbook/assets/image (2).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (2) (1).png" alt=""><figcaption></figcaption></figure>
 
 * There'is a condition to check if input value has been inserted
 * Check if the two passwords match
@@ -60,7 +60,7 @@ The input is not sanitized, so I can execute any (potentially malicious) command
 
 Considering that GET request to change psw is this
 
-<figure><img src="../.gitbook/assets/image (3).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (3) (1).png" alt=""><figcaption></figcaption></figure>
 
 we can use and insert it in a URL to send at victim usually using social engineering techniques.
 
@@ -72,7 +72,7 @@ localhost/DVWA/vulnerabilities/csrf/?password_new=password1&password_conf=passwo
 
 using it, we can change password to a different password (password1) only opening payload URL via browser.
 
-<figure><img src="../.gitbook/assets/image (4).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (4) (1).png" alt=""><figcaption></figcaption></figure>
 
 the same payload can be injected in a javascript code stored in another web page, but it can't work if the website used a **CORS** mechanism (Cross-origin resource sharing).
 

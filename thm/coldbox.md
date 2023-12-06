@@ -85,11 +85,11 @@ Service Info: OS: Linux; CPE: cpe:/o:linux:linux_kernel
 
 Then we can start to see website (port 80):
 
-<figure><img src="../.gitbook/assets/image (2) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (2) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 we can see that's a wordpress web site, then we can try to see page source for checking information disclosure.
 
-<figure><img src="../.gitbook/assets/image (3) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (3) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 but we don't find precious info.
 
@@ -99,7 +99,7 @@ Another good thing to do, is find hidden paths on website using gobuster
 gobuster dir -u coldbox.thm -w /usr/share/wordlists/dirb/common.txt
 ```
 
-<figure><img src="../.gitbook/assets/image (4) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (4) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 Very good, we can start to check these web dir:
 
