@@ -10,6 +10,8 @@
 * [Brute Force](brute-force.md)
 * [Command Injection](command-injection.md)
 * [Cross Site Request Forgery (CSRF)](csrf.md)
-* [File Inclusion](file-inclusion.md)
-* [SQL Injection (SQLi)](sqli.md)
+* [File Inclusion (LFI + RFI)](file-inclusion.md)
+* [File Upload](file-upload.md)
+* [Insecure CAPTCHA](insecure-captcha.md)
+* [SQL Injection (SQLi)](sql-injection.md)
 * SQL Injection Blind

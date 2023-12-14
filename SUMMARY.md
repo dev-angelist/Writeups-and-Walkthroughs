@@ -38,4 +38,6 @@
   * [Command Injection](dvwa/command-injection.md)
   * [CSRF](dvwa/csrf.md)
   * [File Inclusion](dvwa/file-inclusion.md)
-  * [SQLi](dvwa/sqli.md)
+  * [File Upload --](dvwa/file-upload.md)
+  * [Insecure CAPTCHA --](dvwa/insecure-captcha.md)
+  * [SQL Injection --](dvwa/sql-injection.md)

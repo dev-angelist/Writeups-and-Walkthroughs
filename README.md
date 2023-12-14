@@ -51,11 +51,11 @@
 
 </div>
 
-
-
-* Install and configure DVWA
-* Brute Force
-* SQLi
-
-
-
+* [Install and configure DVWA](dvwa/install-and-configure-dvwa.md)
+* [Brute Force](dvwa/brute-force.md)
+* [Command Injection](dvwa/command-injection.md)
+* [Cross Site Request Forgery (CSRF)](dvwa/csrf.md)
+* [File Inclusion (LFI + RFI)](dvwa/file-inclusion.md)
+* [File Upload](dvwa/file-upload.md)
+* [Insecure CAPTCHA](dvwa/insecure-captcha.md)
+* [SQL Injection (SQLi)](dvwa/sql-injection.md)
