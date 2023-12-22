@@ -40,4 +40,5 @@
   * [File Inclusion](dvwa/file-inclusion.md)
   * [File Upload --](dvwa/file-upload.md)
   * [Insecure CAPTCHA --](dvwa/insecure-captcha.md)
-  * [SQL Injection --](dvwa/sql-injection.md)
+  * [SQL Injection](dvwa/sql-injection.md)
+  * [SQLi Blind --](dvwa/sqli-blind.md)

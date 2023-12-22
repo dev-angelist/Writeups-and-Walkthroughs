@@ -149,7 +149,7 @@ gobuster dir -u lian_yu.thm/island/ -w /usr/share/wordlists/dirbuster/directory-
 
 <div align="left">
 
-<figure><img src="../.gitbook/assets/image (8) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (8) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 </div>
 
@@ -183,7 +183,7 @@ Retaking another dirbuster search starting with 2100/ web path, we see that ther
 gobuster dir -u lian_yu.thm/island/2100/ -w /usr/share/wordlists/dirbuster/directory-list-2.3-medium.txt -x .ticket
 ```
 
-<figure><img src="../.gitbook/assets/image (2) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (2) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 Wow, we've the path to the ticket which is the answer to this question as well.
 
@@ -197,7 +197,7 @@ green\_arrow.ticket
 
 Open it we see this potential encrypted word, then we can use CyberChef to decrypt it.
 
-<figure><img src="../.gitbook/assets/image (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 {% embed url="https://gchq.github.io/CyberChef/" %}
 
@@ -205,7 +205,7 @@ After multiple trial and error attempts, we can determine that this is a Base58 
 
 <div align="left">
 
-<figure><img src="../.gitbook/assets/image (3) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (3) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 </div>
 
@@ -213,7 +213,7 @@ Remember that we've a potential username: 'vigilante', then we try to login with
 
 <div align="left">
 
-<figure><img src="../.gitbook/assets/image (4) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (4) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 </div>
 
@@ -221,7 +221,7 @@ Download these resources using `mget *` command.
 
 <div align="left">
 
-<figure><img src="../.gitbook/assets/image (6) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (6) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 </div>
 
@@ -235,7 +235,7 @@ xxd Leave_me_alone.png | head
 
 <div align="left">
 
-<figure><img src="../.gitbook/assets/image (9) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (9) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 </div>
 
@@ -245,7 +245,7 @@ then we can modify it using hexeditor and display it, getting information about 
 hexeditor Leave_me_alone.png 
 ```
 
-<figure><img src="../.gitbook/assets/image (8) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (8) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 Perfect, we can try to extract info using steghide tool and psw retrevied few time ago:
 
@@ -255,7 +255,7 @@ steghide extract -sf aa.jpg
 
 <div align="left">
 
-<figure><img src="../.gitbook/assets/image (10) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (10) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 </div>
 
@@ -266,7 +266,7 @@ unzip ss.zip
 
 <div align="left">
 
-<figure><img src="../.gitbook/assets/image (13).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (13) (1).png" alt=""><figcaption></figcaption></figure>
 
 </div>
 
@@ -286,7 +286,7 @@ First to brute force user and psw, we can try to re-access with FTP and check ho
 
 <div align="left">
 
-<figure><img src="../.gitbook/assets/image (7) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (7) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 </div>
 
@@ -300,7 +300,7 @@ ssh slade@10.10.244.228
 
 <div align="left">
 
-<figure><img src="../.gitbook/assets/image (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 </div>
 
@@ -321,7 +321,7 @@ find / -type f -iname "user.txt" 2>/dev/null
 
 <div align="left">
 
-<figure><img src="../.gitbook/assets/image (4) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (4) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 </div>
 
@@ -339,7 +339,7 @@ We can do `sudo -l` command to discover user's permissions.
 
 <div align="left">
 
-<figure><img src="../.gitbook/assets/image (6) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (6) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 </div>
 
@@ -347,7 +347,7 @@ Very good pkexec has root permission!
 
 Search on GTFOBins ([https://gtfobins.github.io/](https://gtfobins.github.io/)) and find our exploit:
 
-<figure><img src="../.gitbook/assets/image (5) (1) (1).png" alt=""><figcaption><p><a href="https://gtfobins.github.io/gtfobins/pkexec/">https://gtfobins.github.io/gtfobins/pkexec/</a></p></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (5) (1) (1) (1).png" alt=""><figcaption><p><a href="https://gtfobins.github.io/gtfobins/pkexec/">https://gtfobins.github.io/gtfobins/pkexec/</a></p></figcaption></figure>
 
 Run it to became root and find flag (how the last task):
 
@@ -361,7 +361,7 @@ cat /root/root.txt #see root.txt
 
 <div align="left">
 
-<figure><img src="../.gitbook/assets/image (7) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (7) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 </div>
 

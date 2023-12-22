@@ -2,7 +2,7 @@
 
 <div align="left">
 
-<figure><img src="../.gitbook/assets/image (9) (1) (1).png" alt=""><figcaption><p>tryhackme.com - © TryHackMe</p></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (9) (1) (1) (1).png" alt=""><figcaption><p>tryhackme.com - © TryHackMe</p></figcaption></figure>
 
 </div>
 

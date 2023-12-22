@@ -282,7 +282,7 @@ find / -type f -iname "user.txt" 2>/dev/null
 
 <div align="left">
 
-<figure><img src="../.gitbook/assets/image (4) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (4) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 </div>
 
