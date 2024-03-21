@@ -2,7 +2,7 @@
 
 <div align="left">
 
-<figure><img src="../.gitbook/assets/image (4) (1) (1) (1) (1) (1) (1) (1).png" alt="" width="175"><figcaption><p>tryhackme.com - © TryHackMe</p></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (97).png" alt="" width="175"><figcaption><p>tryhackme.com - © TryHackMe</p></figcaption></figure>
 
 </div>
 
@@ -93,7 +93,7 @@ Nmap done: 1 IP address (1 host up) scanned in 9.31 seconds
 
 > Apache httpd 2.4.29 ((Ubuntu))
 
-<figure><img src="../.gitbook/assets/Schermata del 2023-05-31 20-18-46 (1).png" alt=""><figcaption><p>rootme.thm:80</p></figcaption></figure>
+<figure><img src="../.gitbook/assets/Schermata del 2023-05-31 20-18-46.png" alt=""><figcaption><p>rootme.thm:80</p></figcaption></figure>
 
 #### 2.3 - What service is running on port 22?
 

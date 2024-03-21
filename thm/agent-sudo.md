@@ -109,7 +109,7 @@ user-agent
 
 We can see our user-agent using dev mode (F12)
 
-<figure><img src="../.gitbook/assets/Schermata del 2023-07-02 22-57-07 (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/Schermata del 2023-07-02 22-57-07.png" alt=""><figcaption></figcaption></figure>
 
 We say that the correct user-agent is a capital letter, than using BurpSuite we can test all alphabet
 
@@ -121,7 +121,7 @@ We need to set user-agent to 'C' and we can see agent name.
 
 For this thing, we can use a firefox extension: [`User-Agent Switcher and Manager`](https://addons.mozilla.org/en-US/firefox/addon/user-agent-string-switcher/?utm\_source=addons.mozilla.org\&utm\_medium=referral\&utm\_content=search)
 
-<figure><img src="../.gitbook/assets/Schermata del 2023-07-03 00-12-35 (2).png" alt=""><figcaption><p>setting user-agent to 'C'</p></figcaption></figure>
+<figure><img src="../.gitbook/assets/Schermata del 2023-07-03 00-12-35.png" alt=""><figcaption><p>setting user-agent to 'C'</p></figcaption></figure>
 
 Refreshing page we see agent name:
 

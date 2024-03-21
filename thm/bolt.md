@@ -243,7 +243,7 @@ set PASSWORD boltadmin123
 exploit
 </code></pre>
 
-<figure><img src="../.gitbook/assets/Schermata del 2023-07-02 11-20-50.png" alt=""><figcaption><p>root shell</p></figcaption></figure>
+<figure><img src="../.gitbook/assets/Schermata del 2023-07-02 11-20-50 (1).png" alt=""><figcaption><p>root shell</p></figcaption></figure>
 
 #### 3.9 - Look for flag.txt inside the machine.
 

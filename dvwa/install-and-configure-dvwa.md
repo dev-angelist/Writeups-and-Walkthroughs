@@ -33,7 +33,7 @@ Or [download a ZIP of the files](https://github.com/digininja/DVWA/archive/maste
 
 Go to DVWA Security page: [http://localhost/DVWA/security.php](http://localhost/DVWA/security.php) (URL can be changed), and set security level desired, then press submit button.
 
-<figure><img src="../.gitbook/assets/image (5) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (48).png" alt=""><figcaption></figcaption></figure>
 
 {% hint style="info" %}
 In all exercise you need to activate a proxy (between user's browser and the target app), to intercept, inspect and modify requests and responses. In my case i used **BurpSuite** with **FoxyProxy** extension.

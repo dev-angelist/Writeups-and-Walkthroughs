@@ -2,7 +2,7 @@
 
 <div align="left">
 
-<figure><img src="../.gitbook/assets/image (11) (1) (1).png" alt="" width="168"><figcaption><p><a href="https://tryhackme.com/room/colddboxeasy">https://tryhackme.com/room/colddboxeasy</a></p></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (80).png" alt="" width="168"><figcaption><p><a href="https://tryhackme.com/room/colddboxeasy">https://tryhackme.com/room/colddboxeasy</a></p></figcaption></figure>
 
 </div>
 
@@ -85,11 +85,11 @@ Service Info: OS: Linux; CPE: cpe:/o:linux:linux_kernel
 
 Then we can start to see website (port 80):
 
-<figure><img src="../.gitbook/assets/image (2) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (82).png" alt=""><figcaption></figcaption></figure>
 
 we can see that's a wordpress web site, then we can try to see page source for checking information disclosure.
 
-<figure><img src="../.gitbook/assets/image (3) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (83).png" alt=""><figcaption></figcaption></figure>
 
 but we don't find precious info.
 
@@ -99,23 +99,23 @@ Another good thing to do, is find hidden paths on website using gobuster
 gobuster dir -u coldbox.thm -w /usr/share/wordlists/dirb/common.txt
 ```
 
-<figure><img src="../.gitbook/assets/image (4) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (84).png" alt=""><figcaption></figcaption></figure>
 
 Very good, we can start to check these web dir:
 
 /hidden/
 
-<figure><img src="../.gitbook/assets/image (5) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (85).png" alt=""><figcaption></figcaption></figure>
 
 Very good, there're precious info about usernames: C0ldd, Hugo and Philip.
 
 We can confirm it watching error message at login in a default login path for wordpress: /wp-admin/
 
-<figure><img src="../.gitbook/assets/image (6) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (86).png" alt=""><figcaption></figcaption></figure>
 
 Finally the's another good info
 
-<figure><img src="../.gitbook/assets/image (7) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (87).png" alt=""><figcaption></figcaption></figure>
 
 If we don't waste time, we can use wpscan to find user list, but we'll take it if we take results with our three users, then try to login with C0ldd/Hugo/Philip:password123 (what we've see in the hidden path).
 
@@ -128,7 +128,7 @@ echo "C0ldd\nHugo\nPhilip" > users.txt
 hydra -L users.txt -P /usr/share/wordlists/rockyou.txt coldbox.thm -V http-form-post '/wp-login.php:log=^USER^&pwd=^PASS^&wp-submit=Log In&testcookie=1:S=Location'
 ```
 
-<figure><img src="../.gitbook/assets/image (61).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (155).png" alt=""><figcaption></figcaption></figure>
 
 {% hint style="info" %}
 C0ldd:9876543210
@@ -136,51 +136,51 @@ C0ldd:9876543210
 
 Now we can use this credentials to log in wordpress and ssh.
 
-<figure><img src="../.gitbook/assets/image (62).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (156).png" alt=""><figcaption></figcaption></figure>
 
 Check user list, to see them and theirs role/permissions:
 
-<figure><img src="../.gitbook/assets/image (63).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (157).png" alt=""><figcaption></figcaption></figure>
 
 Very good, C0ldd is administrator.
 
 Now, we need to access at machine using web shell, find it on our kali web-shells folder or use pentester monkey website:
 
-<figure><img src="../.gitbook/assets/image (67).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (161).png" alt=""><figcaption></figcaption></figure>
 
 We need to edit it using our credentials (LHOST and LPORT):
 
 <div align="left">
 
-<figure><img src="../.gitbook/assets/image (68).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (162).png" alt=""><figcaption></figcaption></figure>
 
 </div>
 
 and upload it on media library page:
 
-<figure><img src="../.gitbook/assets/image (64).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (158).png" alt=""><figcaption></figcaption></figure>
 
 But, trying to change extension, upload doesn't work.
 
-<figure><img src="../.gitbook/assets/image (66).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (160).png" alt=""><figcaption></figcaption></figure>
 
 Then, we can try to use wordpress themes or plugins how vector to inject our web-shell.
 
 Starting with themes, we edit header.php page in the twentyfifteen theme using the same php web-shell:
 
-<figure><img src="../.gitbook/assets/image (69).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (163).png" alt=""><figcaption></figcaption></figure>
 
 Update file, run netcat listener on the same port '1234':
 
 <div align="left">
 
-<figure><img src="../.gitbook/assets/image (70).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (164).png" alt=""><figcaption></figcaption></figure>
 
 </div>
 
 Go to: [http://coldbox.thm/wp-content/themes/twentyfifteen/header.php](http://coldbox.thm/wp-content/themes/twentyfifteen/header.php)
 
-<figure><img src="../.gitbook/assets/image (71).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (165).png" alt=""><figcaption></figcaption></figure>
 
 We can upgrade this to a fully interactive shell by running:
 
@@ -213,7 +213,7 @@ RmVsaWNpZGFkZXMsIHByaW1lciBuaXZlbCBjb25zZWd1aWRvIQ==
 
 We can do sudo -l command to discover user's permissions.
 
-<figure><img src="../.gitbook/assets/image (72).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (166).png" alt=""><figcaption></figcaption></figure>
 
 We see that c0ldd user has root permissions for these commands, we can use gtfobins to find them.
 
@@ -223,13 +223,13 @@ We see that c0ldd user has root permissions for these commands, we can use gtfob
 sudo vim -c ':!/bin/sh'
 ```
 
-<figure><img src="../.gitbook/assets/image (73).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (167).png" alt=""><figcaption></figcaption></figure>
 
 spawn /bin/sh to use shell:
 
 <div align="left">
 
-<figure><img src="../.gitbook/assets/image (75).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (169).png" alt=""><figcaption></figcaption></figure>
 
 </div>
 
