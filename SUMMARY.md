@@ -1,6 +1,6 @@
 # Table of contents
 
-* [🚩 Capture The Flag Writeups (CTF)](README.md)
+* [✍️ Writeups and Walkthroughs](README.md)
 * [THM](thm/README.md)
   * [Simple CTF](thm/simple-ctf.md)
   * [RootMe](thm/rootme.md)

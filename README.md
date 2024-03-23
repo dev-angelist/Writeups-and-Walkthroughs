@@ -1,10 +1,14 @@
-# 🚩 Capture The Flag Writeups (CTF)
+# ✍️ Writeups and Walkthroughs
+
+## Writeups CTFs
 
 <div align="left" data-full-width="true">
 
 <figure><img src=".gitbook/assets/spaces_EhofjMfYbx3gOUSReXD7_uploads_git-blob-d6717517efcd6cf2abc36234ddf89ae069267bc7_image-20230205151515316 (1).webp" alt=""><figcaption><p>tryhackme.com - © TryHackMe</p></figcaption></figure>
 
 </div>
+
+### THM
 
 * [RootMe](thm/rootme.md)
 * [Simple CTF](thm/simple-ctf.md)
@@ -38,6 +42,8 @@
 
 </div>
 
+### HTB
+
 * [Devel](hackthebox/devel.md)
 * Bank
 * Delivery
@@ -45,11 +51,27 @@
 
 ***
 
+### VulnHub
+
+<div align="left">
+
+<figure><img src=".gitbook/assets/image (226).png" alt="" width="330"><figcaption><p><a href="https://www.vulnhub.com/">https://www.vulnhub.com/</a></p></figcaption></figure>
+
+</div>
+
+* [Brainpain (BoF)](vulnhub/brainpain-bof.md)
+
+***
+
+## Walkthroughs
+
 <div align="left">
 
 <figure><img src=".gitbook/assets/dvwa-logo-500x500.png" alt="" width="250"><figcaption><p><a href="https://github.com/digininja/DVWA">https://github.com/digininja/DVWA</a></p></figcaption></figure>
 
 </div>
+
+### DVWA
 
 * [Install and configure DVWA](dvwa/install-and-configure-dvwa.md)
 * [Brute Force](dvwa/brute-force.md)
@@ -59,13 +81,3 @@
 * [File Upload](dvwa/file-upload.md)
 * [Insecure CAPTCHA](dvwa/insecure-captcha.md)
 * [SQL Injection (SQLi)](dvwa/sql-injection.md)
-
-***
-
-<div align="left">
-
-<figure><img src=".gitbook/assets/image (226).png" alt="" width="330"><figcaption><p><a href="https://www.vulnhub.com/">https://www.vulnhub.com/</a></p></figcaption></figure>
-
-</div>
-
-* [Brainpain (BoF)](vulnhub/brainpain-bof.md)
