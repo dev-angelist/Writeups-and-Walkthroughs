@@ -44,4 +44,5 @@
   * [SQLi Blind --](dvwa/sqli-blind.md)
 * [Vulnhub](vulnhub/README.md)
   * [Brainpain (BoF)](vulnhub/brainpain-bof.md)
-* [DockerLabs](dockerlabs.md)
+* [DockerLabs](dockerlabs/README.md)
+  * [Trust](https://app.gitbook.com/o/s2H3MdEB0Qp2IbE58Gxw/s/diyQjrUYAkisEOTvR1he/trust)
