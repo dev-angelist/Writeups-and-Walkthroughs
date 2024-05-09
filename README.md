@@ -71,8 +71,8 @@
 
 </div>
 
-* [Trust](https://dev-angelist.gitbook.io/dockerlabs.es-ctf/)
-* Upload
+* [Trust](dockerlabs/trust.md)
+* [Upload](dockerlabs/upload.md)
 
 ***
 

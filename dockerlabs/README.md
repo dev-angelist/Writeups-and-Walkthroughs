@@ -9,4 +9,4 @@
 </div>
 
 * [Trust](trust.md)
-* Upload
+* [Upload](upload.md)
