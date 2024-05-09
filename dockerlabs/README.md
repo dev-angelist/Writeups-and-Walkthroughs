@@ -8,5 +8,5 @@
 
 </div>
 
-* [Trust](https://app.gitbook.com/s/diyQjrUYAkisEOTvR1he/trust)
+* [Trust](trust.md)
 * Upload
