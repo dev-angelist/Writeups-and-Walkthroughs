@@ -138,7 +138,7 @@ gobuster dir -u http://trust -w /usr/share/dirbuster/wordlists/directory-list-2.
 We only find a useless 403 status code, so we try inserting web extensions (html, xml and php) with the -x flag:
 
 ```
-gobuster dir -u http://trust -w /usr/share/dirbuster/wordlists/directory-list-2.3-medium.txt -x html,xml,php)
+gobuster dir -u http://trust -w /usr/share/dirbuster/wordlists/directory-list-2.3-medium.txt -x html,xml,php
 ```
 
 <figure><img src="../.gitbook/assets/image (243).png" alt=""><figcaption></figcaption></figure>
