@@ -27,6 +27,7 @@
   * [Smag Grotto](thm/smag-grotto.md)
   * [Ice](thm/ice.md)
   * [Blaster](thm/blaster.md)
+  * [Active Directory Basics](thm/active-directory-basics.md)
 * [HackTheBox](hackthebox/README.md)
   * [Bank](hackthebox/bank.md)
   * [Active](hackthebox/active.md)

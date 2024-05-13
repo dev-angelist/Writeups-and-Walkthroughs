@@ -33,6 +33,7 @@
 * Retro
 * [Ice](thm/ice.md)
 * Chill Hack
+* [Active Directory Basics](thm/active-directory-basics.md)
 
 ***
 

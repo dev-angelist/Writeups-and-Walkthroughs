@@ -205,7 +205,7 @@ SF:\x20\x20\x20\x20\x20\x20\x20\x20\x20>>\x20");
 
 We see that on port 1000 there's a web server, than we can try to open it on a browser.
 
-<figure><img src="../.gitbook/assets/image (7).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (7) (1).png" alt=""><figcaption></figcaption></figure>
 
 and this is relative page source code:
 
@@ -444,7 +444,7 @@ First to execute it, we need to listening it on the same port of shellcode IP an
 
 <div align="left">
 
-<figure><img src="../.gitbook/assets/image (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 </div>
 
@@ -456,7 +456,7 @@ python3 shellcode.py 192.168.56.8
 
 Connection was established on port 5555, and we've obtained a reverse shell
 
-<figure><img src="../.gitbook/assets/image (3).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (3) (1).png" alt=""><figcaption></figcaption></figure>
 
 ## Task 4 - Privilege Escalation
 
@@ -483,7 +483,7 @@ sudo -u root /home/anansi/bin/anansi_util
 
 <div align="left">
 
-<figure><img src="../.gitbook/assets/image (4).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (4) (1).png" alt=""><figcaption></figcaption></figure>
 
 </div>
 
@@ -495,7 +495,7 @@ sudo -u root /home/anansi/bin/anansi_util manual ls
 
 <div align="left">
 
-<figure><img src="../.gitbook/assets/image (5).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (5) (1).png" alt=""><figcaption></figcaption></figure>
 
 </div>
 
@@ -503,6 +503,6 @@ save it, and we'll obtain root permissions!
 
 <div align="left">
 
-<figure><img src="../.gitbook/assets/image (6).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (6) (1).png" alt=""><figcaption></figcaption></figure>
 
 </div>
