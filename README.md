@@ -46,9 +46,10 @@
 ### HTB
 
 * [Devel](hackthebox/devel.md)
-* Bank
-* Delivery
-* Active
+* [Bank](hackthebox/bank.md)
+* [Delivery](hackthebox/delivery.md)
+* [Active](hackthebox/active.md)
+* [Analytics](hackthebox/analytics.md)
 
 ***
 

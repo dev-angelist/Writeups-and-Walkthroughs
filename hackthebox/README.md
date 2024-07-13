@@ -7,6 +7,7 @@
 </div>
 
 * [Devel](devel.md)
-* Bank
-* Delivery
-* Active
+* [Bank](bank.md)
+* [Delivery](delivery.md)
+* [Active](active.md)
+* [Analytics](analytics.md)
