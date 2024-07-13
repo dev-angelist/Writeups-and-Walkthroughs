@@ -50,6 +50,8 @@
 * [Delivery](hackthebox/delivery.md)
 * [Active](hackthebox/active.md)
 * [Analytics](hackthebox/analytics.md)
+* [Bashed](hackthebox/bashed.md)
+* [Valentine](hackthebox/valentine.md)
 
 ***
 

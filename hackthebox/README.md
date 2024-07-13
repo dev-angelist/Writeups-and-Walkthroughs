@@ -11,3 +11,5 @@
 * [Delivery](delivery.md)
 * [Active](active.md)
 * [Analytics](analytics.md)
+* [Bashed](bashed.md)
+* [Valentine](valentine.md)
