@@ -10,7 +10,7 @@
 
 ### Task 1 - Deploy the machine
 
-🎯 Target IP: `10.xxxxxx`
+🎯 Target IP: `10.129.236.215`
 
 Create a directory on the Desktop with the machine's name, and inside this directory, create another directory to store the materials and outputs needed to run the machine, including the scans made with nmap.
 

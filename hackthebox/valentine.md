@@ -1,23 +1,17 @@
 # Valentine
 
-<div align="left">
-
-<figure><img src="../.gitbook/assets/image (2).png" alt="" width="75"><figcaption><p>hackthebox.com - © HACKTHEBOX</p></figcaption></figure>
-
-</div>
-
 🔗 [Valentine](https://www.hackthebox.com/machines/Valentine)
 
 ### Task 1 - Deploy the machine
 
-🎯 Target IP: `10.xxxxxx`
+🎯 Target IP: `10.129.236.216`
 
 Create a directory on the Desktop with the machine's name, and inside this directory, create another directory to store the materials and outputs needed to run the machine, including the scans made with nmap.
 
 ### Task 2 - Reconnaissance
 
 <pre class="language-bash"><code class="lang-bash">su
-<strong>echo "1xxxxxxxxxxxxxxxxxxx valentine.htb" >> /etc/hosts
+<strong>echo "10.129.236.216 valentine.htb" >> /etc/hosts
 </strong>
 mkdir -p htb/valentine.htb
 cd htb/valentine.htb
@@ -31,116 +25,224 @@ I prefer to start recon by pinging the target, this allows us to check connectiv
 
 ```bash
 ping -c 3 valentine.htb
-
-
-
+PING valentine.htb (10.129.236.216) 56(84) bytes of data.
+64 bytes from valentine.htb (10.129.236.216): icmp_seq=1 ttl=63 time=61.0 ms
+64 bytes from valentine.htb (10.129.236.216): icmp_seq=2 ttl=63 time=59.5 ms
+64 bytes from valentine.htb (10.129.236.216): icmp_seq=3 ttl=63 time=60.0 ms
 ```
 
 Sending these three ICMP packets, we see that the Time To Live (TTL) is \~64 secs. this indicates that the target should be a \*nix system, while Windows systems usually have a TTL of 128 secs.
 
-### 2.1 - xxx?
+### 2.1 - How many TCP ports are open on the remote host?
 
 ```bash
 nmap -p0- -sS -Pn -vvv valentine.htb -oN nmap/tcp_port_scan
 ```
 
 ```bash
-PORT   STATE SERVICE
-22/tcp open  ssh
-80/tcp open  http
+PORT    STATE SERVICE REASON
+22/tcp  open  ssh     syn-ack ttl 63
+80/tcp  open  http    syn-ack ttl 63
+443/tcp open  https   syn-ack ttl 63
 ```
 
 <table><thead><tr><th width="154.99999999999997">command</th><th>result</th></tr></thead><tbody><tr><td>sS</td><td>SynScan</td></tr><tr><td>sC</td><td>run default scripts</td></tr><tr><td>sV</td><td>enumerate versions</td></tr><tr><td>A</td><td>aggressive mode</td></tr><tr><td>T4</td><td>run a bit faster</td></tr><tr><td>oN</td><td>output to file with nmap formatting</td></tr></tbody></table>
 
-It looks like there are 2 open TCP ports on the machine: 22, 80.
+It looks like there are 3 open TCP ports on the machine: 22, 80, 443.
 
 {% hint style="info" %}
-2
+3
 {% endhint %}
 
-### 2.2 - xxx?
+### 2.2 - Which flag is used with nmap to execute its vulnerability discovery scripts (with the category "vuln") on the target??
 
 Now, we take more precise scan utilizing -sCV flags to retrieve versioning services and test common scripts.
 
 ```bash
-nmap -p22,80 -sS -Pn -n -v -sCV -T4 valentine.htb -oG nmap/port_scan
+nmap -p22,80,443 -sS -Pn -n -v -sCV --script vuln -T4 valentine.htb -oN nmap/port_scan
 ```
 
 ```
-PORT   STATE SERVICE    VERSION
-22/tcp open  ssh        OpenSSH 8.9p1 Ubuntu 3ubuntu0.4 (Ubuntu Linux; protocol 2.0
+PORT    STATE    SERVICE   VERSION
+22/tcp  filtered ssh
+80/tcp  open     http      Apache httpd 2.2.22 ((Ubuntu))
+|_http-server-header: Apache/2.2.22 (Ubuntu)
+| http-methods: 
+|_  Supported Methods: GET HEAD POST OPTIONS
+|_http-title: Site doesn't have a title (text/html).
+443/tcp open     ssl/https Apache/2.2.22 (Ubuntu)
+| http-methods: 
+|_  Supported Methods: GET HEAD POST OPTIONS
+|_http-server-header: Apache/2.2.22 (Ubuntu)
+|_http-title: Site doesn't have a title (text/html).
+| ssl-cert: Subject: commonName=valentine.htb/organizationName=valentine.htb/stateOrProvinceName=FL/countryName=US
+| Issuer: commonName=valentine.htb/organizationName=valentine.htb/stateOrProvinceName=FL/countryName=US
+| Public Key type: rsa
+| Public Key bits: 2048
+| Signature Algorithm: sha1WithRSAEncryption
+| Not valid before: 2018-02-06T00:45:25
+| Not valid after:  2019-02-06T00:45:25
+| MD5:   a413:c4f0:b145:2154:fb54:b2de:c7a9:809d
+|_SHA-1: 2303:80da:60e7:bde7:2ba6:76dd:5214:3c3c:6f53:01b1
+|_ssl-date: 2024-07-14T09:44:55+00:00; 0s from scanner time.
 ```
 
-Since we lack credentials for SSH login, we will begin by examining port 80.
+Since we lack credentials for SSH login, we will begin by examining ports 80 and 443.
 
-#### Port 80
+#### Port 80 and 443
 
-Seeing http-title there's a new subdomain: http://analytical.htb/ and browsing on http port we notice there're being redirected (status code 302) to analytical.htb.
+Browsing it we don't find nothing of interesting, we can launch a whatweb and gobuster dir scan enumeration, same thing for each ports
 
-We can confirm it using a web proxy such as Burp Suite:
-
-<figure><img src="../.gitbook/assets/image (287).png" alt=""><figcaption></figcaption></figure>
-
-To resolve this, we add the domain to our /etc/hosts file
-
-<figure><img src="../.gitbook/assets/image (286).png" alt=""><figcaption></figcaption></figure>
-
-<figure><img src="../.gitbook/assets/image (288).png" alt=""><figcaption></figcaption></figure>
-
-The task is to retrieve a new subdomain configured to provide a different application on the target web server, we found it discovering source code of web page:
-
-<figure><img src="../.gitbook/assets/image (289).png" alt=""><figcaption></figcaption></figure>
-
-This URL refers to login page, and to resolve it we need to add it to /etc/hosts
-
-<figure><img src="../.gitbook/assets/image (290).png" alt=""><figcaption></figcaption></figure>
-
-{% hint style="info" %}
-data.analytical.htb
-{% endhint %}
-
-### 2.3 - What application is running on data.analytical.htb?
-
-By running WhatWeb or simply viewing the page, we discover that there is a Metabase web application.
+<figure><img src="../.gitbook/assets/image (314).png" alt=""><figcaption></figcaption></figure>
 
 ```bash
-whatweb http://data.analytical.htb/
-http://data.analytical.htb/ [200 OK] Cookies[metabase.DEVICE], Country[RESERVED][ZZ], HTML5, HTTPServer[Ubuntu Linux][nginx/1.18.0 (Ubuntu)], HttpOnly[metabase.DEVICE], IP[10.129.229.224], Script[application/json], Strict-Transport-Security[max-age=31536000], Title[Metabase], UncommonHeaders[x-permitted-cross-domain-policies,x-content-type-options,content-security-policy], X-Frame-Options[DENY], X-UA-Compatible[IE=edge], X-XSS-Protection[1; mode=block], nginx[1.18.0]
+whatweb valentine.htb
+http://valentine.htb [200 OK] Apache[2.2.22], Country[RESERVED][ZZ], HTTPServer[Ubuntu Linux][Apache/2.2.22 (Ubuntu)], IP[10.129.236.216], PHP[5.3.10-1ubuntu3.26], X-Powered-By[PHP/5.3.10-1ubuntu3.26]
 ```
 
-<figure><img src="../.gitbook/assets/image (291).png" alt=""><figcaption></figcaption></figure>
+```bash
+gobuster dir -u http://valentine.htb -w /usr/share/wordlists/dirb/common.txt
+```
+
+<div align="left">
+
+<figure><img src="../.gitbook/assets/image (316).png" alt=""><figcaption></figcaption></figure>
+
+</div>
+
+We discover interested directories, I'll explore them later.
+
+In this case, the question doesn't concern the machine, but is a generic question regarding nmap's parameters.
 
 {% hint style="info" %}
-Metabase
+\--script vuln
 {% endhint %}
 
-### 2.4 -  What version of Metabase is the target running?
+### 2.3 - What is the 2014 CVE ID for an information disclosure vulnerability that the service on port 443 is vulnerable to?
 
-Using WhatWeb and an nmap scan, we were able to discover the Metabase version. However, it is simpler to retrieve this information by viewing the source code of the web page.
+These and the previous questions hint at using the `--script vuln` flag for port 443. By googling, we can identify potential vulnerabilities. We then try to find a vulnerability related to the machine's theme (Valentine) and the image on the index page.
 
-<figure><img src="../.gitbook/assets/image (292).png" alt=""><figcaption></figcaption></figure>
+There's a dedicated nmap script to test following Heartbleed vulnerability:
+
+```bash
+nmap -p443 -Pn --script ssl-heartbleed -T4 valentine.htb -oN nmap/vuln
+```
+
+```bash
+PORT    STATE SERVICE
+443/tcp open  https
+| ssl-heartbleed: 
+|   VULNERABLE:
+|   The Heartbleed Bug is a serious vulnerability in the popular OpenSSL cryptographic software library. It allows for stealing information intended to be protected by SSL/TLS encryption.
+|     State: VULNERABLE
+|     Risk factor: High
+|       OpenSSL versions 1.0.1 and 1.0.2-beta releases (including 1.0.1f and 1.0.2-beta1) of OpenSSL are affected by the Heartbleed bug. The bug allows for reading memory of systems protected by the vulnerable OpenSSL versions and could allow for disclosure of otherwise encrypted confidential information as well as the encryption keys themselves.
+|           
+|     References:
+|       https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2014-0160
+|       http://www.openssl.org/news/secadv_20140407.txt 
+|_      http://cvedetails.com/cve/2014-0160/
+```
+
+{% embed url="https://heartbleed.com/" %}
+
+{% embed url="https://nvd.nist.gov/vuln/detail/cve-2014-0160" %}
 
 {% hint style="info" %}
-v0.46.6
+CVE-2014-0160
 {% endhint %}
 
+### 2.4 -  What password can be leaked using (CVE-2014-0160)?
 
+This github repo contains PoC and relative exploit for this vulnerability:
 
-### 2.5 - What is the 2023 CVE ID assigned to the pre-authentication, remote code execution vulnerability in this version of Metabase?
+{% embed url="https://github.com/sensepost/heartbleed-poc" %}
 
-Googling it, we found CVE ID relative to Metabase v0.46.6
+Using the above exploit, it is fairly straightforward to obtain some sensitive information from memory. Running it several times should yield a base64-encoded string.
 
-{% embed url="https://nvd.nist.gov/vuln/detail/CVE-2023-38646" %}
+In this case, we decide to exploit it using metasploit module dedicated for this vulnerability:
+
+<div align="left">
+
+<figure><img src="../.gitbook/assets/image (320).png" alt=""><figcaption></figcaption></figure>
+
+</div>
+
+We use `spool memory_leak.txt` command to save it locally, and run it more times to see various memory output.
+
+<figure><img src="../.gitbook/assets/image (321).png" alt=""><figcaption></figcaption></figure>
+
+Doing it we found this interesting string, in details:&#x20;
+
+```
+$text=aGVhcnRibGVlZGJlbGlldmV0aGVoeXBlCg==
+```
+
+that is a base64 string.
+
+<figure><img src="../.gitbook/assets/image (322).png" alt=""><figcaption></figcaption></figure>
 
 {% hint style="info" %}
-CVE-2023-38646
+heartbleedbelievethehype
 {% endhint %}
+
+### 2.5 - What is the relative path of a folder on the website that contains two interesting files, including note.txt?
+
+
+
+
+
+Going to 'hidden' web dir discovered using gobuster: /dev we can see that there're two interesting files:
+
+notes.txt
+
+<figure><img src="../.gitbook/assets/image (317).png" alt=""><figcaption></figcaption></figure>
+
+
+
+
+
+
+
+hype\_key
+
+<figure><img src="../.gitbook/assets/image (319).png" alt=""><figcaption></figcaption></figure>
+
+
+
+
+
+
+
+
+
+Decoding the base64 reveals the passphrase for `hype_key`, which can be used to connect via SSH as the `hype` user.
+
+
+
+
+
+
+
+
+
+
+
+
 
 {% hint style="info" %}
-metabase
+/dev
 {% endhint %}
 
-### 2.9 -  Which environment variable contains the password for the metalytics user?
+### 2.6 -  What is the filename of the RSA key found on the website?
+
+
+
+
+
+
+
+
 
 This questions take us an important hint to understand what we can do.
 
@@ -149,12 +251,12 @@ Infact, using command export, that show us environment variable we found credent
 <figure><img src="../.gitbook/assets/image (296).png" alt=""><figcaption></figcaption></figure>
 
 {% hint style="info" %}
-META\_PASS
+hype\_key
 {% endhint %}
 
 ### Task 3 - Find user flag
 
-### 3.1 - Submit the flag located in the metalytics user's home directory.
+### 3.1 - Submit the flag located in the hype user's home directory.
 
 Upon checking with `sudo -l`, we found that we do not have permissions. However, considering we have discovered another open port 22 (SSH), we can attempt to use the credentials we just found to log in.
 
