@@ -93,7 +93,7 @@ Since we lack credentials for SSH login, we will begin by examining ports 80 and
 
 Browsing it we don't find nothing of interesting, we can launch a whatweb and gobuster dir scan enumeration, same thing for each ports
 
-<figure><img src="../.gitbook/assets/image (314).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (328).png" alt=""><figcaption></figcaption></figure>
 
 ```bash
 whatweb valentine.htb
@@ -106,7 +106,7 @@ gobuster dir -u http://valentine.htb -w /usr/share/wordlists/dirb/common.txt
 
 <div align="left">
 
-<figure><img src="../.gitbook/assets/image (316).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (330).png" alt=""><figcaption></figcaption></figure>
 
 </div>
 
@@ -164,13 +164,13 @@ In this case, we decide to exploit it using metasploit module dedicated for this
 
 <div align="left">
 
-<figure><img src="../.gitbook/assets/image (320).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (334).png" alt=""><figcaption></figcaption></figure>
 
 </div>
 
 We use `spool memory_leak.txt` command to save it locally, and run it more times to see various memory output.
 
-<figure><img src="../.gitbook/assets/image (321).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (335).png" alt=""><figcaption></figcaption></figure>
 
 Doing it we found this interesting string, in details:&#x20;
 
@@ -180,7 +180,7 @@ $text=aGVhcnRibGVlZGJlbGlldmV0aGVoeXBlCg==
 
 that is a base64 string.
 
-<figure><img src="../.gitbook/assets/image (322).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (336).png" alt=""><figcaption></figcaption></figure>
 
 {% hint style="info" %}
 heartbleedbelievethehype
@@ -190,15 +190,15 @@ heartbleedbelievethehype
 
 Going to 'hidden' web dir discovered using gobuster: /dev we can see that there're two interesting files:
 
-<figure><img src="../.gitbook/assets/image (323).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (337).png" alt=""><figcaption></figcaption></figure>
 
 notes.txt
 
-<figure><img src="../.gitbook/assets/image (317).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (331).png" alt=""><figcaption></figcaption></figure>
 
 hype\_key
 
-<figure><img src="../.gitbook/assets/image (319).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (333).png" alt=""><figcaption></figcaption></figure>
 
 {% hint style="info" %}
 /dev
@@ -210,7 +210,7 @@ hype\_key
 
 hype\_key
 
-<figure><img src="../.gitbook/assets/image (319).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (333).png" alt=""><figcaption></figcaption></figure>
 
 {% hint style="info" %}
 hype\_key
@@ -222,13 +222,13 @@ hype\_key
 
 We can convert hype\_key (hex) to ASCII
 
-<figure><img src="../.gitbook/assets/image (324).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (338).png" alt=""><figcaption></figcaption></figure>
 
 and we obtain an encrypted RSA private key (maybe as id\_rsa to SSH access), saved into id\_rsa\_psw.
 
 <div align="left">
 
-<figure><img src="../.gitbook/assets/image (325).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (339).png" alt=""><figcaption></figcaption></figure>
 
 </div>
 
@@ -238,7 +238,7 @@ We just know an hypotetic password: heartbleedbelievethehype then we can try dec
 
 <div align="left">
 
-<figure><img src="../.gitbook/assets/image (326).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (340).png" alt=""><figcaption></figcaption></figure>
 
 </div>
 

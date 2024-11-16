@@ -22,13 +22,13 @@ Using BurpSuite and the FoxyProxy extension is recommended.
 
 We've an input type text that received an User ID in I by user and submit request using the Submit button:
 
-<figure><img src="../.gitbook/assets/image (206).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (220).png" alt=""><figcaption></figcaption></figure>
 
-<figure><img src="../.gitbook/assets/image (207).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (221).png" alt=""><figcaption></figcaption></figure>
 
 This's our request captured by Burp Suite, while here below there's a php source code:
 
-<figure><img src="../.gitbook/assets/image (208).png" alt=""><figcaption><p>localhost/DVWA/vulnerabilities/view_source.php?id=sqli&#x26;security=low</p></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (222).png" alt=""><figcaption><p>localhost/DVWA/vulnerabilities/view_source.php?id=sqli&#x26;security=low</p></figcaption></figure>
 
 How the same in the low level, there're not input sanitation, then we can send what we want into input type text field. In this case request will arrive to DB located into webserver, but query will be preparared using php language.
 
@@ -54,7 +54,7 @@ This permit us to see all DB results:
 
 <div align="left">
 
-<figure><img src="../.gitbook/assets/image (209).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (223).png" alt=""><figcaption></figcaption></figure>
 
 </div>
 
@@ -68,7 +68,7 @@ SELECT first_name, last_name FROM users WHERE user_id = '' UNION SELECT first_na
 
 <div align="left">
 
-<figure><img src="../.gitbook/assets/image (211).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (225).png" alt=""><figcaption></figcaption></figure>
 
 </div>
 
@@ -86,21 +86,21 @@ Here, there're a select with range (1 to 5) to set User ID.
 
 <div align="left">
 
-<figure><img src="../.gitbook/assets/image (212).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (226).png" alt=""><figcaption></figcaption></figure>
 
 </div>
 
 In addition to low level, in the code below there're an escape string control and query variable $ID isn't enclosed by ''.
 
-<figure><img src="../.gitbook/assets/image (213).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (227).png" alt=""><figcaption></figcaption></figure>
 
 Our request include an ID + Submit values.
 
-<figure><img src="../.gitbook/assets/image (216).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (230).png" alt=""><figcaption></figcaption></figure>
 
 But, we can modify ID value using Burp Suite repeater function:
 
-<figure><img src="../.gitbook/assets/image (217).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (231).png" alt=""><figcaption></figcaption></figure>
 
 #### 1st Payload
 
@@ -114,7 +114,7 @@ SELECT first_name, last_name FROM users WHERE user_id = 1 OR 1=1 -- ;
 
 in the where condition there're a first search to user with this id '' OR a true condition, plus a comment.
 
-<figure><img src="../.gitbook/assets/image (218).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (232).png" alt=""><figcaption></figcaption></figure>
 
 #### 2nd Payload
 
@@ -124,7 +124,7 @@ How the low level, regarding that query selects: first\_name, last\_name field f
 SELECT first_name, last_name FROM users WHERE user_id = 1 UNION SELECT first_name,password FROM users -- ';
 ```
 
-<figure><img src="../.gitbook/assets/image (219).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (233).png" alt=""><figcaption></figcaption></figure>
 
 We obtain hash of psw to eventually crack using tools such as: [Hashcat](https://app.gitbook.com/s/iS3hadq7jVFgSa8k5wRA/practical-ethical-hacker-notes/tools/hashcat) and [John The Ripper](https://app.gitbook.com/s/iS3hadq7jVFgSa8k5wRA/practical-ethical-hacker-notes/tools/john-the-ripper).
 
@@ -138,13 +138,13 @@ The input is not sanitized, so I can execute any (potentially malicious) command
 
 In this level clicking on first page, we obtain a redirect to a second page to submit effectively our Session ID:
 
-<figure><img src="../.gitbook/assets/image (214).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (228).png" alt=""><figcaption></figcaption></figure>
 
-<figure><img src="../.gitbook/assets/image (215).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (229).png" alt=""><figcaption></figcaption></figure>
 
 <div align="left">
 
-<figure><img src="../.gitbook/assets/image (220).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (234).png" alt=""><figcaption></figcaption></figure>
 
 </div>
 
@@ -160,7 +160,7 @@ SELECT first_name, last_name FROM users WHERE user_id = '1' OR 1=1 -- ';
 
 that permit us to see all DB results:
 
-<figure><img src="../.gitbook/assets/image (25).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (39).png" alt=""><figcaption></figcaption></figure>
 
 #### 2nd Payload
 
@@ -172,7 +172,7 @@ SELECT first_name, last_name FROM users WHERE user_id = '' UNION SELECT first_na
 
 <div align="left">
 
-<figure><img src="../.gitbook/assets/image (26).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (40).png" alt=""><figcaption></figcaption></figure>
 
 </div>
 
@@ -186,7 +186,7 @@ The input is not sanitized, so I can execute any (potentially malicious) command
 
 ## Impossible
 
-<figure><img src="../.gitbook/assets/image (221).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (235).png" alt=""><figcaption></figcaption></figure>
 
 The best solution is to sanitize query using a prepared statement, to delineate part static and dinamic (id) of query; take a binding parameter to check if is it an integer or char; insert a control to count rows number as result; and use a [CSRF](csrf.md) token.
 

@@ -36,6 +36,8 @@
   * [Analytics](hackthebox/analytics.md)
   * [Bashed](hackthebox/bashed.md)
   * [Valentine](hackthebox/valentine.md)
+  * [Sau](hackthebox/sau.md)
+  * [Sunday](hackthebox/sunday.md)
 * [DVWA](dvwa/README.md)
   * [Install and configure DVWA](dvwa/install-and-configure-dvwa.md)
   * [Brute Force -](dvwa/brute-force.md)

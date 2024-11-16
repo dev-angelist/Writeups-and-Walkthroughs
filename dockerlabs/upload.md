@@ -103,15 +103,15 @@ Focusing on port 80 we have a web server so by running the whatweb command we ex
 whatweb http://upload
 ```
 
-<figure><img src="../.gitbook/assets/image (251).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (265).png" alt=""><figcaption></figcaption></figure>
 
-<figure><img src="../.gitbook/assets/image (252).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (266).png" alt=""><figcaption></figcaption></figure>
 
 Let's display the default Apache page, try analysing the source page with CTRL+U
 
 <div align="left">
 
-<figure><img src="../.gitbook/assets/image (265).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (279).png" alt=""><figcaption></figcaption></figure>
 
 </div>
 
@@ -125,11 +125,11 @@ Now, we try to find potential hidden directory using gobuster:
 gobuster dir -u http://upload -w /usr/share/dirbuster/wordlists/directory-list-2.3-medium.txt
 ```
 
-<figure><img src="../.gitbook/assets/image (254).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (268).png" alt=""><figcaption></figcaption></figure>
 
 We find a 301 status code (redirect), that contains file uploaded using form of index page.
 
-<figure><img src="../.gitbook/assets/image (256).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (270).png" alt=""><figcaption></figcaption></figure>
 
 ### 2.3 Upload shell
 
@@ -145,46 +145,46 @@ code php-reverse-shell.php
 
 <div align="left">
 
-<figure><img src="../.gitbook/assets/image (260).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (274).png" alt=""><figcaption></figcaption></figure>
 
 </div>
 
 <div align="left">
 
-<figure><img src="../.gitbook/assets/image (261).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (275).png" alt=""><figcaption></figcaption></figure>
 
 </div>
 
 Well, now we have the exploit ready, we load it using the form in the index page
 
-<figure><img src="../.gitbook/assets/image (262).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (276).png" alt=""><figcaption></figcaption></figure>
 
 We listen with netcat on the set port '1234': `nc -nvlp 1234` and click on the php-reverse-shell.php file to establish a connection on our machine
 
 <div align="left">
 
-<figure><img src="../.gitbook/assets/image (263).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (277).png" alt=""><figcaption></figcaption></figure>
 
 </div>
 
-<figure><img src="../.gitbook/assets/image (264).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (278).png" alt=""><figcaption></figcaption></figure>
 
 ## Task 3 - Privilege Escalation
 
 Now that we are inside, since we are not root user we need to elevate our privileges, so let's check the current permissions using `sudo -l`
 
-<figure><img src="../.gitbook/assets/image (259).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (273).png" alt=""><figcaption></figcaption></figure>
 
 We see that mario user has root permissions for /usr/bin/env, then we can use [gtfobins](https://gtfobins.github.io/gtfobins/env/) to find it.
 
 {% embed url="https://gtfobins.github.io/gtfobins/env/" %}
 
-<figure><img src="../.gitbook/assets/image (257).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (271).png" alt=""><figcaption></figcaption></figure>
 
 using vim sudo command, we obtain a root permission `sudo env /bin/sh`
 
 <div align="left">
 
-<figure><img src="../.gitbook/assets/image (258).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (272).png" alt=""><figcaption></figcaption></figure>
 
 </div>

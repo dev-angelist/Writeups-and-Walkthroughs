@@ -27,7 +27,7 @@ Download machine from DockerLabs website and setup lab:
 
 <div align="left">
 
-<figure><img src="../.gitbook/assets/image (235).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (249).png" alt=""><figcaption></figcaption></figure>
 
 </div>
 
@@ -115,13 +115,13 @@ As always we begin our exploration from port 80, where we know there is a web se
 whatweb http://trust
 ```
 
-<figure><img src="../.gitbook/assets/image (250).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (264).png" alt=""><figcaption></figcaption></figure>
 
-<figure><img src="../.gitbook/assets/image (236).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (250).png" alt=""><figcaption></figcaption></figure>
 
 Let's display the default Apache page, try analysing the source page with CTRL+U
 
-<figure><img src="../.gitbook/assets/image (240).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (254).png" alt=""><figcaption></figcaption></figure>
 
 But we don't discover nothing of interisting.
 
@@ -133,7 +133,7 @@ Now, we try to find potential hidden directory using gobuster:
 gobuster dir -u http://trust -w /usr/share/dirbuster/wordlists/directory-list-2.3-medium.txt
 ```
 
-<figure><img src="../.gitbook/assets/image (242).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (256).png" alt=""><figcaption></figcaption></figure>
 
 We only find a useless 403 status code, so we try inserting web extensions (html, xml and php) with the -x flag:
 
@@ -141,11 +141,11 @@ We only find a useless 403 status code, so we try inserting web extensions (html
 gobuster dir -u http://trust -w /usr/share/dirbuster/wordlists/directory-list-2.3-medium.txt -x html,xml,php
 ```
 
-<figure><img src="../.gitbook/assets/image (243).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (257).png" alt=""><figcaption></figcaption></figure>
 
 and finally we obtain two status code 200, the index.html is the homepage (that we just know), therefore we go to the secret.php
 
-<figure><img src="../.gitbook/assets/image (244).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (258).png" alt=""><figcaption></figcaption></figure>
 
 We find as info a potential username, remembering that port 22 (SSH) is open, not knowing the password we could try a brute force attack with hydra
 
@@ -155,28 +155,28 @@ We find as info a potential username, remembering that port 22 (SSH) is open, no
 hydra -l mario -P /usr/share/wordlists/rockyou.txt trust ssh
 ```
 
-<figure><img src="../.gitbook/assets/image (245).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (259).png" alt=""><figcaption></figcaption></figure>
 
 Fantastic, we discovered the password, we use it to log in via SSH with the following command: `ssh mario@trust`
 
-<figure><img src="../.gitbook/assets/image (246).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (260).png" alt=""><figcaption></figcaption></figure>
 
 ## Task 3 - Privilege Escalation
 
 Now that we are inside, since we are not root user we need to elevate our privileges, so let's check the current permissions using `sudo -l`
 
-<figure><img src="../.gitbook/assets/image (247).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (261).png" alt=""><figcaption></figcaption></figure>
 
 We see that mario user has root permissions for /usr/bin/vim, then we can use [gtfobins](https://gtfobins.github.io/gtfobins/vim/) to find it.
 
 {% embed url="https://gtfobins.github.io/gtfobins/vim/" %}
 
-<figure><img src="../.gitbook/assets/image (248).png" alt=""><figcaption><p><a href="https://gtfobins.github.io/gtfobins/vim/">https://gtfobins.github.io/gtfobins/vim/</a></p></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (262).png" alt=""><figcaption><p><a href="https://gtfobins.github.io/gtfobins/vim/">https://gtfobins.github.io/gtfobins/vim/</a></p></figcaption></figure>
 
 using vim sudo command, we obtain a root permission `sudo vim -c ':!/bin/sh'`
 
 <div align="left">
 
-<figure><img src="../.gitbook/assets/image (249).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (263).png" alt=""><figcaption></figcaption></figure>
 
 </div>

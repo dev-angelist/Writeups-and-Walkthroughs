@@ -25,7 +25,7 @@ Download machine from DockerLabs website and setup lab:
 
 <div align="left">
 
-<figure><img src="../.gitbook/assets/image (266).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (280).png" alt=""><figcaption></figcaption></figure>
 
 </div>
 
@@ -107,29 +107,29 @@ As always we begin our exploration from port 80, where we know there is a web se
 whatweb http://vacaciones
 ```
 
-<figure><img src="../.gitbook/assets/image (272).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (286).png" alt=""><figcaption></figcaption></figure>
 
 The Apache version is older and vulnerable, we can verify it using searchsploit tool:
 
 <div align="left">
 
-<figure><img src="../.gitbook/assets/image (271).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (285).png" alt=""><figcaption></figcaption></figure>
 
 </div>
 
 <div align="left">
 
-<figure><img src="../.gitbook/assets/image (273).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (287).png" alt=""><figcaption></figcaption></figure>
 
 </div>
 
 Let's display the default Apache page, there's a blank page, try analysing the source page with CTRL+U
 
-<figure><img src="../.gitbook/assets/image (270).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (284).png" alt=""><figcaption></figcaption></figure>
 
 We discover this information disclosure regarding two hypotetic usernames: Juan and Camilo, we'll use them later to try brute force attack via ssh (22).
 
-<figure><img src="../.gitbook/assets/image (267).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (281).png" alt=""><figcaption></figcaption></figure>
 
 ### 2.2 Brute force hidden web directory
 
@@ -139,13 +139,13 @@ Continuing, we try to find potential hidden directory using gobuster:
 gobuster dir -u http://vacaciones -w /usr/share/dirbuster/wordlists/directory-list-2.3-medium.txt
 ```
 
-<figure><img src="../.gitbook/assets/image (268).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (282).png" alt=""><figcaption></figcaption></figure>
 
 We only find a web dir (/javascript), but going on it we haven't permission to access. &#x20;
 
 <div align="left">
 
-<figure><img src="../.gitbook/assets/image (269).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (283).png" alt=""><figcaption></figcaption></figure>
 
 </div>
 
@@ -161,7 +161,7 @@ hydra -L users.txt -P /usr/share/wordlists/rockyou.txt vacaciones ssh
 
 <div align="left">
 
-<figure><img src="../.gitbook/assets/image (274).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (288).png" alt=""><figcaption></figcaption></figure>
 
 </div>
 
@@ -169,7 +169,7 @@ Fantastic, we discovered the password, we use it to log in via SSH with the foll
 
 <div align="left">
 
-<figure><img src="../.gitbook/assets/image (276).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (290).png" alt=""><figcaption></figcaption></figure>
 
 </div>
 
@@ -179,7 +179,7 @@ Now that we are inside, since we are not root user we need to elevate our privil
 
 <div align="left">
 
-<figure><img src="../.gitbook/assets/image (277).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (291).png" alt=""><figcaption></figcaption></figure>
 
 </div>
 
@@ -187,7 +187,7 @@ Remember the information disclosure, we try to find email locally `find / -type 
 
 <div align="left">
 
-<figure><img src="../.gitbook/assets/image (278).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (292).png" alt=""><figcaption></figcaption></figure>
 
 </div>
 
@@ -195,17 +195,17 @@ and we retrieve the mail message that we are searching.
 
 <div align="left">
 
-<figure><img src="../.gitbook/assets/image (279).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (293).png" alt=""><figcaption></figcaption></figure>
 
 </div>
 
 We know that ther're three users, then we can try to log in with each
 
-&#x20;![](<../.gitbook/assets/image (282).png>)
+&#x20;![](<../.gitbook/assets/image (296).png>)
 
 <div align="left">
 
-<figure><img src="../.gitbook/assets/image (281).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (295).png" alt=""><figcaption></figcaption></figure>
 
 </div>
 
@@ -215,12 +215,12 @@ And user `sudo -l` we see that juan user has root permissions for /usr/bin/ruby,
 
 {% embed url="https://gtfobins.github.io/gtfobins/ruby/" %}
 
-<figure><img src="../.gitbook/assets/image (280).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (294).png" alt=""><figcaption></figcaption></figure>
 
 using ruby sudo command, we obtain a root permission `sudo ruby -e 'exec "/bin/sh"'`
 
 <div align="left">
 
-<figure><img src="../.gitbook/assets/image (283).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (297).png" alt=""><figcaption></figcaption></figure>
 
 </div>

@@ -28,7 +28,7 @@ To prevent CSRF attacks, web developers often use techniques such as anti-CSRF t
 Using BurpSuite and the FoxyProxy extension is recommended.
 {% endhint %}
 
-<figure><img src="../.gitbook/assets/image (44).png" alt=""><figcaption><p><a href="https://portswigger.net/web-security/csrf">https://portswigger.net/web-security/csrf</a></p></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (58).png" alt=""><figcaption><p><a href="https://portswigger.net/web-security/csrf">https://portswigger.net/web-security/csrf</a></p></figcaption></figure>
 
 {% embed url="https://owasp.org/www-community/attacks/csrf" %}
 [https://owasp.org/www-community/attacks/csrf](https://owasp.org/www-community/attacks/csrf)
@@ -42,13 +42,13 @@ Using BurpSuite and the FoxyProxy extension is recommended.
 
 We've a form with two input type text:
 
-<figure><img src="../.gitbook/assets/image (43).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (57).png" alt=""><figcaption></figcaption></figure>
 
 that ask us to change admin password entering new password and confirming it.
 
 As always we can start to analyze source code:
 
-<figure><img src="../.gitbook/assets/image (45).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (59).png" alt=""><figcaption></figcaption></figure>
 
 * There'is a condition to check if input value has been inserted
 * Check if the two passwords match
@@ -60,7 +60,7 @@ The input is not sanitized, so I can execute any (potentially malicious) command
 
 Considering that GET request to change psw is this
 
-<figure><img src="../.gitbook/assets/image (46).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (60).png" alt=""><figcaption></figcaption></figure>
 
 we can use and insert it in a URL to send at victim usually using social engineering techniques.
 
@@ -72,7 +72,7 @@ localhost/DVWA/vulnerabilities/csrf/?password_new=password1&password_conf=passwo
 
 using it, we can change password to a different password (password1) only opening payload URL via browser.
 
-<figure><img src="../.gitbook/assets/image (47).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (61).png" alt=""><figcaption></figcaption></figure>
 
 the same payload can be injected in a javascript code stored in another web page, but it can't work if the website used a **CORS** mechanism (Cross-origin resource sharing).
 
@@ -86,14 +86,14 @@ Cross-origin resource sharing is an HTTP-header based mechanism that allows a se
 
 ## Medium
 
-<figure><img src="../.gitbook/assets/image (185).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (199).png" alt=""><figcaption></figcaption></figure>
 
 * There's a classic control of input text submitted
 * Check if the HTTP\_REFERER request has the same name and origin of name server (request isn't sent by an external source)
 * Check the match between the new password and the confirmation password
 * In the end, there's generate feedback for the end user.
 
-<figure><img src="../.gitbook/assets/image (186).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (200).png" alt=""><figcaption></figcaption></figure>
 
 If the HTTP\_REFERER is the same of the server name: csrf in our case, there're not problem;
 
@@ -103,7 +103,7 @@ while, using the same payload of level low (that has a different origin), HTTP\_
 localhost/DVWA/vulnerabilities/csrf/?password_new=password1&password_conf=password1&Change=Change#
 ```
 
-<figure><img src="../.gitbook/assets/image (187).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (201).png" alt=""><figcaption></figcaption></figure>
 
 #### Payload
 
@@ -118,11 +118,11 @@ We can try to inject an example of javascript code such as:&#x20;
 into XSS Reflected section\
 
 
-<figure><img src="../.gitbook/assets/image (188).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (202).png" alt=""><figcaption></figcaption></figure>
 
 <div align="left">
 
-<figure><img src="../.gitbook/assets/image (189).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (203).png" alt=""><figcaption></figcaption></figure>
 
 </div>
 
@@ -132,11 +132,11 @@ Very well, using this XSS we can trigger the malicious password change request w
 <Script> var xmlHttp = new XMLHttpRequest(); var url = "http://localhost/DVWA//vulnerabilities/csrf/?password_new=newpass&password_conf=newpass&Change=Change"; xmlHttp.open("GET", url, false); xmlHttp.send(null); </Script>
 ```
 
-<figure><img src="../.gitbook/assets/image (192).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (206).png" alt=""><figcaption></figcaption></figure>
 
 It usually need to convert URL-encode key characters and we can redirect user to localhost/DVWA page;
 
-<figure><img src="../.gitbook/assets/image (195).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (209).png" alt=""><figcaption></figcaption></figure>
 
 Upon obtaining the HTTP\_REFERER source (1st GET request), all javascript codes are accepted, then the password is changed (2st GET request).
 
@@ -146,13 +146,13 @@ Only checking if the HTTP\_REFERER request has the same name and origin of name 
 
 ## High
 
-<figure><img src="../.gitbook/assets/image (194).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (208).png" alt=""><figcaption></figcaption></figure>
 
 * Generation and checking of Anti-CSRF token (in our case called user\_token), that will be regenerated for every request or page refresh
 
 <div align="left">
 
-<figure><img src="../.gitbook/assets/image (196).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (210).png" alt=""><figcaption></figcaption></figure>
 
 </div>
 
@@ -252,11 +252,11 @@ Using two XSS requests we can redirect user to the same origin of name server an
 
 ## Impossible
 
-<figure><img src="../.gitbook/assets/image (197).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (211).png" alt=""><figcaption></figcaption></figure>
 
 In this case there's a new input text: Current password, an info unknown by attacker that using others controls, prevents CSRF attack.
 
-<figure><img src="../.gitbook/assets/image (198).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (212).png" alt=""><figcaption></figcaption></figure>
 
 {% hint style="info" %}
 Site isn't vulnerable to CSRF attack because the request includes info that the attacker cannot have access to.

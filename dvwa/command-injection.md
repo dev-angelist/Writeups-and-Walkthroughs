@@ -22,17 +22,17 @@ Using BurpSuite and the FoxyProxy extension is recommended.
 
 We've a form with an input type text:
 
-<figure><img src="../.gitbook/assets/image (50).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (64).png" alt=""><figcaption></figcaption></figure>
 
 that ask us to enter and IP address to ping.
 
 Inserting an IP address we can confirm that will do a ping request to it:
 
-<figure><img src="../.gitbook/assets/image (51).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (65).png" alt=""><figcaption></figcaption></figure>
 
 As always we can start to analyze source code:
 
-<figure><img src="../.gitbook/assets/image (52).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (66).png" alt=""><figcaption></figcaption></figure>
 
 * There'is a condition to check if input value has been inserted
 * The operating system in use is checked to evaluate exactly which ping should be entered (win or \*nix OS)
@@ -50,13 +50,13 @@ The input is not sanitized, so I can execute any (potentially malicious) command
 
 using it, we ping machine with IP 127.0.0.1 and join two extra commands using ; or another join char as |, to take a whoami and see /etc/passwd file:
 
-<figure><img src="../.gitbook/assets/image (53).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (67).png" alt=""><figcaption></figcaption></figure>
 
 ## Medium
 
 
 
-<figure><img src="../.gitbook/assets/image (54).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (68).png" alt=""><figcaption></figcaption></figure>
 
 * There's a classic control of input text submitted
 * An eventually blacklist word (&& and ;) is replace with a '' black char
@@ -75,7 +75,7 @@ We've replaced `;` or `&&` with `|`:
 127.0.0.1 | whoami
 ```
 
-<figure><img src="../.gitbook/assets/image (55).png" alt=""><figcaption><p>Using another word to anchor commands</p></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (69).png" alt=""><figcaption><p>Using another word to anchor commands</p></figcaption></figure>
 
 `;` will be replace by '' and will submit this prohibit payload:
 
@@ -83,13 +83,13 @@ We've replaced `;` or `&&` with `|`:
 127.0.0.1 && whoami
 ```
 
-<figure><img src="../.gitbook/assets/image (56).png" alt=""><figcaption><p>Using phoibit anchor commands</p></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (70).png" alt=""><figcaption><p>Using phoibit anchor commands</p></figcaption></figure>
 
 ## High
 
 
 
-<figure><img src="../.gitbook/assets/image (57).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (71).png" alt=""><figcaption></figcaption></figure>
 
 
 
@@ -97,7 +97,7 @@ This command isn't write correctly, it has an extra space '`|`  '&#x20;
 
 <div align="left">
 
-<figure><img src="../.gitbook/assets/image (58).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (72).png" alt=""><figcaption></figcaption></figure>
 
 </div>
 
@@ -117,13 +117,13 @@ Without leaving a white space after | we can use this payload:
 127.0.0.1 |whoami
 ```
 
-<figure><img src="../.gitbook/assets/image (59).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (73).png" alt=""><figcaption></figcaption></figure>
 
 ## Impossible
 
 
 
-<figure><img src="../.gitbook/assets/image (60).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (74).png" alt=""><figcaption></figcaption></figure>
 
 
 

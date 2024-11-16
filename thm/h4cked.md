@@ -24,7 +24,7 @@ mkdir {nmap,content,exploits,scripts}
 
 In the task 2, we don't need to deploy machine, but we need to analyze pcap file to explore activities and answer at questions.
 
-<figure><img src="../.gitbook/assets/image (106).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (120).png" alt=""><figcaption></figcaption></figure>
 
 Source IP that sent SYN is `192.168.0.147` then, it's Attacker IP, while destination/victim IP is: `192.168.0.115.`
 
@@ -32,7 +32,7 @@ Source IP that sent SYN is `192.168.0.147` then, it's Attacker IP, while destina
 
 Following first message, we can find that attacker brute force FTP port.
 
-<figure><img src="../.gitbook/assets/image (107).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (121).png" alt=""><figcaption></figcaption></figure>
 
 {% hint style="info" %}
 FTP
@@ -48,7 +48,7 @@ Hydra
 
 Looking FTP request we can find it:
 
-<figure><img src="../.gitbook/assets/image (108).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (122).png" alt=""><figcaption></figcaption></figure>
 
 {% hint style="info" %}
 jenny
@@ -60,7 +60,7 @@ Following TCP stream we found that correct psw is:
 
 <div align="left">
 
-<figure><img src="../.gitbook/assets/image (109).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (123).png" alt=""><figcaption></figcaption></figure>
 
 </div>
 
@@ -70,7 +70,7 @@ password123
 
 ### 2.5 - What is the current FTP working directory after the attacker logged in?
 
-<figure><img src="../.gitbook/assets/image (111).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (125).png" alt=""><figcaption></figcaption></figure>
 
 {% hint style="info" %}
 /var/www/html
@@ -78,7 +78,7 @@ password123
 
 ### 2.6 - The attacker uploaded a backdoor. What is the backdoor's filename? 
 
-<figure><img src="../.gitbook/assets/image (110).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (124).png" alt=""><figcaption></figcaption></figure>
 
 {% hint style="info" %}
 shell.php
@@ -86,7 +86,7 @@ shell.php
 
 ### 2.7 - The backdoor can be downloaded from a specific URL, as it is located inside the uploaded file. What is the full URL?&#x20;
 
-<figure><img src="../.gitbook/assets/image (112).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (126).png" alt=""><figcaption></figcaption></figure>
 
 {% hint style="info" %}
 [http://pentestmonkey.net/tools/php-reverse-shell](http://pentestmonkey.net/tools/php-reverse-shell)
@@ -94,7 +94,7 @@ shell.php
 
 ### 2.8 - Which command did the attacker manually execute after getting a reverse shell?
 
-<figure><img src="../.gitbook/assets/image (113).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (127).png" alt=""><figcaption></figcaption></figure>
 
 {% hint style="info" %}
 whoami
@@ -104,7 +104,7 @@ whoami
 
 <div align="left">
 
-<figure><img src="../.gitbook/assets/image (114).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (128).png" alt=""><figcaption></figcaption></figure>
 
 </div>
 
@@ -116,7 +116,7 @@ wir3
 
 <div align="left">
 
-<figure><img src="../.gitbook/assets/image (115).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (129).png" alt=""><figcaption></figcaption></figure>
 
 </div>
 
@@ -128,7 +128,7 @@ python3 -c 'import pty; pty.spawn("/bin/bash")'
 
 <div align="left">
 
-<figure><img src="../.gitbook/assets/image (116).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (130).png" alt=""><figcaption></figcaption></figure>
 
 </div>
 
@@ -140,7 +140,7 @@ sudo su
 
 <div align="left">
 
-<figure><img src="../.gitbook/assets/image (117).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (131).png" alt=""><figcaption></figcaption></figure>
 
 </div>
 
@@ -150,7 +150,7 @@ Reptile
 
 ### 2.13 - The project can be used to install a stealthy backdoor on the system. It can be very hard to detect. What is this type of backdoor called?
 
-<figure><img src="../.gitbook/assets/image (118).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (132).png" alt=""><figcaption></figcaption></figure>
 
 {% hint style="info" %}
 rootkit
@@ -172,7 +172,7 @@ We can use hydra with wordlist to find psw for 'jenny' user:
 hydra -l jenny -P /usr/share/wordlists/metasploit/unix_passwords.txt h4cked.thm -t 4 ftp
 ```
 
-<figure><img src="../.gitbook/assets/image (119).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (133).png" alt=""><figcaption></figcaption></figure>
 
 {% hint style="info" %}
 987654321
@@ -186,7 +186,7 @@ and custom it with our local IP:
 
 <div align="left">
 
-<figure><img src="../.gitbook/assets/image (120).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (134).png" alt=""><figcaption></figcaption></figure>
 
 </div>
 
@@ -227,7 +227,7 @@ ftp> bye
 
 Now, we need to listen on the port setted on reverse shell, and access to machine.
 
-<figure><img src="../.gitbook/assets/image (121).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (135).png" alt=""><figcaption></figcaption></figure>
 
 As you can see, this shell is not stable. So, we can use the traditional Python script to make it more stable.
 

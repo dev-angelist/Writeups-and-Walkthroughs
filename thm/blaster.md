@@ -2,7 +2,7 @@
 
 <div align="left">
 
-<figure><img src="../.gitbook/assets/image (184).png" alt="" width="188"><figcaption><p><a href="https://tryhackme.com/room/blaster">https://tryhackme.com/room/blaster</a></p></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (198).png" alt="" width="188"><figcaption><p><a href="https://tryhackme.com/room/blaster">https://tryhackme.com/room/blaster</a></p></figcaption></figure>
 
 </div>
 
@@ -137,7 +137,7 @@ gobuster dir -u lian_yu.thm -w /usr/share/wordlists/dirb/common.txt
 
 <div align="left">
 
-<figure><img src="../.gitbook/assets/image (174).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (188).png" alt=""><figcaption></figcaption></figure>
 
 </div>
 
@@ -164,7 +164,7 @@ gobuster dir -u lian_yu.thm -w /usr/share/wordlists/dirbuster/directory-list-2.3
 
 <div align="left">
 
-<figure><img src="../.gitbook/assets/image (181).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (195).png" alt=""><figcaption></figcaption></figure>
 
 </div>
 
@@ -282,7 +282,7 @@ find / -type f -iname "user.txt" 2>/dev/null
 
 <div align="left">
 
-<figure><img src="../.gitbook/assets/image (65).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (79).png" alt=""><figcaption></figcaption></figure>
 
 </div>
 

