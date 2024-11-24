@@ -1,10 +1,6 @@
 # RootMe
 
-<div align="left">
-
-<figure><img src="../.gitbook/assets/image (111).png" alt="" width="175"><figcaption><p>tryhackme.com - © TryHackMe</p></figcaption></figure>
-
-</div>
+<div align="left"><figure><img src="../.gitbook/assets/image (111).png" alt="" width="175"><figcaption><p>tryhackme.com - © TryHackMe</p></figcaption></figure></div>
 
 ### 🔗 [RootMe](https://tryhackme.com/room/rrootme)
 
@@ -198,26 +194,26 @@ The first primary strategy for identifying a file upload vulnerability is by man
 \
 I used the following list:\
 \
-_php_\
-_php2_\
-_php3_\
-_php4_\
-_php5_\
-_php6_\
-_php7_\
+&#xNAN;_&#x70;hp_\
+&#xNAN;_&#x70;hp2_\
+&#xNAN;_&#x70;hp3_\
+&#xNAN;_&#x70;hp4_\
+&#xNAN;_&#x70;hp5_\
+&#xNAN;_&#x70;hp6_\
+&#xNAN;_&#x70;hp7_\
 phps\
-_phps_\
-_pht_\
-_phtm_\
-_phtml_\
-_pgif_\
-_shtml_\
-_htaccess_\
-_phar_\
-_inc_\
-_hphp_\
-_ctp_\
-_modulea_
+&#xNAN;_&#x70;hps_\
+&#xNAN;_&#x70;ht_\
+&#xNAN;_&#x70;htm_\
+&#xNAN;_&#x70;html_\
+&#xNAN;_&#x70;gif_\
+&#xNAN;_&#x73;html_\
+&#xNAN;_&#x68;taccess_\
+&#xNAN;_&#x70;har_\
+&#xNAN;_&#x69;nc_\
+&#xNAN;_&#x68;php_\
+&#xNAN;_&#x63;tp_\
+&#xNAN;_&#x6D;odulea_
 
 <figure><img src="../.gitbook/assets/Schermata del 2023-06-02 16-13-47.png" alt=""><figcaption></figcaption></figure>
 

