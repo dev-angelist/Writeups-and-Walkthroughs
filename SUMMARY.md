@@ -38,7 +38,6 @@
   * [Valentine](hackthebox/valentine.md)
   * [Sau](hackthebox/sau.md)
   * [Sunday](hackthebox/sunday.md)
-  * [Copy of Sunday](hackthebox/copy-of-sunday.md)
   * [Cap](hackthebox/cap.md)
 * [DVWA](dvwa/README.md)
   * [Install and configure DVWA](dvwa/install-and-configure-dvwa.md)

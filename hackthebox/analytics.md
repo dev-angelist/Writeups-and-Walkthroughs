@@ -1,10 +1,6 @@
 # Analytics
 
-<div align="left">
-
-<figure><img src="../.gitbook/assets/image (298).png" alt="" width="120"><figcaption><p>hackthebox.com - © HACKTHEBOX</p></figcaption></figure>
-
-</div>
+<div align="left"><figure><img src="../.gitbook/assets/image (298).png" alt="" width="120"><figcaption><p>hackthebox.com - © HACKTHEBOX</p></figcaption></figure></div>
 
 🔗 [Analytics](https://www.hackthebox.com/machines/analytics)
 
@@ -239,11 +235,7 @@ Upon checking with `sudo -l`, we found that we do not have permissions. However,
 
 We use `uname -a` command to display kernel version
 
-<div align="left">
-
-<figure><img src="../.gitbook/assets/image (313).png" alt=""><figcaption></figcaption></figure>
-
-</div>
+<div align="left"><figure><img src="../.gitbook/assets/image (313).png" alt=""><figcaption></figcaption></figure></div>
 
 {% hint style="info" %}
 6.2.0-25-generic
@@ -294,4 +286,4 @@ unshare -rm sh -c "mkdir l u w m && cp /u*/b*/p*3 l/;setcap cap_setuid+eip l/pyt
 
 </details>
 
-<figure><img src="../.gitbook/assets/image (6).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (6) (1).png" alt=""><figcaption></figcaption></figure>
