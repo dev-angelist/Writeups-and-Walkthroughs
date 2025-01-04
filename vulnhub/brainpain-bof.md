@@ -418,7 +418,7 @@ sock.close()
 
 First to execute it, we need to listening it on the same port of shellcode IP and PORT running a multi handler on msfconsole:&#x20;
 
-<div align="left"><figure><img src="../.gitbook/assets/image (15) (1).png" alt=""><figcaption></figcaption></figure></div>
+<div align="left"><figure><img src="../.gitbook/assets/image (15) (1) (1).png" alt=""><figcaption></figcaption></figure></div>
 
 Then we can run our shellcode script to brainpain machine (192.168.56.8):
 
@@ -428,7 +428,7 @@ python3 shellcode.py 192.168.56.8
 
 Connection was established on port 5555, and we've obtained a reverse shell
 
-<figure><img src="../.gitbook/assets/image (17) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (17) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 ## Task 4 - Privilege Escalation
 
@@ -453,7 +453,7 @@ We can execute `/home/anansi/bin/anansi_util` as root:
 sudo -u root /home/anansi/bin/anansi_util
 ```
 
-<div align="left"><figure><img src="../.gitbook/assets/image (18) (1).png" alt=""><figcaption></figcaption></figure></div>
+<div align="left"><figure><img src="../.gitbook/assets/image (18) (1) (1).png" alt=""><figcaption></figcaption></figure></div>
 
 The program accepts manual option + command. Taking tentatives i can see that manual refers to linux man function. Then, i can use it to open a man page regarding a command (e.g. ls) and inserit into a `!/bin/sh` to became root.&#x20;
 
@@ -461,7 +461,7 @@ The program accepts manual option + command. Taking tentatives i can see that ma
 sudo -u root /home/anansi/bin/anansi_util manual ls
 ```
 
-<div align="left"><figure><img src="../.gitbook/assets/image (19) (1).png" alt=""><figcaption></figcaption></figure></div>
+<div align="left"><figure><img src="../.gitbook/assets/image (19) (1) (1).png" alt=""><figcaption></figcaption></figure></div>
 
 save it, and we'll obtain root permissions!
 

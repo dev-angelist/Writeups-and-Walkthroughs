@@ -4,7 +4,16 @@
 
 <div align="left" data-full-width="false"><figure><img src=".gitbook/assets/spaces_EhofjMfYbx3gOUSReXD7_uploads_git-blob-d6717517efcd6cf2abc36234ddf89ae069267bc7_image-20230205151515316 (1).webp" alt=""><figcaption><p>tryhackme.com - © TryHackMe</p></figcaption></figure></div>
 
-### THM
+
+
+## Rooms
+
+* [OWASP](thm/owasp/)
+* [Active Directory Basics](thm/active-directory-basics.md) (This room will introduce the basic concepts and functionality provided by Active Directory)
+* Breaching Active Directory (This network covers techniques and tools that can be used to acquire that first set of AD credentials that can then be used to enumerate AD)
+* Enumerating Active Directory (This room covers various Active Directory enumeration techniques, their use cases as well as drawbacks)
+
+## CTFs
 
 * [RootMe](thm/rootme.md)
 * [Simple CTF](thm/simple-ctf.md)
@@ -19,17 +28,13 @@
 * [Ignite](thm/ignite.md)
 * [Bolt](thm/bolt.md)
 * [Agent Sudo](thm/agent-sudo.md)
-* [OWASP](thm/owasp/)
 * [Startup](thm/startup.md)
 * [Wgel](thm/wgel.md)
 * [Blog](thm/blog.md)
 * [ColdBox](thm/coldbox.md)
 * [Lian\_Yu](thm/lian_yu.md)
 * [Blaster](thm/blaster.md)
-* Retro
 * [Ice](thm/ice.md)
-* Chill Hack
-* [Active Directory Basics](thm/active-directory-basics.md)
 
 ***
 

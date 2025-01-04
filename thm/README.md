@@ -1,10 +1,15 @@
 # THM
 
-<div align="left" data-full-width="false">
+<div align="left" data-full-width="false"><figure><img src="../.gitbook/assets/spaces_EhofjMfYbx3gOUSReXD7_uploads_git-blob-d6717517efcd6cf2abc36234ddf89ae069267bc7_image-20230205151515316 (1).webp" alt=""><figcaption><p>tryhackme.com - © TryHackMe</p></figcaption></figure></div>
 
-<figure><img src="../.gitbook/assets/spaces_EhofjMfYbx3gOUSReXD7_uploads_git-blob-d6717517efcd6cf2abc36234ddf89ae069267bc7_image-20230205151515316 (1).webp" alt=""><figcaption><p>tryhackme.com - © TryHackMe</p></figcaption></figure>
+## Rooms
 
-</div>
+* [OWASP](owasp/)
+* [Active Directory Basics](active-directory-basics.md) (This room will introduce the basic concepts and functionality provided by Active Directory)
+* Breaching Active Directory (This network covers techniques and tools that can be used to acquire that first set of AD credentials that can then be used to enumerate AD)
+* Enumerating Active Directory (This room covers various Active Directory enumeration techniques, their use cases as well as drawbacks)
+
+## CTFs
 
 * [RootMe](rootme.md)
 * [Simple CTF](simple-ctf.md)
@@ -19,13 +24,11 @@
 * [Ignite](ignite.md)
 * [Bolt](bolt.md)
 * [Agent Sudo](agent-sudo.md)
-* [OWASP](owasp/)
 * [Startup](startup.md)
 * [Wgel](wgel.md)
 * [Blog](blog.md)
 * [ColdBox](coldbox.md)
-* [Lian\_Yu](lian\_yu.md)
+* [Lian\_Yu](lian_yu.md)
 * [Blaster](blaster.md)
-* Retro
 * [Ice](ice.md)
-* Chill Hack
+* [Smag Grotto](smag-grotto.md)
