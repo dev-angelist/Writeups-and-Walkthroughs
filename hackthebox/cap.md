@@ -215,11 +215,11 @@ http://cap.htb [200 OK] Bootstrap, Country[RESERVED][ZZ], HTML5, HTTPServer[guni
 
 Then, to understand the target scope, we can start to checking web server via browser:
 
-<div align="left"><figure><img src="../.gitbook/assets/image (1) (1).png" alt=""><figcaption></figcaption></figure></div>
+<div align="left"><figure><img src="../.gitbook/assets/image (1) (1) (1).png" alt=""><figcaption></figcaption></figure></div>
 
 it is a dashboard view regarding security events, failed login attempts and more, going to 'Security Snapshot' we have a counter packet sniffer with the possiblity to download traffic captured.
 
-<div align="left"><figure><img src="../.gitbook/assets/image (2) (1).png" alt=""><figcaption></figcaption></figure></div>
+<div align="left"><figure><img src="../.gitbook/assets/image (2) (1) (1).png" alt=""><figcaption></figcaption></figure></div>
 
 while, selecting 'IP Config' we can see the network interface of attacker machine `10.10.10.245`
 

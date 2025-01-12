@@ -95,9 +95,9 @@ Now let's use Phillip's account to try and reset Sophie's password. Here are Phi
 
 We can use xfreerdp to connect via RDP, or use directly the attacker box of THM changing account:
 
-<div align="left"><figure><img src="../.gitbook/assets/image (1).png" alt=""><figcaption></figcaption></figure></div>
+<div align="left"><figure><img src="../.gitbook/assets/image (1) (1).png" alt=""><figcaption></figcaption></figure></div>
 
-<figure><img src="../.gitbook/assets/image.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (2).png" alt=""><figcaption></figcaption></figure>
 
 Now, using the newest task delegation of Phillip, we can change directly the password about others user, in this case for Sophie.
 
@@ -113,7 +113,7 @@ To access to Sophie's desktop, we need to connect (using the newest password) us
 
 
 
-<figure><img src="../.gitbook/assets/image (2).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (2) (1).png" alt=""><figcaption></figcaption></figure>
 
 {% hint style="info" %}
 THM{thanks\_for\_contacting\_support}
