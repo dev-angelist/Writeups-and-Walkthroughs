@@ -6,7 +6,7 @@ description: https://www.hackthebox.com/machines/sunday
 
 🔗 [Sunday](https://www.hackthebox.com/machines/sunday)
 
-<div align="left"><figure><img src="../.gitbook/assets/image (1) (1) (1) (1) (1).png" alt="" width="150"><figcaption><p>@hackthebox.com</p></figcaption></figure></div>
+<div align="left"><figure><img src="../.gitbook/assets/image (1) (1) (1) (1) (1) (1).png" alt="" width="150"><figcaption><p>@hackthebox.com</p></figcaption></figure></div>
 
 <details>
 
@@ -174,7 +174,7 @@ Good, finger protocols was found, while we can see another two interesting servi
 
 Browsing it:  [`https://sunday.htb:6787/`](https://sunday.htb:6787/solaris/login/) we see a Solaris login page:
 
-<figure><img src="../.gitbook/assets/image (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 Login bypass unfortunaly doesn't work and we don't obtained great info via whatweb.
 

@@ -215,11 +215,11 @@ http://cap.htb [200 OK] Bootstrap, Country[RESERVED][ZZ], HTML5, HTTPServer[guni
 
 Then, to understand the target scope, we can start to checking web server via browser:
 
-<div align="left"><figure><img src="../.gitbook/assets/image (1) (1) (1).png" alt=""><figcaption></figcaption></figure></div>
+<div align="left"><figure><img src="../.gitbook/assets/image (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure></div>
 
 it is a dashboard view regarding security events, failed login attempts and more, going to 'Security Snapshot' we have a counter packet sniffer with the possiblity to download traffic captured.
 
-<div align="left"><figure><img src="../.gitbook/assets/image (2) (1) (1).png" alt=""><figcaption></figcaption></figure></div>
+<div align="left"><figure><img src="../.gitbook/assets/image (2) (1) (1) (1).png" alt=""><figcaption></figcaption></figure></div>
 
 while, selecting 'IP Config' we can see the network interface of attacker machine `10.10.10.245`
 
@@ -227,11 +227,11 @@ while, selecting 'IP Config' we can see the network interface of attacker machin
 
 than, clicking 'Network Status' there's all current connections:
 
-<div align="left"><figure><img src="../.gitbook/assets/image (3) (1).png" alt=""><figcaption></figcaption></figure></div>
+<div align="left"><figure><img src="../.gitbook/assets/image (3) (1) (1).png" alt=""><figcaption></figcaption></figure></div>
 
 finally, the 'user tab' on top-right is only a mockup without functionality, but we'll track this name: 'Nathan', it can be useful for SSH and FTP services.
 
-<div align="left"><figure><img src="../.gitbook/assets/image (4) (1).png" alt=""><figcaption></figcaption></figure></div>
+<div align="left"><figure><img src="../.gitbook/assets/image (4) (1) (1).png" alt=""><figcaption></figcaption></figure></div>
 
 Doing a directory enumeration with GoBuster tool and checking source page we don't discover others useful thing.
 
@@ -239,13 +239,13 @@ Doing a directory enumeration with GoBuster tool and checking source page we don
 gobuster dir -u http://cap.htb -w /usr/share/wordlists/dirb/common.txt
 ```
 
-<div align="left"><figure><img src="../.gitbook/assets/image (5) (1).png" alt=""><figcaption></figcaption></figure></div>
+<div align="left"><figure><img src="../.gitbook/assets/image (5) (1) (1).png" alt=""><figcaption></figcaption></figure></div>
 
 ### 1.2 - After running a "Security Snapshot", the browser is redirected to a path of the format /\[something]/\[id], where \[id] represents the id number of the scan. What is the \[something]?
 
 This request is a good hint to understand which path to take, so let's try to generate some traffic with ICMP requests, and check if the traffic is captured.
 
-<div align="left"><figure><img src="../.gitbook/assets/image (7) (1).png" alt=""><figcaption></figcaption></figure></div>
+<div align="left"><figure><img src="../.gitbook/assets/image (7) (1) (1).png" alt=""><figcaption></figcaption></figure></div>
 
 Indeed it is, and we can answer the question by displaying the url path.
 
@@ -261,13 +261,13 @@ Trying to use the ffuf tool with a wordlist of the most frequent users, I did no
 
 An interesting thing to note in the Security Snapshot is the URL scheme when creating a new capture, which is in the format /data/ . The id is incremented for each capture.
 
-<div align="left"><figure><img src="../.gitbook/assets/image (8) (1).png" alt=""><figcaption></figcaption></figure></div>
+<div align="left"><figure><img src="../.gitbook/assets/image (8) (1) (1).png" alt=""><figcaption></figcaption></figure></div>
 
 I tried to insert different parameters and I found the presence of the vulnerability Insecure Direct Object Reference (IDOR) is a vulnerability that arises when attackers can access or modify objects by manipulating identifiers used in a web page.
 
 It means that server should stores latest scans and it has been packet captures from users before us. I remember that i started to see /data/1, than browsing to /data/0 does indeed reveal a packet capture with multiple packets.
 
-<div align="left"><figure><img src="../.gitbook/assets/image (9) (1).png" alt=""><figcaption></figcaption></figure></div>
+<div align="left"><figure><img src="../.gitbook/assets/image (9) (1) (1).png" alt=""><figcaption></figcaption></figure></div>
 
 Then, we can state the possibility to get scans of other users answering to the last question.
 
@@ -283,7 +283,7 @@ yes
 
 Now, we can open pcap file (that has a reference with machine name) and analyze traffic using Wireshark, and searching ftp, http or others sensitive traffics in cleartext.
 
-<div align="left"><figure><img src="../.gitbook/assets/image (10) (1).png" alt=""><figcaption></figcaption></figure></div>
+<div align="left"><figure><img src="../.gitbook/assets/image (10) (1) (1).png" alt=""><figcaption></figcaption></figure></div>
 
 And here we immediately see a successful connection attempt on the FTP protocol of the previously mentioned user 'Nathan' with the relative password in cleartext.
 
