@@ -28,6 +28,7 @@
   * [🔟 OWASP](thm/owasp/README.md)
     * [1️⃣ Injection](thm/owasp/injection.md)
   * [Active Directory Basics](thm/active-directory-basics.md)
+  * [Attacktive Directory](thm/attacktive-directory.md)
   * [Post-Exploitation Basics](thm/post-exploitation-basics.md)
 * [HackTheBox](hackthebox/README.md)
   * [Bank](hackthebox/bank.md)

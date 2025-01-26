@@ -12,6 +12,7 @@
 * [Active Directory Basics](thm/active-directory-basics.md) (This room will introduce the basic concepts and functionality provided by Active Directory)
 * Breaching Active Directory (This network covers techniques and tools that can be used to acquire that first set of AD credentials that can then be used to enumerate AD)
 * Enumerating Active Directory (This room covers various Active Directory enumeration techniques, their use cases as well as drawbacks)
+* Attacktive Directory 99% of Corporate networks run off of AD. But can you exploit a vulnerable Domain Controller?
 * [Post-Exploitation Basics ](thm/post-exploitation-basics.md)(Learn the basics of post-exploitation and maintaining access with mimikatz, bloodhound, powerview and msfvenom)
 
 ## CTFs
