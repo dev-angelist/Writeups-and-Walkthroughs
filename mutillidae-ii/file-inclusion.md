@@ -2,7 +2,7 @@
 description: http://localhost/DVWA/vulnerabilities/fi
 ---
 
-# Insecure CAPTCHA --
+# File Inclusion
 
 <details>
 
@@ -38,11 +38,7 @@ Using BurpSuite and the FoxyProxy extension is recommended.
 
 We've a div containing three distinct hyperlinks, each triggering the display of various files within the web application upon activation. The exhibition of a specific file is accomplished through the utilization of the subsequent GET request.
 
-<div align="left">
-
-<figure><img src="../.gitbook/assets/image (213).png" alt=""><figcaption></figcaption></figure>
-
-</div>
+<div align="left"><figure><img src="../.gitbook/assets/image (213).png" alt=""><figcaption></figcaption></figure></div>
 
 <figure><img src="../.gitbook/assets/image (214).png" alt=""><figcaption><p>file1.pho</p></figcaption></figure>
 
@@ -50,11 +46,7 @@ We've a div containing three distinct hyperlinks, each triggering the display of
 
 <figure><img src="../.gitbook/assets/image (216).png" alt=""><figcaption><p>file3.php</p></figcaption></figure>
 
-<div align="left">
-
-<figure><img src="../.gitbook/assets/image (217).png" alt=""><figcaption></figcaption></figure>
-
-</div>
+<div align="left"><figure><img src="../.gitbook/assets/image (217).png" alt=""><figcaption></figcaption></figure></div>
 
 ```http
 GET /DVWA/vulnerabilities/fi/?page=file1.php HTTP/1.1
@@ -190,11 +182,7 @@ The input is not sanitized sufficiently , so I can execute any (potentially mali
 
 ## High
 
-<div align="left">
-
-<figure><img src="../.gitbook/assets/image (55).png" alt=""><figcaption></figcaption></figure>
-
-</div>
+<div align="left"><figure><img src="../.gitbook/assets/image (55).png" alt=""><figcaption></figcaption></figure></div>
 
 In this code the're two validation checks:
 
@@ -236,4 +224,4 @@ Site isn't vulnerable to File Inclusion attack because the request includes only
 
 For the making of this solution the following resource were used:
 
-* [https://github.com/LeonardoE95/DVWA/tree/main/src/file\_inclusion](https://github.com/LeonardoE95/DVWA/tree/main/src/file\_inclusion)
+* [https://github.com/LeonardoE95/DVWA/tree/main/src/file\_inclusion](https://github.com/LeonardoE95/DVWA/tree/main/src/file_inclusion)
