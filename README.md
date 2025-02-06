@@ -37,6 +37,7 @@
 * [Lian\_Yu](thm/lian_yu.md)
 * [Blaster](thm/blaster.md)
 * [Ice](thm/ice.md)
+* [The Sticker Shop](thm/the-sticker-shop.md)
 
 ***
 
