@@ -25,6 +25,7 @@
   * [Smag Grotto](thm/smag-grotto.md)
   * [Ice](thm/ice.md)
   * [Blaster](thm/blaster.md)
+  * [The Sticker Shop](thm/the-sticker-shop.md)
   * [🔟 OWASP](thm/owasp/README.md)
     * [1️⃣ Injection](thm/owasp/injection.md)
   * [Active Directory Basics](thm/active-directory-basics.md)

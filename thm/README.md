@@ -34,3 +34,4 @@
 * [Blaster](blaster.md)
 * [Ice](ice.md)
 * [Smag Grotto](smag-grotto.md)
+* The Sticker Shop
