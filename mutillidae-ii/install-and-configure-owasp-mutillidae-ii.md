@@ -4,48 +4,107 @@ description: https://github.com/digininja/DVWA
 
 # Install and configure OWASP Mutillidae II
 
-## DAMN VULNERABLE WEB APPLICATION
+{% embed url="https://owasp.org/www-project-mutillidae-ii/" %}
 
-Damn Vulnerable Web Application (DVWA) is a PHP/MySQL web application that is damn vulnerable. Its main goal is to be an aid for security professionals to test their skills and tools in a legal environment, help web developers better understand the processes of securing web applications and to aid both students & teachers to learn about web application security in a controlled class room environment.
+{% embed url="https://github.com/webpwnized/mutillidae" %}
 
-The aim of DVWA is to **practice some of the most common web vulnerabilities**, with **various levels of difficulty**, with a simple straightforward interface. Please note, there are **both documented and undocumented vulnerabilities** with this software. This is intentional. You are encouraged to try and discover as many issues as possible.
+## Installation Guides
 
-### Download
+### Standard Installation - DockerHub
 
-While there are various versions of DVWA around, the only supported version is the latest source from the official GitHub repository. You can either clone it from the repo:
+* [How to Run Mutillidae from DockerHub Images](https://www.youtube.com/watch?v=c1nOSp3nagw)
+
+### Alternative Installation - Docker
+
+* [How to Install Docker on Ubuntu](https://www.youtube.com/watch?v=Y_2JVREtDFk)
+* [How to Run Mutillidae on Docker](https://www.youtube.com/watch?v=9RH4l8ff-yg)
+* [How to Run Mutillidae from DockerHub Images](https://www.youtube.com/watch?v=c1nOSp3nagw)
+
+### Alternative Installation - Google Cloud
+
+* [How to Run Mutillidae on Google Kubernetes Engine (GKE)](https://www.youtube.com/watch?v=uU1eEjrp93c)
+
+### Legacy Installation - LAMP Stack
+
+If you have a LAMP stack set up already, you can skip directly to installing Mutillidae. Check out our [comprehensive installation guide](https://github.com/webpwnized/mutillidae/blob/main/README-INSTALLATION.md) for detailed instructions. Watch the video tutorial: [How to Install Mutillidae on LAMP Stack](https://www.youtube.com/watch?v=TcgeRab7ayM)
+
+## Installation via Docker - My case
+
+### Install Docker
+
+If you haven't it, install Docker on your machine (debian/kali): [How to Install Docker on Ubuntu](https://www.youtube.com/watch?v=Y_2JVREtDFk)
+
+### Install Docker Image
 
 ```bash
-git clone https://github.com/digininja/DVWA.git
+git clone https://github.com/webpwnized/mutillidae-docker.git
 ```
 
-Or [download a ZIP of the files](https://github.com/digininja/DVWA/archive/master.zip).
+And build the docker file
 
-### Installation and configuration
+```bash
+cd mutillidae-docker
+docker compose -f .build/docker-compose.yml up --build --detach
+```
 
-#### Installation Videos
+### Website URL
 
-* [Installing DVWA on Kali running in VirtualBox](https://www.youtube.com/watch?v=WkyDxNJkgQ4) 🇬🇧
-* [Installing DVWA on Windows using XAMPP](https://youtu.be/Yzksa_WjnY0) 🇬🇧🇬
-* [Installing Damn Vulnerable Web Application (DVWA) on Windows 10](https://www.youtube.com/watch?v=cak2lQvBRAo) 🇬🇧
-* [DVWA 01 - Installazione e Configurazione](https://www.youtube.com/watch?v=F7lX6x87gJg\&list=PLYLjKimBhcxE0u-SIQw0vwt0VM17II9M9) 🇮🇹
+The web application should be running at localhost, then we ca go there via browser
 
-#### How to set difficulty
+[http://127.0.0.1/](http://127.0.0.1/)
 
-Go to DVWA Security page: [http://localhost/DVWA/security.php](http://localhost/DVWA/security.php) (URL can be changed), and set security level desired, then press submit button.
+Note: The first time the webpage is accessed, a warning webpage will be displayed referencing the database cannot be found. This is the expected behaviour. Just use the link to "rebuild" the database and it will start working normally.
 
-<figure><img src="../.gitbook/assets/image (62).png" alt=""><figcaption></figcaption></figure>
+### Build/Reset DB
 
-{% hint style="info" %}
-In all exercise you need to activate a proxy (between user's browser and the target app), to intercept, inspect and modify requests and responses. In my case i used **BurpSuite** with **FoxyProxy** extension.
-{% endhint %}
+<figure><img src="../.gitbook/assets/image.png" alt=""><figcaption></figcaption></figure>
 
-{% embed url="https://github.com/digininja/DVWA" %}
-Official website
-{% endembed %}
+1. [Click here](https://127.0.0.1/set-up-database.php) to attempt to setup the database. Sometimes this works.
+2. Be sure the username and password to MySQL is the same as configured in includes/database-config.inc
+3. Be aware that MySQL disables password authentication for root user upon installation or update in some systems. This may happen even for a minor update. Please check the username and password to MySQL is the same as configured in includes/database-config.inc
+4. A [video is available](https://www.youtube.com/watch?v=sG5Z4JqhRx8) to help reset MySQL root password
+5. Check the error message below for more hints
+6. If you think this message is a false-positive, you can opt-out of these warnings below
 
-### References
+Alternatively, you can trigger the database build.
 
-For the making of this solution the following resource were used:
+```bash
+# Requesting Mutillidae database be built.
+curl http://127.0.0.1/set-up-database.php;
+```
 
-* [https://github.com/digininja/DVWA](https://github.com/digininja/DVWA)
-* [https://github.com/LeonardoE95/DVWA/](https://github.com/LeonardoE95/DVWA/tree/main/src/client_side_request_forgery)
+### Populating the LDAP database
+
+The LDAP database is empty upon build. Add users to the LDAP database using the following command.
+
+```bash
+# Install LDAP Utilities including ldapadd
+sudo apt-get update
+sudo apt-get install -y ldap-utils
+
+# Add users to the LDAP database
+ldapadd -c -x -D "cn=admin,dc=mutillidae,dc=localhost" -w mutillidae -H ldap://localhost:389 -f .build/ldap/configuration/ldif/mutillidae.ldif
+```
+
+### Using a script to test the web interface
+
+You can test if the web site is responsive
+
+```
+# This should return the index.php home page content
+curl http://127.0.0.1:8888/;
+```
+
+<figure><img src="../.gitbook/assets/image (2).png" alt=""><figcaption><p><a href="https://127.0.0.1/index.php?page=home.php">https://127.0.0.1/index.php?page=home.php</a></p></figcaption></figure>
+
+### TMI
+
+#### Running Services
+
+Once the containers are running, the following services are available on localhost.
+
+* Port 80, 8080: Mutillidae HTTP web interface
+* Port 81: MySQL Admin HTTP web interface
+* Port 82: LDAP Admin web interface
+* Port 443: HTTPS web interface
+* Port 389: LDAP interface

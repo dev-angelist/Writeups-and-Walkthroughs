@@ -1,6 +1,6 @@
 # Active Directory Basics
 
-<div align="left"><figure><img src="../.gitbook/assets/image (7) (1) (1) (1) (1).png" alt="" width="150"><figcaption><p>tryhackme.com - © TryHackMe</p></figcaption></figure></div>
+<div align="left"><figure><img src="../.gitbook/assets/image (7) (1) (1) (1) (1) (1).png" alt="" width="150"><figcaption><p>tryhackme.com - © TryHackMe</p></figcaption></figure></div>
 
 🔗 [Active Directory Basics](https://tryhackme.com/r/room/winadbasics)
 
@@ -95,9 +95,9 @@ Now let's use Phillip's account to try and reset Sophie's password. Here are Phi
 
 We can use xfreerdp to connect via RDP, or use directly the attacker box of THM changing account:
 
-<div align="left"><figure><img src="../.gitbook/assets/image (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure></div>
+<div align="left"><figure><img src="../.gitbook/assets/image (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure></div>
 
-<figure><img src="../.gitbook/assets/image (2) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (2) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 Now, using the newest task delegation of Phillip, we can change directly the password about others user, in this case for Sophie.
 
@@ -109,11 +109,11 @@ Set-ADAccountPassword sophie -Reset -NewPassword (Read-Host -AsSecureString -Pro
 
 To access to Sophie's desktop, we need to connect (using the newest password) using xfreerdp or win rdp on the attacker box and read flag.txt on desktop.
 
-<figure><img src="../.gitbook/assets/image (4) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (4) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 
 
-<figure><img src="../.gitbook/assets/image (2) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (2) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 {% hint style="info" %}
 THM{thanks\_for\_contacting\_support}
@@ -121,7 +121,7 @@ THM{thanks\_for\_contacting\_support}
 
 ### 4.2 - The process of granting privileges to a user over some OU or other AD Object is called...
 
-<figure><img src="../.gitbook/assets/image (3) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (3) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 {% hint style="info" %}
 delegation
@@ -131,7 +131,7 @@ delegation
 
 By default, all the machines that join a domain (except for the DCs) will be put in the container called "Computers". If we check our DC, we will see that some devices are already there:
 
-<figure><img src="../.gitbook/assets/image (5) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (5) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 While there is no golden rule on how to organise your machines, an excellent starting point is segregating devices according to their use. In general, you'd expect to see devices divided into at least the three following categories:
 
@@ -154,7 +154,7 @@ Since we are tidying up our AD, let's create two separate OUs for `Workstations`
 
 We need to create two OUs: workstations and servers:
 
-<div align="left"><figure><img src="../.gitbook/assets/image (7) (1) (1).png" alt=""><figcaption></figcaption></figure></div>
+<div align="left"><figure><img src="../.gitbook/assets/image (7) (1) (1) (1).png" alt=""><figcaption></figcaption></figure></div>
 
 and move LPTs and PCs to Workstations, while SRV to Servers.
 

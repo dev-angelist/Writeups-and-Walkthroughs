@@ -215,11 +215,11 @@ http://cap.htb [200 OK] Bootstrap, Country[RESERVED][ZZ], HTML5, HTTPServer[guni
 
 Then, to understand the target scope, we can start to checking web server via browser:
 
-<div align="left"><figure><img src="../.gitbook/assets/image (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure></div>
+<div align="left"><figure><img src="../.gitbook/assets/image (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure></div>
 
 it is a dashboard view regarding security events, failed login attempts and more, going to 'Security Snapshot' we have a counter packet sniffer with the possiblity to download traffic captured.
 
-<div align="left"><figure><img src="../.gitbook/assets/image (2) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure></div>
+<div align="left"><figure><img src="../.gitbook/assets/image (2) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure></div>
 
 while, selecting 'IP Config' we can see the network interface of attacker machine `10.10.10.245`
 
@@ -227,11 +227,11 @@ while, selecting 'IP Config' we can see the network interface of attacker machin
 
 than, clicking 'Network Status' there's all current connections:
 
-<div align="left"><figure><img src="../.gitbook/assets/image (3) (1) (1) (1).png" alt=""><figcaption></figcaption></figure></div>
+<div align="left"><figure><img src="../.gitbook/assets/image (3) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure></div>
 
 finally, the 'user tab' on top-right is only a mockup without functionality, but we'll track this name: 'Nathan', it can be useful for SSH and FTP services.
 
-<div align="left"><figure><img src="../.gitbook/assets/image (4) (1) (1) (1).png" alt=""><figcaption></figcaption></figure></div>
+<div align="left"><figure><img src="../.gitbook/assets/image (4) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure></div>
 
 Doing a directory enumeration with GoBuster tool and checking source page we don't discover others useful thing.
 
@@ -239,13 +239,13 @@ Doing a directory enumeration with GoBuster tool and checking source page we don
 gobuster dir -u http://cap.htb -w /usr/share/wordlists/dirb/common.txt
 ```
 
-<div align="left"><figure><img src="../.gitbook/assets/image (5) (1) (1) (1).png" alt=""><figcaption></figcaption></figure></div>
+<div align="left"><figure><img src="../.gitbook/assets/image (5) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure></div>
 
 ### 1.2 - After running a "Security Snapshot", the browser is redirected to a path of the format /\[something]/\[id], where \[id] represents the id number of the scan. What is the \[something]?
 
 This request is a good hint to understand which path to take, so let's try to generate some traffic with ICMP requests, and check if the traffic is captured.
 
-<div align="left"><figure><img src="../.gitbook/assets/image (7) (1) (1) (1).png" alt=""><figcaption></figcaption></figure></div>
+<div align="left"><figure><img src="../.gitbook/assets/image (7) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure></div>
 
 Indeed it is, and we can answer the question by displaying the url path.
 

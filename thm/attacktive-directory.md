@@ -302,7 +302,7 @@ yuridia youngblood whatthehell werwer victorhugo vergeten vanila uranus tyler11 
 
 We can check the list of commands using the flag --help, -h, or nothing
 
-<figure><img src="../.gitbook/assets/image (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 {% hint style="info" %}
 userenum
@@ -322,7 +322,7 @@ user wordlist -> userlist.txt
 ./kerbrute_linux_amd64 userenum --dc ad.thm -d spookysec.local userlist.txt   
 ```
 
-<figure><img src="../.gitbook/assets/image (2).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (2) (1).png" alt=""><figcaption></figcaption></figure>
 
 {% hint style="info" %}
 svc-admin
@@ -353,7 +353,7 @@ Investigating the others result (that i'm saving into a file called user.txt)
 
 there's another that jump out to me:
 
-<figure><img src="../.gitbook/assets/image (4).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (4) (1).png" alt=""><figcaption></figcaption></figure>
 
 {% hint style="info" %}
 backup
@@ -375,11 +375,11 @@ Remember:  Impacket may also need you to use a python version >=3.7. In the Atta
 
 Remembering the list of users (into file user.txt):
 
-<figure><img src="../.gitbook/assets/image (5).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (5) (1).png" alt=""><figcaption></figcaption></figure>
 
 we can execute the command to obtain user accounts that don't need password to receive a ticket:
 
-<figure><img src="../.gitbook/assets/image (6).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (6) (1).png" alt=""><figcaption></figcaption></figure>
 
 {% hint style="info" %}
 svc-admin
@@ -391,7 +391,7 @@ Go there: [https://hashcat.net/wiki/doku.php?id=example\_hashes](https://hashcat
 
 Remembering the last result, the number $23 permits me to focus quickly about the answer:
 
-<figure><img src="../.gitbook/assets/image (7).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (7) (1).png" alt=""><figcaption></figcaption></figure>
 
 {% hint style="info" %}
 Kerberos 5 AS-REP etype 23
