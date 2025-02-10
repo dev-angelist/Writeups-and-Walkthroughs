@@ -2,7 +2,7 @@
 description: http://localhost/DVWA/vulnerabilities/sqli_blind/
 ---
 
-# SQLi Blind --
+# SQLi Blind
 
 <details>
 
@@ -26,11 +26,7 @@ Using BurpSuite and the FoxyProxy extension is recommended.
 
 We've an input type text that received an User ID in I by user and submit request using the Submit button:
 
-<div align="left">
-
-<figure><img src="../.gitbook/assets/image (46).png" alt=""><figcaption></figcaption></figure>
-
-</div>
+<div align="left"><figure><img src="../.gitbook/assets/image (46).png" alt=""><figcaption></figcaption></figure></div>
 
 In SQL Blind we obtain a boolean result (exist or not exist) of our query, then we need to be able to ask correctly information from DB, make script can be the best approach.
 
@@ -38,7 +34,7 @@ In SQL Blind we obtain a boolean result (exist or not exist) of our query, then 
 
 This's our request captured by Burp Suite, while here below there's a php source code:
 
-<figure><img src="../.gitbook/assets/image (41).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (41) (1).png" alt=""><figcaption></figcaption></figure>
 
 How the same in the low level, there're not input sanitation, then we can send what we want into input type text field. In this case request will arrive to DB located into webserver, but query will be preparared using php language.
 
@@ -60,11 +56,7 @@ SELECT first_name, last_name FROM users WHERE user_id = '1' AND (select 'x' from
 
 _admin password length is > 31?_
 
-<div align="left">
-
-<figure><img src="../.gitbook/assets/image (48).png" alt=""><figcaption></figcaption></figure>
-
-</div>
+<div align="left"><figure><img src="../.gitbook/assets/image (48).png" alt=""><figcaption></figcaption></figure></div>
 
 User ID exists in the DB = true.
 
@@ -72,11 +64,7 @@ We need to continue to ask questions for obtain a correct value.
 
 _admin password length is > 32?_
 
-<div align="left">
-
-<figure><img src="../.gitbook/assets/image (49).png" alt=""><figcaption></figcaption></figure>
-
-</div>
+<div align="left"><figure><img src="../.gitbook/assets/image (49).png" alt=""><figcaption></figcaption></figure></div>
 
 No! Answer is wrong, then regarding last two answer, we know that admin password length has 32 characters.
 
@@ -108,19 +96,11 @@ SELECT first_name, last_name FROM users WHERE user_id = '1' AND (select substrin
 
 Is the first character of admin password equals to 'a'?
 
-<div align="left">
-
-<figure><img src="../.gitbook/assets/image (50).png" alt=""><figcaption></figcaption></figure>
-
-</div>
+<div align="left"><figure><img src="../.gitbook/assets/image (50).png" alt=""><figcaption></figcaption></figure></div>
 
 No! again, is the first character of admin password equals to '5'?
 
-<div align="left">
-
-<figure><img src="../.gitbook/assets/image (52).png" alt=""><figcaption></figcaption></figure>
-
-</div>
+<div align="left"><figure><img src="../.gitbook/assets/image (52).png" alt=""><figcaption></figcaption></figure></div>
 
 Very good, the first character is 5, then we can continue to increment index and redo all questions until the final string will be discovered.
 
@@ -132,11 +112,7 @@ The input is not sanitized, so I can execute any (potentially malicious) command
 
 Here, there're a select with range (1 to 5) to set User ID.
 
-<div align="left">
-
-<figure><img src="../.gitbook/assets/image (226).png" alt=""><figcaption></figcaption></figure>
-
-</div>
+<div align="left"><figure><img src="../.gitbook/assets/image (226).png" alt=""><figcaption></figcaption></figure></div>
 
 In addition to low level, in the code below there're an escape string control and query variable $ID isn't enclosed by ''.
 
@@ -166,7 +142,7 @@ in the where condition there're a first search to user with this id '' OR a true
 
 #### 2nd Payload
 
-How the low level, regarding that query selects: first\_name, last\_name field from users table, we can use [UNION](https://www.w3schools.com/sql/sql\_union.asp) operator to add a new query:  1 `UNION select first_name,password from users --`&#x20;
+How the low level, regarding that query selects: first\_name, last\_name field from users table, we can use [UNION](https://www.w3schools.com/sql/sql_union.asp) operator to add a new query:  1 `UNION select first_name,password from users --`&#x20;
 
 ```sql
 SELECT first_name, last_name FROM users WHERE user_id = 1 UNION SELECT first_name,password FROM users -- ';
@@ -188,13 +164,9 @@ In this level clicking on first page, we obtain a redirect to a second page to s
 
 <figure><img src="../.gitbook/assets/image (228).png" alt=""><figcaption></figcaption></figure>
 
-<figure><img src="../.gitbook/assets/image (43).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (43) (1).png" alt=""><figcaption></figcaption></figure>
 
-<div align="left">
-
-<figure><img src="../.gitbook/assets/image (234).png" alt=""><figcaption></figcaption></figure>
-
-</div>
+<div align="left"><figure><img src="../.gitbook/assets/image (234).png" alt=""><figcaption></figcaption></figure></div>
 
 #### 1st Payload
 
@@ -208,21 +180,17 @@ SELECT first_name, last_name FROM users WHERE user_id = '1' OR 1=1 -- ';
 
 that permit us to see all DB results:
 
-<figure><img src="../.gitbook/assets/image (39).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (39) (1).png" alt=""><figcaption></figcaption></figure>
 
 #### 2nd Payload
 
-How last levels, we can use [UNION](https://www.w3schools.com/sql/sql\_union.asp) operator to add a new query:  `' UNION select first_name,password from users --`&#x20;
+How last levels, we can use [UNION](https://www.w3schools.com/sql/sql_union.asp) operator to add a new query:  `' UNION select first_name,password from users --`&#x20;
 
 ```sql
 SELECT first_name, last_name FROM users WHERE user_id = '' UNION SELECT first_name,password FROM users -- ';
 ```
 
-<div align="left">
-
-<figure><img src="../.gitbook/assets/image (40).png" alt=""><figcaption></figcaption></figure>
-
-</div>
+<div align="left"><figure><img src="../.gitbook/assets/image (40) (1).png" alt=""><figcaption></figcaption></figure></div>
 
 We obtain hash of psw to eventually crack using tools such as: [Hashcat](https://app.gitbook.com/s/iS3hadq7jVFgSa8k5wRA/practical-ethical-hacker-notes/tools/hashcat) and [John The Ripper](https://app.gitbook.com/s/iS3hadq7jVFgSa8k5wRA/practical-ethical-hacker-notes/tools/john-the-ripper).
 
@@ -234,7 +202,7 @@ The input is not sanitized, so I can execute any (potentially malicious) command
 
 ## Impossible
 
-<figure><img src="../.gitbook/assets/image (44).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (44) (1).png" alt=""><figcaption></figcaption></figure>
 
 The best solution is to sanitize query using a prepared statement, to delineate part static and dinamic (id) of query; take a binding parameter to check if is it an integer or char; insert a control to count rows number as result; and use a [CSRF](csrf.md) token.
 
@@ -244,7 +212,7 @@ All this permits to separate sql code with sql data/parameter insert by user.
 
 For the making of this solution the following resource were used:
 
-* [https://github.com/LeonardoE95/DVWA/tree/main/src/sqli\_blind](https://github.com/LeonardoE95/DVWA/tree/main/src/sqli\_blind)
+* [https://github.com/LeonardoE95/DVWA/tree/main/src/sqli\_blind](https://github.com/LeonardoE95/DVWA/tree/main/src/sqli_blind)
 
 {% content-ref url="https://app.gitbook.com/s/iS3hadq7jVFgSa8k5wRA/practical-ethical-hacker-notes/main-contents/15-sql-injection" %}
 [15 - SQL Injection](https://app.gitbook.com/s/iS3hadq7jVFgSa8k5wRA/practical-ethical-hacker-notes/main-contents/15-sql-injection)

@@ -88,13 +88,19 @@
 * [File Inclusion (LFI + RFI)](dvwa/file-inclusion.md)
 * [SQL Injection (SQLi)](dvwa/sql-injection.md)
 
+***
+
 ## OWASP Mutillidae II - Web
 
 <div align="left"><figure><img src=".gitbook/assets/image (426).png" alt=""><figcaption><p><a href="https://owasp.org/www-project-mutillidae-ii/">https://owasp.org/www-project-mutillidae-ii/</a></p></figcaption></figure></div>
 
-* [Install and configure OWASP Mutillidae II](dvwa/install-and-configure-dvwa.md)
+* [Install & configure OWASP Mutillidae II](mutillidae-ii/install-and-configure-owasp-mutillidae-ii.md)
+* [SQL Injection (SQLi)](mutillidae-ii/sqli/)
+* [Command Injection](mutillidae-ii/command-injection/)
+* [IDOR & File Inclusion](mutillidae-ii/idor-and-file-inclusion/)
+* [Cross-Site Scripting (XSS)](mutillidae-ii/xss/)
 
-
+***
 
 ## OWASP SecureBank - Web
 

