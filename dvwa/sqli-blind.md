@@ -34,7 +34,7 @@ In SQL Blind we obtain a boolean result (exist or not exist) of our query, then 
 
 This's our request captured by Burp Suite, while here below there's a php source code:
 
-<figure><img src="../.gitbook/assets/image (41) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (41) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 How the same in the low level, there're not input sanitation, then we can send what we want into input type text field. In this case request will arrive to DB located into webserver, but query will be preparared using php language.
 
@@ -164,7 +164,7 @@ In this level clicking on first page, we obtain a redirect to a second page to s
 
 <figure><img src="../.gitbook/assets/image (228).png" alt=""><figcaption></figcaption></figure>
 
-<figure><img src="../.gitbook/assets/image (43) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (43) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 <div align="left"><figure><img src="../.gitbook/assets/image (234).png" alt=""><figcaption></figcaption></figure></div>
 
@@ -180,7 +180,7 @@ SELECT first_name, last_name FROM users WHERE user_id = '1' OR 1=1 -- ';
 
 that permit us to see all DB results:
 
-<figure><img src="../.gitbook/assets/image (39) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (39) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 #### 2nd Payload
 
@@ -190,7 +190,7 @@ How last levels, we can use [UNION](https://www.w3schools.com/sql/sql_union.asp)
 SELECT first_name, last_name FROM users WHERE user_id = '' UNION SELECT first_name,password FROM users -- ';
 ```
 
-<div align="left"><figure><img src="../.gitbook/assets/image (40) (1).png" alt=""><figcaption></figcaption></figure></div>
+<div align="left"><figure><img src="../.gitbook/assets/image (40) (1) (1).png" alt=""><figcaption></figcaption></figure></div>
 
 We obtain hash of psw to eventually crack using tools such as: [Hashcat](https://app.gitbook.com/s/iS3hadq7jVFgSa8k5wRA/practical-ethical-hacker-notes/tools/hashcat) and [John The Ripper](https://app.gitbook.com/s/iS3hadq7jVFgSa8k5wRA/practical-ethical-hacker-notes/tools/john-the-ripper).
 
@@ -202,7 +202,7 @@ The input is not sanitized, so I can execute any (potentially malicious) command
 
 ## Impossible
 
-<figure><img src="../.gitbook/assets/image (44) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (44) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 The best solution is to sanitize query using a prepared statement, to delineate part static and dinamic (id) of query; take a binding parameter to check if is it an integer or char; insert a control to count rows number as result; and use a [CSRF](csrf.md) token.
 
