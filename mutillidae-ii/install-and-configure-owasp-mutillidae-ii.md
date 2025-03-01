@@ -95,7 +95,7 @@ You can test if the web site is responsive
 curl http://127.0.0.1:8888/;
 ```
 
-<figure><img src="../.gitbook/assets/image (2) (1) (1).png" alt=""><figcaption><p><a href="https://127.0.0.1/index.php?page=home.php">https://127.0.0.1/index.php?page=home.php</a></p></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (2) (1) (1) (1).png" alt=""><figcaption><p><a href="https://127.0.0.1/index.php?page=home.php">https://127.0.0.1/index.php?page=home.php</a></p></figcaption></figure>
 
 ### TMI
 

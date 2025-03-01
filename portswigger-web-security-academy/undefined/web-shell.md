@@ -2,7 +2,7 @@
 
 ## Lab 16: Command injection - Web Shell with Command injection
 
-<figure><img src="../../.gitbook/assets/image (14) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (14) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 Go to upload file page form [https://127.0.0.1/index.php?page=upload-file.php](https://127.0.0.1/index.php?page=upload-file.php)
 
