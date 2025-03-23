@@ -28,7 +28,7 @@ To prevent CSRF attacks, web developers often use techniques such as anti-CSRF t
 Using BurpSuite and the FoxyProxy extension is recommended.
 {% endhint %}
 
-<figure><img src="../.gitbook/assets/image (58).png" alt=""><figcaption><p><a href="https://portswigger.net/web-security/csrf">https://portswigger.net/web-security/csrf</a></p></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (58) (1).png" alt=""><figcaption><p><a href="https://portswigger.net/web-security/csrf">https://portswigger.net/web-security/csrf</a></p></figcaption></figure>
 
 {% embed url="https://owasp.org/www-community/attacks/csrf" %}
 [https://owasp.org/www-community/attacks/csrf](https://owasp.org/www-community/attacks/csrf)
@@ -42,13 +42,13 @@ Using BurpSuite and the FoxyProxy extension is recommended.
 
 We've a form with two input type text:
 
-<figure><img src="../.gitbook/assets/image (57).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (57) (1).png" alt=""><figcaption></figcaption></figure>
 
 that ask us to change admin password entering new password and confirming it.
 
 As always we can start to analyze source code:
 
-<figure><img src="../.gitbook/assets/image (59).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (59) (1).png" alt=""><figcaption></figcaption></figure>
 
 * There'is a condition to check if input value has been inserted
 * Check if the two passwords match
@@ -60,7 +60,7 @@ The input is not sanitized, so I can execute any (potentially malicious) command
 
 Considering that GET request to change psw is this
 
-<figure><img src="../.gitbook/assets/image (60).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (60) (1).png" alt=""><figcaption></figcaption></figure>
 
 we can use and insert it in a URL to send at victim usually using social engineering techniques.
 
@@ -120,11 +120,7 @@ into XSS Reflected section\
 
 <figure><img src="../.gitbook/assets/image (202).png" alt=""><figcaption></figcaption></figure>
 
-<div align="left">
-
-<figure><img src="../.gitbook/assets/image (203).png" alt=""><figcaption></figcaption></figure>
-
-</div>
+<div align="left"><figure><img src="../.gitbook/assets/image (203).png" alt=""><figcaption></figcaption></figure></div>
 
 Very well, using this XSS we can trigger the malicious password change request with the following XSS script:
 
@@ -150,11 +146,7 @@ Only checking if the HTTP\_REFERER request has the same name and origin of name 
 
 * Generation and checking of Anti-CSRF token (in our case called user\_token), that will be regenerated for every request or page refresh
 
-<div align="left">
-
-<figure><img src="../.gitbook/assets/image (210).png" alt=""><figcaption></figcaption></figure>
-
-</div>
+<div align="left"><figure><img src="../.gitbook/assets/image (210).png" alt=""><figcaption></figcaption></figure></div>
 
 * Check the match between the new password and the confirmation password
 * Take a real escape string
@@ -268,6 +260,6 @@ For the making of this solution the following resource were used:
 
 * [https://stackoverflow.com/questions/21956683/enable-access-control-on-simple-http-server](https://stackoverflow.com/questions/21956683/enable-access-control-on-simple-http-server)
 * [https://labs.withsecure.com/publications/getting-real-with-xss](https://labs.withsecure.com/publications/getting-real-with-xss)
-* [https://github.com/LeonardoE95/DVWA/tree/main/src/client\_side\_request\_forgery](https://github.com/LeonardoE95/DVWA/tree/main/src/client\_side\_request\_forgery)
+* [https://github.com/LeonardoE95/DVWA/tree/main/src/client\_side\_request\_forgery](https://github.com/LeonardoE95/DVWA/tree/main/src/client_side_request_forgery)
 * [https://portswigger.net/web-security/csrf](https://portswigger.net/web-security/csrf)
 * [https://owasp.org/www-community/attacks/csrf](https://owasp.org/www-community/attacks/csrf)

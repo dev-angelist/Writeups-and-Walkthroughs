@@ -38,11 +38,7 @@ Using BurpSuite and the FoxyProxy extension is recommended.
 
 We've a div containing three distinct hyperlinks, each triggering the display of various files within the web application upon activation. The exhibition of a specific file is accomplished through the utilization of the subsequent GET request.
 
-<div align="left">
-
-<figure><img src="../.gitbook/assets/image (213).png" alt=""><figcaption></figcaption></figure>
-
-</div>
+<div align="left"><figure><img src="../.gitbook/assets/image (213).png" alt=""><figcaption></figcaption></figure></div>
 
 <figure><img src="../.gitbook/assets/image (214).png" alt=""><figcaption><p>file1.pho</p></figcaption></figure>
 
@@ -50,11 +46,7 @@ We've a div containing three distinct hyperlinks, each triggering the display of
 
 <figure><img src="../.gitbook/assets/image (216).png" alt=""><figcaption><p>file3.php</p></figcaption></figure>
 
-<div align="left">
-
-<figure><img src="../.gitbook/assets/image (217).png" alt=""><figcaption></figcaption></figure>
-
-</div>
+<div align="left"><figure><img src="../.gitbook/assets/image (217).png" alt=""><figcaption></figcaption></figure></div>
 
 ```http
 GET /DVWA/vulnerabilities/fi/?page=file1.php HTTP/1.1
@@ -71,7 +63,7 @@ Upgrade-Insecure-Requests: 1
 
 This is php code of this level:
 
-<figure><img src="../.gitbook/assets/image (53).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (53) (1).png" alt=""><figcaption></figcaption></figure>
 
 The concept involves manipulating the filename within the page parameter to any desired file on the target, enabling us to retrieve its contents. By employing the following GET request, we can read the contents of the etc password file.
 
@@ -83,7 +75,7 @@ http://localhost/DVWA/vulnerabilities/fi/?page=../../../../../../etc/passwd
 
 Replacing this path: `../../../../../../etc/passwd` at file1.php, we obtain result of command in html output:
 
-<figure><img src="../.gitbook/assets/image (54).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (54) (1).png" alt=""><figcaption></figcaption></figure>
 
 If the goal is to disclose certain PHP code, one approach is to utilize PHP filters to encode the PHP code into base64.
 
@@ -190,11 +182,7 @@ The input is not sanitized sufficiently , so I can execute any (potentially mali
 
 ## High
 
-<div align="left">
-
-<figure><img src="../.gitbook/assets/image (55).png" alt=""><figcaption></figcaption></figure>
-
-</div>
+<div align="left"><figure><img src="../.gitbook/assets/image (55) (1).png" alt=""><figcaption></figcaption></figure></div>
 
 In this code the're two validation checks:
 
@@ -226,7 +214,7 @@ The input is not sanitized sufficiently , so I can execute any (potentially mali
 
 ## Impossible
 
-<figure><img src="../.gitbook/assets/image (56).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (56) (1).png" alt=""><figcaption></figcaption></figure>
 
 {% hint style="info" %}
 Site isn't vulnerable to File Inclusion attack because the request includes only possible lecit value/page.
@@ -236,4 +224,4 @@ Site isn't vulnerable to File Inclusion attack because the request includes only
 
 For the making of this solution the following resource were used:
 
-* [https://github.com/LeonardoE95/DVWA/tree/main/src/file\_inclusion](https://github.com/LeonardoE95/DVWA/tree/main/src/file\_inclusion)
+* [https://github.com/LeonardoE95/DVWA/tree/main/src/file\_inclusion](https://github.com/LeonardoE95/DVWA/tree/main/src/file_inclusion)

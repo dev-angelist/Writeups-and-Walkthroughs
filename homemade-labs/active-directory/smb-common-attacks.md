@@ -126,7 +126,7 @@ smbmap -H corp-dc -u "devan" -p "P@ssword123!" #List Devan's shares
 smbmap -H corp-dc -u "devan" --prompt ##List Devan's shares without writing password in cleartext
 ```
 
-<figure><img src="../../.gitbook/assets/image (7).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (7) (1).png" alt=""><figcaption></figcaption></figure>
 
 List a specific Share
 
@@ -141,7 +141,7 @@ smbmap -H corp-dc -u "devan" --prompt -v            #OS version check
 smbmap -H corp-dc -u "devan" --prompt --signing     #Signing check
 ```
 
-<figure><img src="../../.gitbook/assets/image (6).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (6) (1).png" alt=""><figcaption></figcaption></figure>
 
 If the signing of message is disabled we can use it for Relay attacks and potentially of exploit eternalblue vuln.
 
@@ -158,7 +158,7 @@ smbclient //corp-dc/SharedFiles -U "dev-angelist.lab/devan%P@ssword123!" #we can
 #File system prompt includes command such as: cd, dir, ls, get, put
 </code></pre>
 
-<figure><img src="../../.gitbook/assets/image (5).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (5) (1).png" alt=""><figcaption></figcaption></figure>
 
 ***
 
@@ -173,7 +173,7 @@ nxc smb corp-dc -u "AnAccountThatDoesntExist" --shares  #Try to authenticate usi
 nxc smb corp-dc -u "devan" -p "P@ssword123!" --shares     #List Devan's shares and info about DC, SMB vs, OS vs, domain name and signing status
 ```
 
-<figure><img src="../../.gitbook/assets/image (4).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (4) (1).png" alt=""><figcaption></figcaption></figure>
 
 ***
 
@@ -187,7 +187,7 @@ smbmap -H corp-dc -u "administrator" -x "whoami /priv" --prompt
  nxc smb corp-dc -u "administrator" -p 'P@$$W0rd' -x "whoami /priv"
 ```
 
-<figure><img src="../../.gitbook/assets/image (3).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (3) (1).png" alt=""><figcaption></figcaption></figure>
 
 In this case we've execute only a whoami command, but for example we can use it for spawn a reverse shell
 
@@ -398,7 +398,7 @@ Set-SmbServerConfiguration -RequireSecuritySignature $false
 nxc smb corp-dc --gen-relay-list target_list.txt
 ```
 
-<figure><img src="../../.gitbook/assets/image (18).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (18) (1).png" alt=""><figcaption></figcaption></figure>
 
 `192.168.57.9` is the correspective IP of `corp-dc`
 

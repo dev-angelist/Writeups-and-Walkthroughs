@@ -1,5 +1,5 @@
 ---
-icon: square-s
+icon: s
 ---
 
 # Server-side vulnerabilities
