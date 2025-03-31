@@ -1,5 +1,5 @@
 ---
-icon: '4'
+icon: s
 ---
 
 # Server-side request forgery (SSRF)

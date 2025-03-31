@@ -1,5 +1,5 @@
 ---
-icon: '5'
+icon: f
 ---
 
 # File upload vulnerabilities

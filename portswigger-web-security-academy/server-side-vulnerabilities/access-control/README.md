@@ -1,7 +1,7 @@
 ---
 description: >-
   https://portswigger.net/web-security/learning-paths/server-side-vulnerabilities-apprentice/access-control-apprentice/access-control/what-is-access-control
-icon: '2'
+icon: a
 ---
 
 # Access control

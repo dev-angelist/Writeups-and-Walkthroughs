@@ -1,0 +1,77 @@
+---
+description: >-
+  https://portswigger.net/web-security/api-testing/server-side-parameter-pollution/lab-exploiting-server-side-parameter-pollution-in-query-string
+icon: flask-vial
+---
+
+# Lab
+
+## Description
+
+
+
+## Solution
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<figure><img src="../../../.gitbook/assets/image (500).png" alt=""><figcaption></figcaption></figure>
+
+Go to login page and access as wiener user.
+
+JWT extension reveal that there's a JWT token, obviously related to wiener user account
+
+<figure><img src="../../../.gitbook/assets/image (470).png" alt=""><figcaption></figcaption></figure>
+
+```json
+{"iss":"portswigger","exp":1742668339,"sub":"wiener"}
+```
+
+Send it to repeater and select JSON web Token tab to deep dive to it
+
+<figure><img src="../../../.gitbook/assets/image (471).png" alt=""><figcaption></figcaption></figure>
+
+Modify the sub field inserting: "administrator" (if the key field isn't compiled, is necessary to add it clicking to Sign button)
+
+<figure><img src="../../../.gitbook/assets/image (472).png" alt=""><figcaption></figcaption></figure>
+
+and click first on the **Send** button and then on **Following redirection** button
+
+<figure><img src="../../../.gitbook/assets/image (473).png" alt=""><figcaption></figcaption></figure>
+
+authenticating us as administrator
+
+<figure><img src="../../../.gitbook/assets/image (474).png" alt=""><figcaption></figcaption></figure>
+
+<figure><img src="../../../.gitbook/assets/image (481).png" alt=""><figcaption></figcaption></figure>
+
+Checking the response the admin panel's path is: `/admin`
+
+<figure><img src="../../../.gitbook/assets/image (476).png" alt=""><figcaption></figcaption></figure>
+
+so we can move there via a GET request: `GET /admin HTTP/2`
+
+<figure><img src="../../../.gitbook/assets/image (477).png" alt=""><figcaption></figcaption></figure>
+
+analyzing the response, we see that the request to delete the user Carlos is the following: `GET /admin/delete?username=carlos HTTP/2`
+
+<figure><img src="../../../.gitbook/assets/image (478).png" alt=""><figcaption></figcaption></figure>
+
+So, Send and click to Following redirection to delete it and complete the lab.
+
+<figure><img src="../../../.gitbook/assets/image (479).png" alt=""><figcaption></figcaption></figure>
+
+<figure><img src="../../../.gitbook/assets/image (480).png" alt=""><figcaption></figcaption></figure>

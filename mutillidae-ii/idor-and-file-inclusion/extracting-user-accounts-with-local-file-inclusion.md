@@ -2,7 +2,7 @@
 
 ## Lab 20: Insecure Direct Object References - Extracting User Accounts with Local File Inclusion
 
-<figure><img src="../../.gitbook/assets/image (28) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (28) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 Go to directory browsing page: [https://127.0.0.1/index.php?page=directory-browsing.php](https://127.0.0.1/index.php?page=directory-browsing.php)
 

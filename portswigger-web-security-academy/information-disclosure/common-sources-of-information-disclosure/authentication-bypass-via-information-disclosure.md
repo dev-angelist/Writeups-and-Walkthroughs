@@ -16,7 +16,7 @@ You can log in to your own account using the following credentials: `wiener:pete
 
 ## Solution
 
-<figure><img src="../../../.gitbook/assets/image (27).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (27) (1).png" alt=""><figcaption></figcaption></figure>
 
 Starting access to wiener user [https://0ae80062039d9b5194f2429800130047.web-security-academy.net/login](https://0ae80062039d9b5194f2429800130047.web-security-academy.net/login)
 
@@ -24,11 +24,11 @@ Checking page sources there're not of interesting, so we can try access to admin
 
 and we can see this information disclosure message: "Admin interface only available to local users"
 
-<figure><img src="../../../.gitbook/assets/image (28).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (28) (1).png" alt=""><figcaption></figcaption></figure>
 
 so, we start to analyze request for understanding more things
 
-<figure><img src="../../../.gitbook/assets/image (29).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (29) (1).png" alt=""><figcaption></figcaption></figure>
 
 We can try to change request method to see if the answer changes.
 

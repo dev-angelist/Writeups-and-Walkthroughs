@@ -18,7 +18,7 @@ You can log in to your own account using the following credentials: `wiener:pete
 
 ## Solution
 
-<figure><img src="../../../.gitbook/assets/image (28) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (28) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 as indicated into description, we know the admin panel path, but without admin credentials we can't do nothing,&#x20;
 
@@ -26,7 +26,7 @@ as indicated into description, we know the admin panel path, but without admin c
 
 so we can do normal login with followring credentials: `wiener:peter`
 
-<figure><img src="../../../.gitbook/assets/image (29) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (29) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 analysing the http response after login, we can see that there're into cookie and admin flag set to false and the session ID:
 

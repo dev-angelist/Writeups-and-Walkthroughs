@@ -1,5 +1,5 @@
 ---
-icon: '6'
+icon: o
 ---
 
 # OS command injection

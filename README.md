@@ -46,7 +46,6 @@
 <div align="left"><figure><img src=".gitbook/assets/spaces_EhofjMfYbx3gOUSReXD7_uploads_git-blob-4d6d836c187ed06d910d94a8c98eab79e10bce11_logo-htb2 (1).webp" alt=""><figcaption><p>hackthebox.com - © HACKTHEBOX</p></figcaption></figure></div>
 
 * [Devel](hackthebox/devel.md)
-* [Bank](hackthebox/bank.md)
 * [Delivery](hackthebox/delivery.md)
 * [Active](hackthebox/active.md)
 * [Analytics](hackthebox/analytics.md)
@@ -55,6 +54,8 @@
 * [Sau](hackthebox/sau.md)
 * [Sunday](hackthebox/sunday.md)
 * [Cap](hackthebox/cap.md)
+* [Bizness](hackthebox/bizness.md)
+* Chemistry - OnGoing
 * Celestial - OnGoing
 * Poison - OnGoing
 
@@ -68,6 +69,12 @@
 
 ***
 
+## Vulnix
+
+<div align="left"><figure><img src=".gitbook/assets/image (4).png" alt="" width="375"><figcaption><p>© VulNyx</p></figcaption></figure></div>
+
+* Admin
+
 ## DockerLabs
 
 <div align="left"><figure><img src=".gitbook/assets/image (244).png" alt="" width="144"><figcaption><p><a href="https://dockerlabs.es/">https://dockerlabs.es/</a></p></figcaption></figure></div>
@@ -78,7 +85,25 @@
 
 ***
 
-## DVWA - Web
+## HomeMade Labs 🏠🔬
+
+* [Active Directory](homemade-labs/active-directory/)
+* [Pivoting](https://app.gitbook.com/o/s2H3MdEB0Qp2IbE58Gxw/s/rRWtuMw6xkkeDjZfkcWC/~/changes/174/homemade-labs/pivoting)
+* [Buffer Overflow (BoF)](https://app.gitbook.com/o/s2H3MdEB0Qp2IbE58Gxw/s/rRWtuMw6xkkeDjZfkcWC/~/changes/174/homemade-labs/buffer-overflow-bof)
+
+***
+
+## WAPT
+
+### Portswigger Web Security Academy
+
+<div align="left"><figure><img src=".gitbook/assets/image (13) (1) (1) (1).png" alt=""><figcaption><p>@PortSwigger Ltd</p></figcaption></figure></div>
+
+[PortSwigger - Web Security Academy (My Walkthrough)](portswigger-web-security-academy/)
+
+***
+
+### DVWA&#x20;
 
 <div align="left"><figure><img src=".gitbook/assets/dvwa-logo-500x500.png" alt="" width="250"><figcaption><p><a href="https://github.com/digininja/DVWA">https://github.com/digininja/DVWA</a></p></figcaption></figure></div>
 
@@ -90,7 +115,7 @@
 
 ***
 
-## OWASP Mutillidae II - Web
+### OWASP - Mutillidae II
 
 <div align="left"><figure><img src=".gitbook/assets/image (426).png" alt=""><figcaption><p><a href="https://owasp.org/www-project-mutillidae-ii/">https://owasp.org/www-project-mutillidae-ii/</a></p></figcaption></figure></div>
 
@@ -102,7 +127,7 @@
 
 ***
 
-## OWASP SecureBank - Web
+### OWASP - SecureBank
 
 <div align="left"><figure><img src=".gitbook/assets/image (427).png" alt=""><figcaption><p><a href="https://owasp.org/www-project-securebank/">https://owasp.org/www-project-securebank/</a></p></figcaption></figure></div>
 

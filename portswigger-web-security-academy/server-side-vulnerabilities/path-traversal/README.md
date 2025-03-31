@@ -1,7 +1,7 @@
 ---
 description: >-
   https://portswigger.net/web-security/learning-paths/server-side-vulnerabilities-apprentice/path-traversal-apprentice/file-path-traversal/what-is-path-traversal
-icon: '1'
+icon: p
 ---
 
 # Path traversal

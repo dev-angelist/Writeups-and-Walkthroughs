@@ -1,5 +1,5 @@
 ---
-icon: '3'
+icon: a
 ---
 
 # Authentication
