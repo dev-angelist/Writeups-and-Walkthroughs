@@ -1,10 +1,6 @@
 # ColdBox
 
-<div align="left">
-
-<figure><img src="../.gitbook/assets/image (94).png" alt="" width="168"><figcaption><p><a href="https://tryhackme.com/room/colddboxeasy">https://tryhackme.com/room/colddboxeasy</a></p></figcaption></figure>
-
-</div>
+<div align="left"><figure><img src="../.gitbook/assets/image (94) (1).png" alt="" width="168"><figcaption><p><a href="https://tryhackme.com/room/colddboxeasy">https://tryhackme.com/room/colddboxeasy</a></p></figcaption></figure></div>
 
 🔗 [ColdBox](https://tryhackme.com/room/colddboxeasy)
 
@@ -85,11 +81,11 @@ Service Info: OS: Linux; CPE: cpe:/o:linux:linux_kernel
 
 Then we can start to see website (port 80):
 
-<figure><img src="../.gitbook/assets/image (96).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (96) (1).png" alt=""><figcaption></figcaption></figure>
 
 we can see that's a wordpress web site, then we can try to see page source for checking information disclosure.
 
-<figure><img src="../.gitbook/assets/image (97).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (97) (1).png" alt=""><figcaption></figcaption></figure>
 
 but we don't find precious info.
 
@@ -99,23 +95,23 @@ Another good thing to do, is find hidden paths on website using gobuster
 gobuster dir -u coldbox.thm -w /usr/share/wordlists/dirb/common.txt
 ```
 
-<figure><img src="../.gitbook/assets/image (98).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (98) (1).png" alt=""><figcaption></figcaption></figure>
 
 Very good, we can start to check these web dir:
 
 /hidden/
 
-<figure><img src="../.gitbook/assets/image (99).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (99) (1).png" alt=""><figcaption></figcaption></figure>
 
 Very good, there're precious info about usernames: C0ldd, Hugo and Philip.
 
 We can confirm it watching error message at login in a default login path for wordpress: /wp-admin/
 
-<figure><img src="../.gitbook/assets/image (100).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (100) (1).png" alt=""><figcaption></figcaption></figure>
 
 Finally the's another good info
 
-<figure><img src="../.gitbook/assets/image (101).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (101) (1).png" alt=""><figcaption></figcaption></figure>
 
 If we don't waste time, we can use wpscan to find user list, but we'll take it if we take results with our three users, then try to login with C0ldd/Hugo/Philip:password123 (what we've see in the hidden path).
 
@@ -150,11 +146,7 @@ Now, we need to access at machine using web shell, find it on our kali web-shell
 
 We need to edit it using our credentials (LHOST and LPORT):
 
-<div align="left">
-
-<figure><img src="../.gitbook/assets/image (176).png" alt=""><figcaption></figcaption></figure>
-
-</div>
+<div align="left"><figure><img src="../.gitbook/assets/image (176).png" alt=""><figcaption></figcaption></figure></div>
 
 and upload it on media library page:
 
@@ -172,11 +164,7 @@ Starting with themes, we edit header.php page in the twentyfifteen theme using t
 
 Update file, run netcat listener on the same port '1234':
 
-<div align="left">
-
-<figure><img src="../.gitbook/assets/image (178).png" alt=""><figcaption></figcaption></figure>
-
-</div>
+<div align="left"><figure><img src="../.gitbook/assets/image (178).png" alt=""><figcaption></figcaption></figure></div>
 
 Go to: [http://coldbox.thm/wp-content/themes/twentyfifteen/header.php](http://coldbox.thm/wp-content/themes/twentyfifteen/header.php)
 
@@ -227,11 +215,7 @@ sudo vim -c ':!/bin/sh'
 
 spawn /bin/sh to use shell:
 
-<div align="left">
-
-<figure><img src="../.gitbook/assets/image (183).png" alt=""><figcaption></figcaption></figure>
-
-</div>
+<div align="left"><figure><img src="../.gitbook/assets/image (183).png" alt=""><figcaption></figcaption></figure></div>
 
 Well done! Root flag found!
 

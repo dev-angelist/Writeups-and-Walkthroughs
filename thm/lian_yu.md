@@ -1,10 +1,6 @@
 # Lian\_Yu
 
-<div align="left">
-
-<figure><img src="../.gitbook/assets/image (184).png" alt="" width="375"><figcaption><p><a href="https://tryhackme.com/room/lianyu">https://tryhackme.com/room/lianyu</a></p></figcaption></figure>
-
-</div>
+<div align="left"><figure><img src="../.gitbook/assets/image (184).png" alt="" width="375"><figcaption><p><a href="https://tryhackme.com/room/lianyu">https://tryhackme.com/room/lianyu</a></p></figcaption></figure></div>
 
 🔗 [Lian\_Yu](https://tryhackme.com/room/lianyu)
 
@@ -95,11 +91,7 @@ Service Info: OSs: Unix, Linux; CPE: cpe:/o:linux:linux_kernel
 
 Then we can start to see website (port 80):
 
-<div align="left">
-
-<figure><img src="../.gitbook/assets/image (187).png" alt=""><figcaption></figcaption></figure>
-
-</div>
+<div align="left"><figure><img src="../.gitbook/assets/image (187).png" alt=""><figcaption></figcaption></figure></div>
 
 We find this info in the footer of website:
 
@@ -115,11 +107,7 @@ No other informations, another good thing to do, is find hidden paths on website
 gobuster dir -u lian_yu.thm -w /usr/share/wordlists/dirb/common.txt
 ```
 
-<div align="left">
-
-<figure><img src="../.gitbook/assets/image (188).png" alt=""><figcaption></figcaption></figure>
-
-</div>
+<div align="left"><figure><img src="../.gitbook/assets/image (188).png" alt=""><figcaption></figcaption></figure></div>
 
 Very bad, we find only index page that we've just see.
 
@@ -129,11 +117,7 @@ We can try to use a bigger wordlist such as directory-list-2.3-medium.txt
 gobuster dir -u lian_yu.thm -w /usr/share/wordlists/dirbuster/directory-list-2.3-medium.txt
 ```
 
-<div align="left">
-
-<figure><img src="../.gitbook/assets/image (195).png" alt=""><figcaption></figcaption></figure>
-
-</div>
+<div align="left"><figure><img src="../.gitbook/assets/image (195).png" alt=""><figcaption></figcaption></figure></div>
 
 Excellent! We find a new web path: /island, search it!
 
@@ -147,11 +131,7 @@ We can try to retake another dirbuster search starting with island/ web path:
 gobuster dir -u lian_yu.thm/island/ -w /usr/share/wordlists/dirbuster/directory-list-2.3-medium.txt
 ```
 
-<div align="left">
-
-<figure><img src="../.gitbook/assets/image (83).png" alt=""><figcaption></figcaption></figure>
-
-</div>
+<div align="left"><figure><img src="../.gitbook/assets/image (83) (1).png" alt=""><figcaption></figcaption></figure></div>
 
 Then, we can answer at first question.
 
@@ -167,11 +147,7 @@ Explore /2100 web page:
 
 Viewing source code:
 
-<div align="left">
-
-<figure><img src="../.gitbook/assets/image (197).png" alt=""><figcaption></figcaption></figure>
-
-</div>
+<div align="left"><figure><img src="../.gitbook/assets/image (197).png" alt=""><figcaption></figcaption></figure></div>
 
 we see this info:
 
@@ -183,7 +159,7 @@ Retaking another dirbuster search starting with 2100/ web path, we see that ther
 gobuster dir -u lian_yu.thm/island/2100/ -w /usr/share/wordlists/dirbuster/directory-list-2.3-medium.txt -x .ticket
 ```
 
-<figure><img src="../.gitbook/assets/image (85).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (85) (1).png" alt=""><figcaption></figcaption></figure>
 
 Wow, we've the path to the ticket which is the answer to this question as well.
 
@@ -197,33 +173,21 @@ green\_arrow.ticket
 
 Open it we see this potential encrypted word, then we can use CyberChef to decrypt it.
 
-<figure><img src="../.gitbook/assets/image (84).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (84) (1).png" alt=""><figcaption></figcaption></figure>
 
 {% embed url="https://gchq.github.io/CyberChef/" %}
 
 After multiple trial and error attempts, we can determine that this is a Base58 encoding.
 
-<div align="left">
-
-<figure><img src="../.gitbook/assets/image (86).png" alt=""><figcaption></figcaption></figure>
-
-</div>
+<div align="left"><figure><img src="../.gitbook/assets/image (86) (1).png" alt=""><figcaption></figcaption></figure></div>
 
 Remember that we've a potential username: 'vigilante', then we try to login with ftp:
 
-<div align="left">
-
-<figure><img src="../.gitbook/assets/image (87).png" alt=""><figcaption></figcaption></figure>
-
-</div>
+<div align="left"><figure><img src="../.gitbook/assets/image (87) (1).png" alt=""><figcaption></figcaption></figure></div>
 
 Download these resources using `mget *` command.
 
-<div align="left">
-
-<figure><img src="../.gitbook/assets/image (89).png" alt=""><figcaption></figcaption></figure>
-
-</div>
+<div align="left"><figure><img src="../.gitbook/assets/image (89) (1).png" alt=""><figcaption></figcaption></figure></div>
 
 There're three images with potential hidden info inside.
 
@@ -233,11 +197,7 @@ The 'Leave\_me\_alone.png' image is corrupt, seeing header we see that's not '.p
 xxd Leave_me_alone.png | head
 ```
 
-<div align="left">
-
-<figure><img src="../.gitbook/assets/image (92).png" alt=""><figcaption></figcaption></figure>
-
-</div>
+<div align="left"><figure><img src="../.gitbook/assets/image (92) (1).png" alt=""><figcaption></figcaption></figure></div>
 
 then we can modify it using hexeditor and display it, getting information about psw:
 
@@ -245,7 +205,7 @@ then we can modify it using hexeditor and display it, getting information about 
 hexeditor Leave_me_alone.png 
 ```
 
-<figure><img src="../.gitbook/assets/image (91).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (91) (1).png" alt=""><figcaption></figcaption></figure>
 
 Perfect, we can try to extract info using steghide tool and psw retrevied few time ago:
 
@@ -253,22 +213,14 @@ Perfect, we can try to extract info using steghide tool and psw retrevied few ti
 steghide extract -sf aa.jpg
 ```
 
-<div align="left">
-
-<figure><img src="../.gitbook/assets/image (93).png" alt=""><figcaption></figcaption></figure>
-
-</div>
+<div align="left"><figure><img src="../.gitbook/assets/image (93) (1).png" alt=""><figcaption></figcaption></figure></div>
 
 ```bash
 unzip ss.zip
 #we find two files
 ```
 
-<div align="left">
-
-<figure><img src="../.gitbook/assets/image (75).png" alt=""><figcaption></figcaption></figure>
-
-</div>
+<div align="left"><figure><img src="../.gitbook/assets/image (75) (1).png" alt=""><figcaption></figcaption></figure></div>
 
 The content of shado file can be more interesting!
 
@@ -284,11 +236,7 @@ Then, we've try to use the same username and brute force psw using Hydra, but it
 
 First to brute force user and psw, we can try to re-access with FTP and check home folder of system users:
 
-<div align="left">
-
-<figure><img src="../.gitbook/assets/image (90).png" alt=""><figcaption></figcaption></figure>
-
-</div>
+<div align="left"><figure><img src="../.gitbook/assets/image (90) (1).png" alt=""><figcaption></figcaption></figure></div>
 
 Very good, we find another user: slade, and probably ssh psw matched into shado file (M3tahuman).
 
@@ -298,11 +246,7 @@ Try it!
 ssh slade@10.10.244.228
 ```
 
-<div align="left">
-
-<figure><img src="../.gitbook/assets/image (76).png" alt=""><figcaption></figcaption></figure>
-
-</div>
+<div align="left"><figure><img src="../.gitbook/assets/image (76) (1).png" alt=""><figcaption></figcaption></figure></div>
 
 Well done!\
 
@@ -319,11 +263,7 @@ Using find command we can search quickly user flag and open it with cat:
 find / -type f -iname "user.txt" 2>/dev/null
 ```
 
-<div align="left">
-
-<figure><img src="../.gitbook/assets/image (79).png" alt=""><figcaption></figcaption></figure>
-
-</div>
+<div align="left"><figure><img src="../.gitbook/assets/image (79) (1).png" alt=""><figcaption></figcaption></figure></div>
 
 <details>
 
@@ -337,17 +277,13 @@ THM{P30P7E\_K33P\_53CRET5\_\_C0MPUT3R5\_D0N'T}
 
 We can do `sudo -l` command to discover user's permissions.
 
-<div align="left">
-
-<figure><img src="../.gitbook/assets/image (81).png" alt=""><figcaption></figcaption></figure>
-
-</div>
+<div align="left"><figure><img src="../.gitbook/assets/image (81) (1).png" alt=""><figcaption></figcaption></figure></div>
 
 Very good pkexec has root permission!
 
 Search on GTFOBins ([https://gtfobins.github.io/](https://gtfobins.github.io/)) and find our exploit:
 
-<figure><img src="../.gitbook/assets/image (80).png" alt=""><figcaption><p><a href="https://gtfobins.github.io/gtfobins/pkexec/">https://gtfobins.github.io/gtfobins/pkexec/</a></p></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (80) (1).png" alt=""><figcaption><p><a href="https://gtfobins.github.io/gtfobins/pkexec/">https://gtfobins.github.io/gtfobins/pkexec/</a></p></figcaption></figure>
 
 Run it to became root and find flag (how the last task):
 
@@ -359,11 +295,7 @@ find / -type f -iname "root.txt" 2>/dev/null #find root flag
 cat /root/root.txt #see root.txt
 ```
 
-<div align="left">
-
-<figure><img src="../.gitbook/assets/image (82).png" alt=""><figcaption></figcaption></figure>
-
-</div>
+<div align="left"><figure><img src="../.gitbook/assets/image (82) (1).png" alt=""><figcaption></figcaption></figure></div>
 
 <details>
 

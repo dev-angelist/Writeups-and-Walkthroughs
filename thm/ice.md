@@ -1,10 +1,6 @@
 # Ice
 
-<div align="left">
-
-<figure><img src="../.gitbook/assets/829892f5e7936a448f465b64d64f9c62 (1).png" alt="" width="130"><figcaption><p>tryhackme.com - © TryHackMe</p></figcaption></figure>
-
-</div>
+<div align="left"><figure><img src="../.gitbook/assets/829892f5e7936a448f465b64d64f9c62 (1).png" alt="" width="130"><figcaption><p>tryhackme.com - © TryHackMe</p></figcaption></figure></div>
 
 🔗 [Ice](https://tryhackme.com/room/ice)
 
@@ -217,11 +213,7 @@ DARK-PC
 
 ## Task 3 - Gain Access
 
-<div align="left">
-
-<figure><img src="../.gitbook/assets/image (102).png" alt="" width="106"><figcaption></figcaption></figure>
-
-</div>
+<div align="left"><figure><img src="../.gitbook/assets/image (102) (1).png" alt="" width="106"><figcaption></figcaption></figure></div>
 
 ### 3.1 - Now that we've identified some interesting services running on our target machine, let's do a little bit of research into one of the weirder services identified: Icecast. Icecast, or well at least this version running on our target, is heavily flawed and has a high level vulnerability with a score of 7.5 (7.4 depending on where you view it). What type of vulnerability is it? Use https://www.cvedetails.com for this question and the next.
 
@@ -265,11 +257,7 @@ First let's check that the LHOST option is set to our tun0 IP (which can be foun
 
 ## Task 4 - Escalate
 
-<div align="left">
-
-<figure><img src="../.gitbook/assets/image (114).png" alt="" width="188"><figcaption></figcaption></figure>
-
-</div>
+<div align="left"><figure><img src="../.gitbook/assets/image (114) (1).png" alt="" width="188"><figcaption></figcaption></figure></div>
 
 ### 4.1 - Woohoo! We've gained a foothold into our victim machine! What's the name of the shell we have now?
 
@@ -285,11 +273,7 @@ meterpreter
 getuid
 ```
 
-<div align="left">
-
-<figure><img src="../.gitbook/assets/Schermata del 2023-07-30 19-30-37.png" alt=""><figcaption></figcaption></figure>
-
-</div>
+<div align="left"><figure><img src="../.gitbook/assets/Schermata del 2023-07-30 19-30-37.png" alt=""><figcaption></figcaption></figure></div>
 
 {% hint style="info" %}
 Dark
@@ -359,11 +343,7 @@ getprivs
 
 We can now verify that we have expanded permissions using the command `getprivs`. What permission listed allows us to take ownership of files?
 
-<div align="left">
-
-<figure><img src="../.gitbook/assets/Schermata del 2023-07-30 19-55-28.png" alt=""><figcaption></figcaption></figure>
-
-</div>
+<div align="left"><figure><img src="../.gitbook/assets/Schermata del 2023-07-30 19-55-28.png" alt=""><figcaption></figcaption></figure></div>
 
 {% hint style="info" %}
 SeSystemtimePrivilege
@@ -391,11 +371,7 @@ Migrate to this process now with the command `migrate -N PROCESS_NAME`
 migrate 1372 spoolsv.exe
 ```
 
-<div align="left">
-
-<figure><img src="../.gitbook/assets/Schermata del 2023-07-30 20-33-38.png" alt=""><figcaption></figcaption></figure>
-
-</div>
+<div align="left"><figure><img src="../.gitbook/assets/Schermata del 2023-07-30 20-33-38.png" alt=""><figcaption></figcaption></figure></div>
 
 ### 5.2 - Let's check what user we are now with the command \`getuid\`. What user is listed?
 
@@ -403,11 +379,7 @@ migrate 1372 spoolsv.exe
 getuid
 ```
 
-<div align="left">
-
-<figure><img src="../.gitbook/assets/Schermata del 2023-07-30 20-33-10.png" alt=""><figcaption></figcaption></figure>
-
-</div>
+<div align="left"><figure><img src="../.gitbook/assets/Schermata del 2023-07-30 20-33-10.png" alt=""><figcaption></figcaption></figure></div>
 
 {% hint style="info" %}
 NT AUTHORITY\SYSTEM
@@ -498,8 +470,4 @@ run post/windows/manage/enable_rdp
 xfreerdp /u:Dark /p:Password01! /v:10.9.80.228
 ```
 
-<div align="left">
-
-<figure><img src="../.gitbook/assets/Schermata del 2023-07-30 21-03-24.png" alt=""><figcaption></figcaption></figure>
-
-</div>
+<div align="left"><figure><img src="../.gitbook/assets/Schermata del 2023-07-30 21-03-24.png" alt=""><figcaption></figcaption></figure></div>

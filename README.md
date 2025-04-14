@@ -71,7 +71,7 @@
 
 ## Vulnix
 
-<div align="left"><figure><img src=".gitbook/assets/image (4).png" alt="" width="375"><figcaption><p>© VulNyx</p></figcaption></figure></div>
+<div align="left"><figure><img src=".gitbook/assets/image (4) (1).png" alt="" width="375"><figcaption><p>© VulNyx</p></figcaption></figure></div>
 
 * Admin
 
@@ -97,7 +97,7 @@
 
 ### Portswigger Web Security Academy
 
-<div align="left"><figure><img src=".gitbook/assets/image (13) (1) (1) (1).png" alt=""><figcaption><p>@PortSwigger Ltd</p></figcaption></figure></div>
+<div align="left"><figure><img src=".gitbook/assets/image (13) (1) (1) (1) (1).png" alt=""><figcaption><p>@PortSwigger Ltd</p></figcaption></figure></div>
 
 [PortSwigger - Web Security Academy (My Walkthrough)](portswigger-web-security-academy/)
 

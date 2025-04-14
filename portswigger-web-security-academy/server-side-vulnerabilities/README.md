@@ -10,9 +10,9 @@ This learning path introduces you to a range of common server-side vulnerabiliti
 
 > 1. [Path traversal](path-traversal/)
 > 2. [Access control](access-control/)
-> 3. [Authentication](authentication.md)
-> 4. [Server-side request forgery (SSRF)](server-side-request-forgery-ssrf.md)
-> 5. [File upload vulnerabilities](file-upload-vulnerabilities.md)
-> 6. [OS command injection](os-command-injection.md)
-> 7. [SQL injection](sql-injection.md)
+> 3. [Authentication](authentication/)
+> 4. [Server-side request forgery (SSRF)](server-side-request-forgery-ssrf/)
+> 5. [File upload vulnerabilities](file-upload-vulnerabilities/)
+> 6. [OS command injection](os-command-injection/)
+> 7. [SQL injection](sql-injection/)
 

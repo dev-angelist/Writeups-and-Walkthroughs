@@ -22,17 +22,17 @@ Using BurpSuite and the FoxyProxy extension is recommended.
 
 We've a form with an input type text:
 
-<figure><img src="../.gitbook/assets/image (64).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (64) (1).png" alt=""><figcaption></figcaption></figure>
 
 that ask us to enter and IP address to ping.
 
 Inserting an IP address we can confirm that will do a ping request to it:
 
-<figure><img src="../.gitbook/assets/image (65).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (65) (1).png" alt=""><figcaption></figcaption></figure>
 
 As always we can start to analyze source code:
 
-<figure><img src="../.gitbook/assets/image (66).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (66) (1).png" alt=""><figcaption></figcaption></figure>
 
 * There'is a condition to check if input value has been inserted
 * The operating system in use is checked to evaluate exactly which ping should be entered (win or \*nix OS)
@@ -50,13 +50,13 @@ The input is not sanitized, so I can execute any (potentially malicious) command
 
 using it, we ping machine with IP 127.0.0.1 and join two extra commands using ; or another join char as |, to take a whoami and see /etc/passwd file:
 
-<figure><img src="../.gitbook/assets/image (67).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (67) (1).png" alt=""><figcaption></figcaption></figure>
 
 ## Medium
 
 
 
-<figure><img src="../.gitbook/assets/image (68).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (68) (1).png" alt=""><figcaption></figcaption></figure>
 
 * There's a classic control of input text submitted
 * An eventually blacklist word (&& and ;) is replace with a '' black char
@@ -75,7 +75,7 @@ We've replaced `;` or `&&` with `|`:
 127.0.0.1 | whoami
 ```
 
-<figure><img src="../.gitbook/assets/image (69).png" alt=""><figcaption><p>Using another word to anchor commands</p></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (69) (1).png" alt=""><figcaption><p>Using another word to anchor commands</p></figcaption></figure>
 
 `;` will be replace by '' and will submit this prohibit payload:
 
@@ -83,23 +83,19 @@ We've replaced `;` or `&&` with `|`:
 127.0.0.1 && whoami
 ```
 
-<figure><img src="../.gitbook/assets/image (70).png" alt=""><figcaption><p>Using phoibit anchor commands</p></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (70) (1).png" alt=""><figcaption><p>Using phoibit anchor commands</p></figcaption></figure>
 
 ## High
 
 
 
-<figure><img src="../.gitbook/assets/image (71).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (71) (1).png" alt=""><figcaption></figcaption></figure>
 
 
 
 This command isn't write correctly, it has an extra space '`|`  '&#x20;
 
-<div align="left">
-
-<figure><img src="../.gitbook/assets/image (72).png" alt=""><figcaption></figcaption></figure>
-
-</div>
+<div align="left"><figure><img src="../.gitbook/assets/image (72) (1).png" alt=""><figcaption></figcaption></figure></div>
 
 
 
@@ -117,13 +113,13 @@ Without leaving a white space after | we can use this payload:
 127.0.0.1 |whoami
 ```
 
-<figure><img src="../.gitbook/assets/image (73).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (73) (1).png" alt=""><figcaption></figcaption></figure>
 
 ## Impossible
 
 
 
-<figure><img src="../.gitbook/assets/image (74).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (74) (1).png" alt=""><figcaption></figcaption></figure>
 
 
 
@@ -135,4 +131,4 @@ The input is sanitized and it's not vulnerable to a command injection attack.
 
 For the making of this solution the following resource were used:
 
-* [https://github.com/LeonardoE95/DVWA/](https://github.com/LeonardoE95/DVWA/tree/main/src/client\_side\_request\_forgery)
+* [https://github.com/LeonardoE95/DVWA/](https://github.com/LeonardoE95/DVWA/tree/main/src/client_side_request_forgery)

@@ -16,11 +16,11 @@ You can log in to your own account using the following credentials: `wiener:pete
 
 ## Solution
 
-<figure><img src="../../../.gitbook/assets/image (38) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (38) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 we can start login as wiener user
 
-<figure><img src="../../../.gitbook/assets/image (39) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (39) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 we obtain Wiener's API Key.
 
@@ -28,11 +28,11 @@ We can try to return to Home page, and check if there're referrement to Carlos l
 
 [https://0a3200fc04ca12b780505890009300fd.web-security-academy.net/post?postId=3](https://0a3200fc04ca12b780505890009300fd.web-security-academy.net/post?postId=3)
 
-<figure><img src="../../../.gitbook/assets/image (43) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (43) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 Capturing HTTP response we discover that userId value was changed
 
-<figure><img src="../../../.gitbook/assets/image (40) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (40) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 Save it (Carlos userID): f26a0928-06ae-4b0d-be0a-ca03266160f0
 
@@ -40,12 +40,12 @@ Go back to My Account page and change the reference adding the new userID:
 
 [https://0a3200fc04ca12b780505890009300fd.web-security-academy.net/my-account?id=f26a0928-06ae-4b0d-be0a-ca03266160f0](https://0a3200fc04ca12b780505890009300fd.web-security-academy.net/my-account?id=f26a0928-06ae-4b0d-be0a-ca03266160f0)
 
-<figure><img src="../../../.gitbook/assets/image (41) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (41) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
-<figure><img src="../../../.gitbook/assets/image (42) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (42) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 horizontal privilege escalation done!
 
 Send the Carlos' API Key: NEvvgurN9IMYbP0WGQhRNxGCKLHuboPn
 
-<figure><img src="../../../.gitbook/assets/image (44) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (44) (1) (1).png" alt=""><figcaption></figcaption></figure>

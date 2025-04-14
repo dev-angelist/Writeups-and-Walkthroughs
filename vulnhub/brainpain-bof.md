@@ -201,17 +201,17 @@ SF:\x20\x20\x20\x20\x20\x20\x20\x20\x20>>\x20");
 
 We see that on port 1000 there's a web server, than we can try to open it on a browser.
 
-<figure><img src="../.gitbook/assets/image (21) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (21) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 and this is relative page source code:
 
-<figure><img src="../.gitbook/assets/image (22) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (22) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 We can see that it is a static page with only an image included.
 
 While on port 9999 there's an hypotetic login form, but without possibility to insert input.
 
-<figure><img src="../.gitbook/assets/image (23) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (23) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 Now, we try to find potential hidden directory using gobuster:
 
@@ -246,7 +246,7 @@ and we find an interesting path: [http://brainpain:10000/bin/](http://brainpain:
 
 Going to it we find an interesting file exe, that we can download in locally:
 
-<figure><img src="../.gitbook/assets/image (25) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (25) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 Check more info about executable using command file:
 
@@ -261,7 +261,7 @@ that confirms exe windows file. Run it using windows emulator (wine):
 wine brainpan.exe
 ```
 
-<div align="left"><figure><img src="../.gitbook/assets/image (26) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure></div>
+<div align="left"><figure><img src="../.gitbook/assets/image (26) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure></div>
 
 Program was waiting a connection on port 9999, then we can use netcat on localhost and the same port:
 
@@ -269,7 +269,7 @@ Program was waiting a connection on port 9999, then we can use netcat on localho
 nc 127.0.0.1 9999
 ```
 
-<figure><img src="../.gitbook/assets/image (27) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (27) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 now we can interact with login shell and insert psw (that we don't know).
 
@@ -285,7 +285,7 @@ We can try to test sw using a fuzzer script in python:
 /usr/share/metasploit-framework/tools/exploit/pattern_create.rb -l 1500
 ```
 
-<figure><img src="../.gitbook/assets/image (35) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (35) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 add it into offset variable of our script:
 
@@ -301,13 +301,13 @@ sock.send(buffer)
 sock.close()
 ```
 
-<figure><img src="../.gitbook/assets/image (28) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (28) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
-<figure><img src="../.gitbook/assets/image (30) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (30) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 program was crashed and we need to copy value of EIP register
 
-<div align="left"><figure><img src="../.gitbook/assets/image (31) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure></div>
+<div align="left"><figure><img src="../.gitbook/assets/image (31) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure></div>
 
 EIP value in hexadecimal: 35724134
 
@@ -317,7 +317,7 @@ Now, we need to use pattern\_offset ruby script with EIP value to calculate corr
 /usr/share/metasploit-framework/tools/exploit/pattern_offset.rb -q 35724134
 ```
 
-<div align="left"><figure><img src="../.gitbook/assets/image (36) (1) (1) (1).png" alt=""><figcaption></figcaption></figure></div>
+<div align="left"><figure><img src="../.gitbook/assets/image (36) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure></div>
 
 Output means that program cashes after 524 bytes.
 
@@ -338,13 +338,13 @@ sock.send(buffer)
 sock.close()
 ```
 
-<div align="left"><figure><img src="../.gitbook/assets/image (37) (1) (1) (1).png" alt=""><figcaption></figcaption></figure></div>
+<div align="left"><figure><img src="../.gitbook/assets/image (37) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure></div>
 
 Now we've insert 524 letter A (41 hex) and 4 letter B (42 hex), infact we can see that EIP value is: 42424242.
 
 Next goal is to overwrite EIP putting JMP ESP value, then find JMP ESP address
 
-<div align="left"><figure><img src="../.gitbook/assets/image (38) (1) (1) (1).png" alt=""><figcaption></figcaption></figure></div>
+<div align="left"><figure><img src="../.gitbook/assets/image (38) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure></div>
 
 JMP ESP address is: 311712F3, to convert in little endian format: \xF3\x12\x17\x31
 
@@ -418,7 +418,7 @@ sock.close()
 
 First to execute it, we need to listening it on the same port of shellcode IP and PORT running a multi handler on msfconsole:&#x20;
 
-<div align="left"><figure><img src="../.gitbook/assets/image (15) (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure></div>
+<div align="left"><figure><img src="../.gitbook/assets/image (15) (1) (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure></div>
 
 Then we can run our shellcode script to brainpain machine (192.168.56.8):
 
@@ -428,7 +428,7 @@ python3 shellcode.py 192.168.56.8
 
 Connection was established on port 5555, and we've obtained a reverse shell
 
-<figure><img src="../.gitbook/assets/image (17) (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (17) (1) (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 ## Task 4 - Privilege Escalation
 
@@ -453,7 +453,7 @@ We can execute `/home/anansi/bin/anansi_util` as root:
 sudo -u root /home/anansi/bin/anansi_util
 ```
 
-<div align="left"><figure><img src="../.gitbook/assets/image (18) (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure></div>
+<div align="left"><figure><img src="../.gitbook/assets/image (18) (1) (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure></div>
 
 The program accepts manual option + command. Taking tentatives i can see that manual refers to linux man function. Then, i can use it to open a man page regarding a command (e.g. ls) and inserit into a `!/bin/sh` to became root.&#x20;
 
@@ -461,8 +461,8 @@ The program accepts manual option + command. Taking tentatives i can see that ma
 sudo -u root /home/anansi/bin/anansi_util manual ls
 ```
 
-<div align="left"><figure><img src="../.gitbook/assets/image (19) (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure></div>
+<div align="left"><figure><img src="../.gitbook/assets/image (19) (1) (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure></div>
 
 save it, and we'll obtain root permissions!
 
-<div align="left"><figure><img src="../.gitbook/assets/image (20) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure></div>
+<div align="left"><figure><img src="../.gitbook/assets/image (20) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure></div>

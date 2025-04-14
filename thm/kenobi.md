@@ -1,10 +1,6 @@
 # Kenobi
 
-<div align="left">
-
-<figure><img src="../.gitbook/assets/46f437a95b1de43238c290a9c416c8d4.png" alt="" width="128"><figcaption><p>tryhackme.com - © TryHackMe</p></figcaption></figure>
-
-</div>
+<div align="left"><figure><img src="../.gitbook/assets/46f437a95b1de43238c290a9c416c8d4.png" alt="" width="128"><figcaption><p>tryhackme.com - © TryHackMe</p></figcaption></figure></div>
 
 ### 🔗 [Kenobi](https://tryhackme.com/room/kenobi)
 
@@ -70,13 +66,13 @@ PORT     STATE SERVICE
 
 #### Task 3 - Enumerating Samba for shares
 
-![](<../.gitbook/assets/image (112).png>)
+![](<../.gitbook/assets/image (112) (1).png>)
 
 Samba is the standard Windows interoperability suite of programs for Linux and Unix. It allows end users to access and use files, printers and other commonly shared resources on a companies intranet or internet. Its often referred to as a network file system.
 
 Samba is based on the common client/server protocol of Server Message Block (SMB). SMB is developed only for Windows, without Samba, other computer platforms would be isolated from Windows machines, even if they were part of the same network.
 
-![](<../.gitbook/assets/image (107).png>)
+![](<../.gitbook/assets/image (107) (1).png>)
 
 #### 3.1 - How many shares have been found?
 
@@ -216,7 +212,7 @@ nmap -p 111 --script=nfs-ls,nfs-statfs,nfs-showmount kenobi.thm
 
 ### Task 4 - Gain initial access with ProFtpd
 
-![](<../.gitbook/assets/image (105).png>)\
+![](<../.gitbook/assets/image (105) (1).png>)\
 ProFtpd is a free and open-source FTP server, compatible with Unix and Windows systems. Its also been vulnerable in the past software versions.
 
 #### 4.1 - Lets get the version of ProFtpd.

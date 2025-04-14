@@ -1,10 +1,6 @@
 # Blaster
 
-<div align="left">
-
-<figure><img src="../.gitbook/assets/image (198).png" alt="" width="188"><figcaption><p><a href="https://tryhackme.com/room/blaster">https://tryhackme.com/room/blaster</a></p></figcaption></figure>
-
-</div>
+<div align="left"><figure><img src="../.gitbook/assets/image (198).png" alt="" width="188"><figcaption><p><a href="https://tryhackme.com/room/blaster">https://tryhackme.com/room/blaster</a></p></figcaption></figure></div>
 
 🔗 [Blaster](https://tryhackme.com/room/blaster)
 
@@ -135,11 +131,7 @@ No other informations, another good thing to do, is find hidden paths on website
 gobuster dir -u lian_yu.thm -w /usr/share/wordlists/dirb/common.txt
 ```
 
-<div align="left">
-
-<figure><img src="../.gitbook/assets/image (188).png" alt=""><figcaption></figcaption></figure>
-
-</div>
+<div align="left"><figure><img src="../.gitbook/assets/image (188).png" alt=""><figcaption></figcaption></figure></div>
 
 
 
@@ -162,11 +154,7 @@ We can try to use a bigger wordlist such as directory-list-2.3-medium.txt
 gobuster dir -u lian_yu.thm -w /usr/share/wordlists/dirbuster/directory-list-2.3-medium.txt
 ```
 
-<div align="left">
-
-<figure><img src="../.gitbook/assets/image (195).png" alt=""><figcaption></figcaption></figure>
-
-</div>
+<div align="left"><figure><img src="../.gitbook/assets/image (195).png" alt=""><figcaption></figcaption></figure></div>
 
 Excellent! We find a new web path: /island, search it!
 
@@ -280,11 +268,7 @@ Excellent! We find a new web path: /island, search it!
 find / -type f -iname "user.txt" 2>/dev/null
 ```
 
-<div align="left">
-
-<figure><img src="../.gitbook/assets/image (79).png" alt=""><figcaption></figcaption></figure>
-
-</div>
+<div align="left"><figure><img src="../.gitbook/assets/image (79) (1).png" alt=""><figcaption></figcaption></figure></div>
 
 <details>
 

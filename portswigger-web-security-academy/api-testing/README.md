@@ -11,5 +11,5 @@ All dynamic websites are composed of APIs, so classic web vulnerabilities like S
 
 #### **Topics**
 
-> 1. aaa
-> 2. bbb
+> 1. [API Testing](./)
+> 2. Server-side parameter pollution

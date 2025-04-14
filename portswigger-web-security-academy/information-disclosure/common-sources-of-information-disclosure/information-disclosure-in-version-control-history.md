@@ -12,13 +12,13 @@ This lab discloses sensitive information via its version control history. To sol
 
 ## Solution
 
-<figure><img src="../../../.gitbook/assets/image (52).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (52) (1).png" alt=""><figcaption></figcaption></figure>
 
 Adding `.git` we obtain a version control history:
 
 [https://0afe00be03be902083195529004100e5.web-security-academy.net/.git](https://0afe00be03be902083195529004100e5.web-security-academy.net/.git)
 
-<figure><img src="../../../.gitbook/assets/image (53).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (53) (1).png" alt=""><figcaption></figcaption></figure>
 
 Deep dive to each dir/file to check if there're some interesting data:
 
@@ -26,7 +26,7 @@ Deep dive to each dir/file to check if there're some interesting data:
 
 [https://0afe00be03be902083195529004100e5.web-security-academy.net/.git/HEAD](https://0afe00be03be902083195529004100e5.web-security-academy.net/.git/HEAD)
 
-<figure><img src="../../../.gitbook/assets/image (54).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (54) (1).png" alt=""><figcaption></figcaption></figure>
 
 ```
 ref: refs/heads/master
@@ -36,7 +36,7 @@ ref: refs/heads/master
 
 [https://0afe00be03be902083195529004100e5.web-security-academy.net/.git/config](https://0afe00be03be902083195529004100e5.web-security-academy.net/.git/config)
 
-<figure><img src="../../../.gitbook/assets/image (55).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (55) (1).png" alt=""><figcaption></figcaption></figure>
 
 ```
 [user]
@@ -48,7 +48,7 @@ ref: refs/heads/master
 
 [https://0afe00be03be902083195529004100e5.web-security-academy.net/.git/COMMIT\_EDITMSG](https://0afe00be03be902083195529004100e5.web-security-academy.net/.git/COMMIT_EDITMSG)
 
-<figure><img src="../../../.gitbook/assets/image (56).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (56) (1).png" alt=""><figcaption></figcaption></figure>
 
 #### /refs/heads/master
 
@@ -56,7 +56,7 @@ In the 'Head' page there's a potential path, trying to go there: `/refs/heads/ma
 
 there's an alphanumeric string:&#x20;
 
-<figure><img src="../../../.gitbook/assets/image (57).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (57) (1).png" alt=""><figcaption></figcaption></figure>
 
 ```
 ff5435104086dbedd8f46b0a70ffb51cca1b1a44
@@ -68,7 +68,7 @@ and remembering COMMIT\_EDITMSG page and searching into others directories, ther
 
 [https://0afe00be03be902083195529004100e5.web-security-academy.net/.git/logs/HEAD](https://0afe00be03be902083195529004100e5.web-security-academy.net/.git/logs/HEAD)
 
-<figure><img src="../../../.gitbook/assets/image (58).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (58) (1).png" alt=""><figcaption></figcaption></figure>
 
 ```
 0000000000000000000000000000000000000000 b25706d68b5971f903aadce94f299ef2371ee46f Carlos Montoya <carlos@carlos-montoya.net> 1742510797 +0000	commit (initial): Add skeleton admin panel
@@ -92,7 +92,7 @@ that in clear text contains interesting data:
 * `admin.conf`
 * `admin_panel.php`
 
-<figure><img src="../../../.gitbook/assets/image (59).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (59) (1).png" alt=""><figcaption></figcaption></figure>
 
 Adding those paths, I've not found a solution, so i decided to download the entire git directories and use a dedicated tool.
 

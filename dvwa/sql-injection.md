@@ -144,7 +144,7 @@ SELECT first_name, last_name FROM users WHERE user_id = '1' OR 1=1 -- ';
 
 that permit us to see all DB results:
 
-<figure><img src="../.gitbook/assets/image (39) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (39) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 #### 2nd Payload
 
@@ -154,7 +154,7 @@ How last levels, we can use [UNION](https://www.w3schools.com/sql/sql_union.asp)
 SELECT first_name, last_name FROM users WHERE user_id = '' UNION SELECT first_name,password FROM users -- ';
 ```
 
-<div align="left"><figure><img src="../.gitbook/assets/image (40) (1) (1) (1).png" alt=""><figcaption></figcaption></figure></div>
+<div align="left"><figure><img src="../.gitbook/assets/image (40) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure></div>
 
 We obtain hash of psw to eventually crack using tools such as: [Hashcat](https://app.gitbook.com/s/iS3hadq7jVFgSa8k5wRA/practical-ethical-hacker-notes/tools/hashcat) and [John The Ripper](https://app.gitbook.com/s/iS3hadq7jVFgSa8k5wRA/practical-ethical-hacker-notes/tools/john-the-ripper).
 
