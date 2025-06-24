@@ -12,14 +12,14 @@ This lab contains a debug page that discloses sensitive information about the ap
 
 ## Solution
 
-<figure><img src="../../../.gitbook/assets/image (18) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (18) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 Searching into page source (CTRL+U) the world 'debug' we found this info disclosure into comments, with a link for this config website: /cgi-bin/phpinfo.php
 
-<figure><img src="../../../.gitbook/assets/image (19) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (19) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 Adding it to the orginal URL ([https://0a5400be03dcbfb683c47334006b00dd.web-security-academy.net/cgi-bin/phpinfo.php](https://0a5400be03dcbfb683c47334006b00dd.web-security-academy.net/cgi-bin/phpinfo.php)) we can obtain info about php version and all other configration data (in our case the 'SECRET\_KEY')
 
-<figure><img src="../../../.gitbook/assets/image (20) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (20) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
-<figure><img src="../../../.gitbook/assets/image (21) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (21) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>

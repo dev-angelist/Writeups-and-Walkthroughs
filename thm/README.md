@@ -6,7 +6,7 @@
 
 * [OWASP](owasp/)
 * [Active Directory Basics](active-directory-basics.md) (This room will introduce the basic concepts and functionality provided by Active Directory)
-* Breaching Active Directory (This network covers techniques and tools that can be used to acquire that first set of AD credentials that can then be used to enumerate AD)
+* [Breaching Active Directory](breaching-active-directory.md) (This network covers techniques and tools that can be used to acquire that first set of AD credentials that can then be used to enumerate AD)
 * Enumerating Active Directory (This room covers various Active Directory enumeration techniques, their use cases as well as drawbacks)
 * &#x20;[Attacktive Directory](attacktive-directory.md) (99% of Corporate networks run off of AD. But can you exploit a vulnerable Domain Controller?)
 * [Post-Exploitation Basics ](post-exploitation-basics.md)(Learn the basics of post-exploitation and maintaining access with mimikatz, bloodhound, powerview and msfvenom)

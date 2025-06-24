@@ -10,7 +10,7 @@
 
 * [OWASP](thm/owasp/)
 * [Active Directory Basics](thm/active-directory-basics.md) (This room will introduce the basic concepts and functionality provided by Active Directory)
-* Breaching Active Directory (This network covers techniques and tools that can be used to acquire that first set of AD credentials that can then be used to enumerate AD)
+* [Breaching Active Directory](thm/breaching-active-directory.md) (This network covers techniques and tools that can be used to acquire that first set of AD credentials that can then be used to enumerate AD)
 * Enumerating Active Directory (This room covers various Active Directory enumeration techniques, their use cases as well as drawbacks)
 * [Attacktive Directory](thm/attacktive-directory.md) (99% of Corporate networks run off of AD. But can you exploit a vulnerable Domain Controller?)
 * [Post-Exploitation Basics ](thm/post-exploitation-basics.md)(Learn the basics of post-exploitation and maintaining access with mimikatz, bloodhound, powerview and msfvenom)
@@ -71,7 +71,7 @@
 
 ## Vulnix
 
-<div align="left"><figure><img src=".gitbook/assets/image (4) (1).png" alt="" width="375"><figcaption><p>© VulNyx</p></figcaption></figure></div>
+<div align="left"><figure><img src=".gitbook/assets/image (4) (1) (1).png" alt="" width="375"><figcaption><p>© VulNyx</p></figcaption></figure></div>
 
 * Admin
 
@@ -97,7 +97,7 @@
 
 ### Portswigger Web Security Academy
 
-<div align="left"><figure><img src=".gitbook/assets/image (13) (1) (1) (1) (1).png" alt=""><figcaption><p>@PortSwigger Ltd</p></figcaption></figure></div>
+<div align="left"><figure><img src=".gitbook/assets/image (13) (1) (1) (1) (1) (1).png" alt=""><figcaption><p>@PortSwigger Ltd</p></figcaption></figure></div>
 
 [PortSwigger - Web Security Academy (My Walkthrough)](portswigger-web-security-academy/)
 

