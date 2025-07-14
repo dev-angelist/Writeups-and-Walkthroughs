@@ -9,11 +9,18 @@
 ### Rooms
 
 * [OWASP](thm/owasp/)
+
+#### Active Directory
+
 * [Active Directory Basics](thm/active-directory-basics.md) (This room will introduce the basic concepts and functionality provided by Active Directory)
+* [AD: Basic Enumeration](thm/ad-basic-enumeration.md) (This room covers various Active Directory enumeration techniques, their use cases as well as drawbacks)
+* [Enumerating Active Directory](thm/enumerating-active-directory.md) (This room covers various Active Directory enumeration techniques, their use cases as well as drawbacks)
 * [Breaching Active Directory](thm/breaching-active-directory.md) (This network covers techniques and tools that can be used to acquire that first set of AD credentials that can then be used to enumerate AD)
-* Enumerating Active Directory (This room covers various Active Directory enumeration techniques, their use cases as well as drawbacks)
+* [Attacking Kerberos](thm/attacking-kerberos.md) (Learn how to abuse the Kerberos Ticket Granting Service inside of a Windows Domain Controller)
 * [Attacktive Directory](thm/attacktive-directory.md) (99% of Corporate networks run off of AD. But can you exploit a vulnerable Domain Controller?)
+* [Exploiting Active Directory](thm/exploiting-active-directory.md) (Learn common AD exploitation techniques that can allow you to reach your goal in an AD environment)
 * [Post-Exploitation Basics ](thm/post-exploitation-basics.md)(Learn the basics of post-exploitation and maintaining access with mimikatz, bloodhound, powerview and msfvenom)
+* [Lateral Movement and Pivoting](thm/lateral-movement-and-pivoting.md) (Learn about common techniques used to move laterally across a Windows network).
 
 ### CTFs
 
@@ -71,7 +78,7 @@
 
 ## Vulnix
 
-<div align="left"><figure><img src=".gitbook/assets/image (4) (1) (1).png" alt="" width="375"><figcaption><p>© VulNyx</p></figcaption></figure></div>
+<div align="left"><figure><img src=".gitbook/assets/image (4) (1) (1) (1).png" alt="" width="375"><figcaption><p>© VulNyx</p></figcaption></figure></div>
 
 * Admin
 
@@ -97,7 +104,7 @@
 
 ### Portswigger Web Security Academy
 
-<div align="left"><figure><img src=".gitbook/assets/image (13) (1) (1) (1) (1) (1).png" alt=""><figcaption><p>@PortSwigger Ltd</p></figcaption></figure></div>
+<div align="left"><figure><img src=".gitbook/assets/image (13) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption><p>@PortSwigger Ltd</p></figcaption></figure></div>
 
 [PortSwigger - Web Security Academy (My Walkthrough)](portswigger-web-security-academy/)
 

@@ -4,13 +4,13 @@ description: https://tryhackme.com/room/breachingad
 
 # Breaching Active Directory
 
-<div align="left"><figure><img src="../.gitbook/assets/image.png" alt="" width="178"><figcaption><p>@TryHackMe</p></figcaption></figure></div>
+<div align="left"><figure><img src="../.gitbook/assets/image (68).png" alt="" width="178"><figcaption><p>@TryHackMe</p></figcaption></figure></div>
 
 🔗 [Breaching Active Directory](https://tryhackme.com/room/breachingad)
 
 ## Task 1 - Deploy machine <a href="#task-0-deploy-machine" id="task-0-deploy-machine"></a>
 
-<figure><img src="../.gitbook/assets/image (2).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (2) (1).png" alt=""><figcaption></figcaption></figure>
 
 Attacker Machine: `10.50.94.22`
 
@@ -20,7 +20,7 @@ Attacker Machine: `10.50.94.22`
 
 Go here to download correct network VPN (select networks and room name) server and not the classic VPN file for normal machines: [https://tryhackme.com/access](https://tryhackme.com/access)
 
-<figure><img src="../.gitbook/assets/image (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 Start VPN in a dedicated shell: `sudo openvpn breachingad.ovpn`
 
@@ -46,13 +46,13 @@ If you are using a Kali VM, Network Manager is most likely used as DNS manager. 
 * Set your DNS IP here to the IP for THMDC in the network diagram above
 * Add another DNS such as 1.1.1.1 or 8.8.8.8 to ensure you still have internet access
 
-<figure><img src="../.gitbook/assets/image (3).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (3) (1).png" alt=""><figcaption></figcaption></figure>
 
 Run `sudo systemctl restart NetworkManager` and test your DNS similar to the steps above.
 
 Now, check if all are right pinging and executing an nslookup between domain dns and IP: `nslookup za.tryhackme.com 10.200.97.101`
 
-<figure><img src="../.gitbook/assets/image (4).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (4) (1).png" alt=""><figcaption></figcaption></figure>
 
 
 
@@ -131,7 +131,7 @@ Instead, we need to perform a password spraying attack.
 
 THM proposed a userlist.txt file and this below python script `ntlm_passwordspray.py` (in alternative we can use hydra) to run psw spray attack on this web app hosted at this URL: [http://ntlmauth.za.tryhackme.com](http://ntlmauth.za.tryhackme.com/)
 
-<figure><img src="../.gitbook/assets/image (7).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (7) (1).png" alt=""><figcaption></figcaption></figure>
 
 ```python
 #!/usr/bin/python3
@@ -220,7 +220,7 @@ Run it adding the following parameters:
 python3 ntlm_passwordspray.py -u usernames.txt -f za.tryhackme.com -p Changeme123 -a http://ntlmauth.za.tryhackme.com
 ```
 
-<figure><img src="../.gitbook/assets/image (5).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (5) (1).png" alt=""><figcaption></figcaption></figure>
 
 Valid credential pair are these 4:
 
@@ -233,7 +233,7 @@ georgina.edwards::Changeme123
 
 Login with one of these credentials we can see the following message on the page:
 
-<figure><img src="../.gitbook/assets/image (8).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (8) (1).png" alt=""><figcaption></figcaption></figure>
 
 ## Task 4 - LDAP Bind Credentials
 
@@ -253,7 +253,7 @@ LDAP Pass-back attacks can be performed when we gain access to a device's config
 
 There is a network printer in this network where the administration website does not even require credentials. Navigate to [http://printer.za.tryhackme.com/settings.aspx](http://printer.za.tryhackme.com/settings.aspx) to find the settings page of the printer:
 
-<figure><img src="../.gitbook/assets/image (9).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (9) (1).png" alt=""><figcaption></figcaption></figure>
 
 So we have the username (svcLDAP), but not the password. However, when we press test settings, we can see that an authentication request is made to the domain controller to test the LDAP credentials. Let's try to exploit this to get the printer to connect to us instead, which would disclose the credentials (LDAP Connection failed: The LDAP server is unavailable.).
 
@@ -265,7 +265,7 @@ nc -nlvp 389
 
 Our IP is 10.50.94.22, add it to server field an click to Test Settings to establish connection:
 
-<figure><img src="../.gitbook/assets/image (10).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (10) (1).png" alt=""><figcaption></figcaption></figure>
 
 The `supportedCapabilities` response tells us we have a problem. Essentially, before the printer sends over the credentials, it is trying to negotiate the LDAP authentication method details. It will use this negotiation to select the most secure authentication method that both the printer and the LDAP server support. If the authentication method is too secure, the credentials will not be transmitted in cleartext. With some authentication methods, the credentials will not be transmitted over the network at all! So we can't just use normal Netcat to harvest the credentials. We will need to create a rogue LDAP server and configure it insecurely to ensure the credentials are sent in plaintext.
 
@@ -349,7 +349,7 @@ ldapsearch -H ldap:// -x -LLL -s base -b "" supportedSASLMechanisms
 Note: If you are using Kali, you may not receive any output, however the configuration should have worked
 {% endhint %}
 
-<figure><img src="../.gitbook/assets/image (13).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (13) (1).png" alt=""><figcaption></figcaption></figure>
 
 ### Capturing LDAP Credentials
 
@@ -359,11 +359,11 @@ Our rogue LDAP server has now been configured. When we click the "Test Settings"
 sudo tcpdump -SX -i breachad tcp port 389
 ```
 
-<figure><img src="../.gitbook/assets/image (12).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (12) (1).png" alt=""><figcaption></figcaption></figure>
 
 Checking well we can see our psw: `tryhackmeldappass1@`
 
-<figure><img src="../.gitbook/assets/image (15).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (15) (1).png" alt=""><figcaption></figcaption></figure>
 
 ## Task 5 - Authentication Relays
 
@@ -416,7 +416,7 @@ sudo responder -I breachad
 Click again on Test Settings and well'obtain the NTLM hash:\
 
 
-<figure><img src="../.gitbook/assets/image (16).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (16) (1).png" alt=""><figcaption></figcaption></figure>
 
 ```bash
 [LDAP] NTLMv1-SSP Client   : 10.200.97.201
@@ -433,7 +433,7 @@ Save the value of NTLMv2-SSP Hash into a file `hashes.txt`  and using the wordli
 john --wordlist=password_list.txt hashes.txt
 ```
 
-<figure><img src="../.gitbook/assets/image (17).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (17) (1).png" alt=""><figcaption></figcaption></figure>
 
 The credentials discovered are: `svcFileCopy::FPassword1!`
 
@@ -482,12 +482,12 @@ Now that we have recovered the PXE Boot image, we can exfiltrate stored credenti
 
 The first piece of information regarding the PXE Boot preconfigure you would have received via DHCP is the IP of the MDT server. In our case, you can recover that information from the TryHackMe network diagram.
 
-<figure><img src="../.gitbook/assets/image (18).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (18) (1).png" alt=""><figcaption></figcaption></figure>
 
 The second piece of information you would have received was the names of the BCD files. These files store the information relevant to PXE Boots for the different types of architecture. To retrieve this information, you will need to connect to this website: [http://pxeboot.za.tryhackme.com](http://pxeboot.za.tryhackme.com/). It will list various BCD files:\
 
 
-<figure><img src="../.gitbook/assets/image (19).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (19) (1).png" alt=""><figcaption></figcaption></figure>
 
 Usually, you would use TFTP to request each of these BCD files and enumerate the configuration for all of them. However, in the interest of time, we will focus on the BCD file of the x64 architecture. Copy and store the full name of this file. For the rest of this exercise, we will be using this name placeholder `x64{7B...B3}.bcd` since the files and their names are regenerated by MDT every day. Each time you see this placeholder, remember to replace it with your specific BCD filename. Note as well that if the network has just started, these file names will only update after 10 mintes of the network being active.
 
@@ -510,7 +510,7 @@ cd devan
 
 ```
 
-<figure><img src="../.gitbook/assets/image (38).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (38) (1).png" alt=""><figcaption></figcaption></figure>
 
 The first step we need to perform is using TFTP and downloading our BCD file to read the configuration of the MDT server. TFTP is a bit trickier than FTP since we can't list files. Instead, we send a file request, and the server will connect back to us via UDP to transfer the file. Hence, we need to be accurate when specifying files and file paths. The BCD files are always located in the /Tmp/ directory on the MDT server. We can initiate the TFTP transfer using the following command in our SSH session: `tftp -i <THMMDT IP> GET "\Tmp\x64{39...28}.bcd" conf.bcd`
 
@@ -518,7 +518,7 @@ The first step we need to perform is using TFTP and downloading our BCD file to 
 tftp -i 10.200.97.202 GET "\Tmp\x64{65ED1F93-C840-47C7-804F-197313E8F1B7}.bcd" conf.bcd
 ```
 
-<figure><img src="../.gitbook/assets/image (21).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (21) (1).png" alt=""><figcaption></figcaption></figure>
 
 You will have to lookup THMMDT IP with `nslookup thmmdt.za.tryhackme.com`. With the BCD file now recovered, we will be using [powerpxe](https://github.com/wavestone-cdt/powerpxe) to read its contents. Powerpxe is a PowerShell script that automatically performs this type of attack but usually with varying results, so it is better to perform a manual approach. We will use the Get-WimFile function of powerpxe to recover the locations of the PXE Boot images from the BCD file:
 
@@ -529,7 +529,7 @@ $BCDFile = "conf.bcd"
 Get-WimFile -bcdFile $BCDFile
 ```
 
-<figure><img src="../.gitbook/assets/image (22).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (22) (1).png" alt=""><figcaption></figcaption></figure>
 
 ```bash
 tftp -i 10.200.97.202 GET "\Boot\x64\Images\LiteTouchPE_x64.wim" pxeboot.wim
@@ -537,7 +537,7 @@ tftp -i 10.200.97.202 GET "\Boot\x64\Images\LiteTouchPE_x64.wim" pxeboot.wim
 
 This download will take a while since you are downloading a fully bootable and configured Windows image.&#x20;
 
-<figure><img src="../.gitbook/assets/image (31).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (31) (1).png" alt=""><figcaption></figcaption></figure>
 
 #### Recovering Credentials from a PXE Boot Image
 
@@ -549,7 +549,7 @@ Again we will use powerpxe to recover the credentials, but you could also do thi
 Get-FindCredentials -WimFile pxeboot.wim
 ```
 
-<figure><img src="../.gitbook/assets/image (32).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (32) (1).png" alt=""><figcaption></figcaption></figure>
 
 The UserPassword is: `PXEBootSecure1@`.
 
@@ -564,7 +564,7 @@ cd C:\ProgramData\McAfee\Agent\DB
 dir
 ```
 
-<figure><img src="../.gitbook/assets/image (35).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (35) (1).png" alt=""><figcaption></figcaption></figure>
 
 We can use SCP to copy the ma.db to our attacker machine:
 
@@ -573,11 +573,11 @@ scp thm@THMJMP1.za.tryhackme.com:C:/ProgramData/McAfee/Agent/DB/ma.db .
 sqlitebrowser ma.db
 ```
 
-<figure><img src="../.gitbook/assets/image (36).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (36) (1).png" alt=""><figcaption></figcaption></figure>
 
 Using sqlitebrowser, we will select the Browse Data option and focus on the `AGENT_REPOSITORIES` table:
 
-<figure><img src="../.gitbook/assets/image (34).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (34) (1).png" alt=""><figcaption></figcaption></figure>
 
 We are particularly interested in the second entry focusing on the DOMAIN, AUTH\_USER, and AUTH\_PASSWD field entries. Make a note of the values stored in these entries. However, the AUTH\_PASSWD field is encrypted. Luckily,&#x20;
 
@@ -590,7 +590,7 @@ McAfee encrypts this field with a known key. Therefore, python script provided b
 
 ```
 
-<figure><img src="../.gitbook/assets/image (37).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (37) (1).png" alt=""><figcaption></figcaption></figure>
 
 Decrypted svcAV's password is: `MyStrongPassword!`
 
@@ -610,4 +610,4 @@ In terms of mitigations, there are some steps that organisations can take:
 
 Now that we have breached AD, the next step is to perform enumeration of AD to gain a better understanding of the domain structure and identify potential misconfigurations that can be exploited. This will be covered in the next room. Remember to clear the DNS configuration!
 
-<figure><img src="../.gitbook/assets/image (39).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (39) (1).png" alt=""><figcaption></figcaption></figure>

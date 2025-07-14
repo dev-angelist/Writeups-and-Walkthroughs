@@ -63,7 +63,7 @@ Upgrade-Insecure-Requests: 1
 
 This is php code of this level:
 
-<figure><img src="../.gitbook/assets/image (53) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (53) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 The concept involves manipulating the filename within the page parameter to any desired file on the target, enabling us to retrieve its contents. By employing the following GET request, we can read the contents of the etc password file.
 
@@ -75,7 +75,7 @@ http://localhost/DVWA/vulnerabilities/fi/?page=../../../../../../etc/passwd
 
 Replacing this path: `../../../../../../etc/passwd` at file1.php, we obtain result of command in html output:
 
-<figure><img src="../.gitbook/assets/image (54) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (54) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 If the goal is to disclose certain PHP code, one approach is to utilize PHP filters to encode the PHP code into base64.
 
@@ -182,7 +182,7 @@ The input is not sanitized sufficiently , so I can execute any (potentially mali
 
 ## High
 
-<div align="left"><figure><img src="../.gitbook/assets/image (55) (1) (1).png" alt=""><figcaption></figcaption></figure></div>
+<div align="left"><figure><img src="../.gitbook/assets/image (55) (1) (1) (1).png" alt=""><figcaption></figcaption></figure></div>
 
 In this code the're two validation checks:
 
@@ -214,7 +214,7 @@ The input is not sanitized sufficiently , so I can execute any (potentially mali
 
 ## Impossible
 
-<figure><img src="../.gitbook/assets/image (56) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (56) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 {% hint style="info" %}
 Site isn't vulnerable to File Inclusion attack because the request includes only possible lecit value/page.

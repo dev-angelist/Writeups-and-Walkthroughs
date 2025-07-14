@@ -4,13 +4,13 @@ description: https://tryhackme.com/room/adbasicenumeration
 
 # AD: Basic Enumeration
 
-<div align="left"><figure><img src="../.gitbook/assets/image (43).png" alt="" width="150"><figcaption><p>@TryHackMe</p></figcaption></figure></div>
+<div align="left"><figure><img src="../.gitbook/assets/image (43) (1).png" alt="" width="150"><figcaption><p>@TryHackMe</p></figcaption></figure></div>
 
 🔗 [AD: Basic Enumeration](https://tryhackme.com/room/adbasicenumeration)
 
 ## Task 1 - Deploy machine <a href="#task-0-deploy-machine" id="task-0-deploy-machine"></a>
 
-<figure><img src="../.gitbook/assets/image (41).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (41) (1).png" alt=""><figcaption></figcaption></figure>
 
 Attacker Machine: `10.250.11.15`
 
@@ -20,7 +20,7 @@ Attacker Machine: `10.250.11.15`
 
 Go here to download correct network VPN (select networks and room name) server and not the classic VPN file for normal machines: [https://tryhackme.com/access](https://tryhackme.com/access)
 
-<figure><img src="../.gitbook/assets/image (42).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (42) (1).png" alt=""><figcaption></figcaption></figure>
 
 Start VPN in a dedicated shell: `sudo openvpn devangelist-Jr-Pentester-AD-v01.ovpn`
 
@@ -44,7 +44,7 @@ sed -i '$ d' /etc/hosts
 
 Executing `route` or `ip route` commands we can see another subnet in our: `10.211.11.0/24`
 
-<figure><img src="../.gitbook/assets/image (44).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (44) (1).png" alt=""><figcaption></figcaption></figure>
 
 starting to send an ICMP requests to determine if a host is live or not, to do it we're using fping that permits to ping subnets:
 
@@ -55,7 +55,7 @@ fping -agq 10.211.11.0/24
 # -q: quiet mode, doesn't show per-probe results or ICMP error messages.
 ```
 
-<figure><img src="../.gitbook/assets/image (45).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (45) (1).png" alt=""><figcaption></figcaption></figure>
 
 ```bash
 10.211.11.1
@@ -324,7 +324,7 @@ Sharename       Type      Comment
 
 ```
 
-<figure><img src="../.gitbook/assets/image (47).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (47) (1).png" alt=""><figcaption></figcaption></figure>
 
 and check theirs permissions using smbmap:
 
@@ -332,7 +332,7 @@ and check theirs permissions using smbmap:
 smbmap -H 10.211.11.10
 ```
 
-<figure><img src="../.gitbook/assets/image (48).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (48) (1).png" alt=""><figcaption></figcaption></figure>
 
 Running either of the above commands, we can notice that there are three non-standard shares that catch our attention: `AnonShare`, `SharedFiles` and `UserBackups`.
 
@@ -921,7 +921,7 @@ rpcclient -U "" 10.211.11.10 -N
 
 and enumerate users with: `enumdomusers`
 
-<figure><img src="../.gitbook/assets/image (6).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (6) (1).png" alt=""><figcaption></figcaption></figure>
 
 ```
 user:[Administrator] rid:[0x1f4]
@@ -960,7 +960,7 @@ user:[user] rid:[0x1201]
 
 We can extract only the user using the following bash command: `sed -n 's/^user:[(.`_`)] rid:.`_`$/\1/p' users.txtep -o 'user:[[^]]`_`]' users.txt | sed 's/user:[(.`_`)]/\1/'`
 
-<figure><img src="../.gitbook/assets/image (25).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (25) (1).png" alt=""><figcaption></figcaption></figure>
 
 ## Task 5 - Password Spraying
 
@@ -982,7 +982,7 @@ We can use rpcclient via a null session to query the DC for the password policy:
 
 And then we can run the `getdompwinfo` command:
 
-<figure><img src="../.gitbook/assets/image (28).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (28) (1).png" alt=""><figcaption></figcaption></figure>
 
 ### 5.1 - What is the minimum password length?
 
@@ -990,7 +990,7 @@ And then we can run the `getdompwinfo` command:
 
 **CrackMapExec** is a well-known network service exploitation tool that we will use throughout this module. It allows us to perform enumeration, command execution, and post-exploitation attacks in Windows environments. It supports various network protocols, such as SMB, LDAP, RDP, and SSH. If anonymous access is permitted, we can retrieve the password policy without credentials with the following command: `crackmapexec smb 10.211.11.10 --pass-pol`
 
-<figure><img src="../.gitbook/assets/image (27).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (27) (1).png" alt=""><figcaption></figcaption></figure>
 
 The minimum psw length is: 7 days.
 
@@ -1029,7 +1029,7 @@ We can use **CrackMapExec** to run our password spraying attack against the WRK 
 crackmapexec smb 10.211.11.20 -u users.txt -p passwords.txt
 ```
 
-<figure><img src="../.gitbook/assets/image (24).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (24) (1).png" alt=""><figcaption></figcaption></figure>
 
 ```
 rduke:Password1! 
@@ -1041,4 +1041,4 @@ In this room, we focused on various types of reconnaissance and enumeration acti
 
 Active Directory remains a complex topic and you are encouraged to check other rooms to build and beef up your skills in Active Directory penetration testing. For more practice and going more in-depth, you can check the [Breaking Windows](https://tryhackme.com/module/breakingwindows) and the [Compromising Active Directory](https://tryhackme.com/module/hacking-active-directory) modules in addition to the [next room](https://tryhackme.com/room/adauthenticatedenumeration).
 
-<figure><img src="../.gitbook/assets/image (29).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (29) (1).png" alt=""><figcaption></figcaption></figure>
